@@ -1,0 +1,6 @@
+# Local environment overrides (do not commit secrets)
+.env.local
+
+# Local debug scripts (use for troubleshooting only)
+scripts/*.php
+

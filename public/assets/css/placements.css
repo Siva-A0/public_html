@@ -1,0 +1,229 @@
+body {
+    font-family: "Poppins", sans-serif;
+    background: #eef3f8;
+}
+
+.placement-hero {
+    max-width: 1160px;
+    margin: 24px auto 0;
+    padding: 0 20px;
+}
+
+.placement-hero-card {
+    background: #ffffff;
+    border: 1px solid #d8e3ef;
+    border-radius: 16px;
+    padding: 16px 18px;
+    box-shadow: 0 8px 20px rgba(15, 30, 52, 0.06);
+}
+
+.hero-kicker {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: #e9f1fc;
+    color: #1f5fa8;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.placement-hero-card h1 {
+    margin: 0 0 8px;
+    color: #133255;
+    font-size: clamp(24px, 2.6vw, 32px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.placement-hero-card p {
+    margin: 0;
+    max-width: 700px;
+    color: #496584;
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.hero-chips {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.hero-chips span {
+    border: 1px solid #c9daec;
+    border-radius: 999px;
+    background: #f7fbff;
+    color: #2f5378;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 6px 10px;
+}
+
+.placement-container {
+    max-width: 1160px;
+    margin: 18px auto 48px;
+    padding: 0 20px;
+    display: block;
+}
+
+.placement-left {
+    min-width: 0;
+}
+
+.content-block {
+    background: #ffffff;
+    border: 1px solid #d8e3ef;
+    border-radius: 16px;
+    padding: 16px 18px;
+    box-shadow: 0 8px 20px rgba(15, 30, 52, 0.06);
+}
+
+.section-gap {
+    margin-top: 18px;
+}
+
+.section-title {
+    margin: 0;
+    color: #132f50;
+    font-size: clamp(24px, 2.6vw, 32px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.section-subtitle {
+    margin: 8px 0 14px;
+    color: #5a7592;
+    font-size: 12px;
+}
+
+.placements-list,
+.documents-list {
+    display: grid;
+    gap: 10px;
+}
+
+.placement-card,
+.document-card {
+    background: #fdfefe;
+    border: 1px solid #dbe6f1;
+    border-radius: 12px;
+    padding: 12px 13px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.placement-card:hover,
+.document-card:hover {
+    transform: translateY(-2px);
+    border-color: #b9d0e7;
+    box-shadow: 0 12px 22px rgba(15, 30, 52, 0.1);
+}
+
+.placement-number {
+    min-width: 44px;
+    padding: 6px 9px;
+    border-radius: 9px;
+    text-align: center;
+    background: #17385e;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.placement-text,
+.document-title {
+    color: #244667;
+    font-size: clamp(14px, 1.1vw, 16px);
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.document-icon {
+    min-width: 52px;
+    border-radius: 8px;
+    text-align: center;
+    background: #eaf2fb;
+    color: #1c5ca8;
+    padding: 7px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.document-link a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 8px;
+    border: 1px solid #cadef2;
+    background: #eef5ff;
+    color: #1e5ead;
+    font-size: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 7px 10px;
+}
+
+.document-link a::after {
+    content: "->";
+    font-size: 10px;
+}
+
+.document-link a:hover {
+    background: #dfeefe;
+}
+
+.empty-state {
+    border: 1px dashed #c7d8e9;
+    border-radius: 10px;
+    background: #f7fbff;
+    color: #516d89;
+    padding: 12px;
+    font-size: 12px;
+}
+
+@media (max-width: 767px) {
+    .placement-hero,
+    .placement-container {
+        padding: 0 12px;
+    }
+
+    .placement-hero-card {
+        padding: 12px;
+    }
+
+    .placement-hero-card p {
+        font-size: 12px;
+    }
+
+    .content-block {
+        padding: 12px;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .placement-card,
+    .document-card {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .placement-card,
+    .document-card {
+        transition: none;
+    }
+}

@@ -1,0 +1,251 @@
+body {
+    font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+    background:
+        radial-gradient(circle at 0% 0%, rgba(20, 86, 177, 0.08), transparent 28%),
+        radial-gradient(circle at 100% 0%, rgba(8, 145, 178, 0.07), transparent 24%),
+        #f4f7fb;
+    color: #1b2f49;
+}
+
+.sidebar {
+    background: linear-gradient(180deg, #0f1f36, #162b49) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar h5 {
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    color: #f8fbff !important;
+    background: rgba(255, 255, 255, 0.06);
+    margin: 10px 14px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+}
+
+.sidebar a {
+    border-left-width: 4px !important;
+    border-radius: 0 10px 10px 0;
+    margin-right: 12px;
+}
+
+.topbar {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(6px);
+}
+
+.content-area {
+    padding-top: 22px !important;
+}
+
+#page {
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+#content {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+#content .post h4 {
+    font-size: 30px;
+    margin: 0 0 6px;
+    font-weight: 800;
+    color: #132b47;
+}
+
+#content_left {
+    background: #fff;
+    border: 1px solid #dce8f4;
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 0 8px 20px rgba(12, 36, 65, 0.06);
+}
+
+#content_right>div,
+#content_right .comteeMem,
+#content_right .eventDetails,
+#content_right #eventDetails {
+    background: #fff;
+    border: 1px solid #dce8f4;
+    border-radius: 14px;
+    box-shadow: 0 12px 26px rgba(12, 36, 65, 0.07);
+}
+
+#footer {
+    color: #5f7288;
+    text-align: center;
+    margin-top: 26px;
+    padding: 18px 0;
+}
+
+#logDetails .userImage img {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.login {
+    background: #ffffff;
+    border: 1px solid #dce8f4;
+    border-radius: 14px;
+    box-shadow: 0 12px 26px rgba(12, 36, 65, 0.07);
+    padding: 24px;
+}
+
+.login legend {
+    font-weight: 700;
+    color: #16375d;
+}
+
+@media (max-width: 991px) {
+
+    .topbar,
+    .content-area {
+        margin-left: 0 !important;
+    }
+
+    .content-area {
+        padding: 16px !important;
+    }
+}
+
+html[data-theme="dark"] body {
+    color: #dbe8fb !important;
+    background:
+        radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.16), transparent 32%),
+        radial-gradient(circle at 100% 0%, rgba(45, 212, 191, 0.12), transparent 26%),
+        #0b1422 !important;
+}
+
+html[data-theme="dark"] #content .post h4,
+html[data-theme="dark"] #content .post p,
+html[data-theme="dark"] #content .post .text-muted,
+html[data-theme="dark"] #content .post .alignCenter h4 {
+    color: #e6f0ff !important;
+}
+
+html[data-theme="dark"] #content_left,
+html[data-theme="dark"] #content_right>div,
+html[data-theme="dark"] #content_right .comteeMem,
+html[data-theme="dark"] #content_right .eventDetails,
+html[data-theme="dark"] #content_right #eventDetails,
+html[data-theme="dark"] .pending-users-page .pending-header,
+html[data-theme="dark"] .pending-users-page .pending-card,
+html[data-theme="dark"] .batch-add-hero,
+html[data-theme="dark"] .syllabus-add-hero,
+html[data-theme="dark"] .highlight-add-hero,
+html[data-theme="dark"] .subject-edit-hero,
+html[data-theme="dark"] .highlights-hero,
+html[data-theme="dark"] .syllabus-list-hero {
+    background: #111d2f !important;
+    border-color: #273a56 !important;
+    box-shadow: 0 16px 30px rgba(2, 8, 20, 0.45) !important;
+}
+
+html[data-theme="dark"] #content .section-kicker {
+    background: #1b3556 !important;
+    color: #cbe2ff !important;
+    border-color: #32507a !important;
+}
+
+html[data-theme="dark"] #content_right .committeeTitle,
+html[data-theme="dark"] #content_right .subjHeader,
+html[data-theme="dark"] #content_right .usersDetHeader,
+html[data-theme="dark"] .subjects-list .class-block,
+html[data-theme="dark"] .subjects-list .class-toggle-wrap,
+html[data-theme="dark"] .subjects-list .subject-row,
+html[data-theme="dark"] .highlights-list-row,
+html[data-theme="dark"] .highlights-empty,
+html[data-theme="dark"] .invalid-subject {
+    background: #13233a !important;
+    border-color: #2a3f5d !important;
+    color: #d8e7fa !important;
+}
+
+html[data-theme="dark"] .subjects-list .class-toggle-wrap,
+html[data-theme="dark"] #content_right .committeeTitle {
+    background: #182a43 !important;
+    color: #d7e8ff !important;
+}
+
+html[data-theme="dark"] .subjects-list .class-name,
+html[data-theme="dark"] .subjects-list .subject-col-code,
+html[data-theme="dark"] .subjects-list .subject-head,
+html[data-theme="dark"] #content_right .subjName,
+html[data-theme="dark"] #content_right .eventCandName,
+html[data-theme="dark"] .highlights-list-row .highlight-text,
+html[data-theme="dark"] .pending-users-page .pending-title,
+html[data-theme="dark"] .pending-users-page .pending-subtitle,
+html[data-theme="dark"] .pending-users-page .table tbody td,
+html[data-theme="dark"] .pending-users-page .table thead th {
+    color: #dce9fb !important;
+}
+
+html[data-theme="dark"] .pending-users-page .stat-pill,
+html[data-theme="dark"] .subjects-list .class-count,
+html[data-theme="dark"] .pending-users-page .admission-pill {
+    background: #1a3455 !important;
+    color: #cbe2ff !important;
+    border-color: #33557e !important;
+}
+
+html[data-theme="dark"] .pending-users-page .table thead th {
+    background: #17273e !important;
+    border-bottom-color: #2a3f5d !important;
+}
+
+html[data-theme="dark"] .pending-users-page .table tbody td {
+    border-bottom-color: #22344f !important;
+}
+
+html[data-theme="dark"] .pending-users-page .table tbody tr:hover td {
+    background: #14243a !important;
+}
+
+html[data-theme="dark"] input[type="text"],
+html[data-theme="dark"] input[type="password"],
+html[data-theme="dark"] input[type="file"],
+html[data-theme="dark"] input[type="email"],
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] .form-control,
+html[data-theme="dark"] .form-select {
+    background: #13253e !important;
+    color: #e6f0ff !important;
+    border-color: #2f4a6f !important;
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+    color: #9db4d1 !important;
+}
+
+html[data-theme="dark"] input[type="text"]:focus,
+html[data-theme="dark"] input[type="password"]:focus,
+html[data-theme="dark"] input[type="file"]:focus,
+html[data-theme="dark"] input[type="email"]:focus,
+html[data-theme="dark"] select:focus,
+html[data-theme="dark"] textarea:focus,
+html[data-theme="dark"] .form-control:focus,
+html[data-theme="dark"] .form-select:focus {
+    border-color: #5a8dd2 !important;
+    box-shadow: 0 0 0 4px rgba(90, 141, 210, 0.26) !important;
+}
+
+html[data-theme="dark"] .button,
+html[data-theme="dark"] input.button,
+html[data-theme="dark"] input[type="submit"],
+html[data-theme="dark"] .btn {
+    box-shadow: 0 10px 22px rgba(2, 8, 20, 0.42) !important;
+}
+
+html[data-theme="dark"] a {
+    color: #7eb3ff;
+}
+
+html[data-theme="dark"] #footer {
+    color: #95accc !important;
+}
