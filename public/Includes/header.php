@@ -21,6 +21,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'user') {
         '/public/pages/user/profile.php',
         '/public/pages/user/achievements.php',
         '/public/pages/user/my_achievements.php',
+        '/public/pages/user/certifications.php',
+        '/public/pages/user/my_certifications.php',
         '/public/pages/user/downloads.php',
         '/public/pages/user/studentsupport.php',
         '/public/pages/authentication/logout.php'
@@ -50,6 +52,9 @@ $bodyClasses = array();
 if ($isUserArea) {
     $bodyClasses[] = 'user-role';
 }
+if ($publicSessionRole === 'faculty') {
+    $bodyClasses[] = 'faculty-role';
+}
 if ($isHomePage) {
     $bodyClasses[] = 'home-page';
 }
@@ -76,11 +81,12 @@ $hasHeroRobotImage = $isHomePage && is_file($heroRobotFsPath);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AIML Department</title>
-    <?php if ($isUserArea) { ?>
+    <?php if ($isUserArea || $publicSessionRole === 'faculty') { ?>
     <script>
     (function () {
         try {
-            var savedTheme = localStorage.getItem('user-theme');
+            var themeKey = <?php echo json_encode($publicSessionRole === 'faculty' ? 'faculty-theme' : 'user-theme'); ?>;
+            var savedTheme = localStorage.getItem(themeKey);
             if (!savedTheme) {
                 savedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
             }
@@ -355,81 +361,6 @@ body.preloading {
     </header>
     <?php } ?>
 
-
-<!-- ================= HERO (ONLY INDEX PAGE) ================= -->
-<?php if ($isHomePage) { ?>
-<section class="hero-section">
-    <div class="container">
-        <div class="hero-content">
-            <span class="hero-kicker">Department of AIML</span>
-            <h1 class="hero-title">
-                <span>Code.</span> <span>Learn.</span> <span class="typing hero-accent">Evolve.</span>
-            </h1>
-            <p class="hero-subtitle">
-                Transforming ideas into AI-driven solutions through research, hands-on labs, and industry-ready learning paths.
-            </p>
-
-            <div class="hero-actions">
-                <a href="<?php echo BASE_URL; ?>/public/pages/department/department.php" class="btn hero-btn hero-btn-primary" >
-                    Explore Department
-                    <span aria-hidden="true">-></span>
-                </a>
-                <!-- <a href="<?php echo BASE_URL; ?>/public/pages/Authentication/register.php" class="btn hero-btn hero-btn-secondary">
-                    Admissions 2026
-                </a> -->
-            </div>
-
-            <div class="hero-stats" data-aos="fade-up" data-aos-delay="140">
-                <div class="hero-stat">
-                    <strong>1200+</strong>
-                    <span>Students</span>
-                </div>
-                <div class="hero-stat">
-                    <strong>25+</strong>
-                    <span>Research Labs</span>
-                </div>
-                <div class="hero-stat">
-                    <strong>40+</strong>
-                    <span>2025 Placements</span>
-                </div>
-            </div>
-
-            <!-- <div class="hero-chip-row">
-                <span class="hero-chip">
-                    <i class="bi bi-cpu"></i>
-                    AI Brain
-                </span>
-            </div> -->
-        </div>
-
-        <!-- <div class="hero-visual-wrap" data-aos="fade-left" data-aos-delay="180">
-            <div class="hero-visual<?php echo $hasHeroRobotImage ? ' has-hero-image' : ''; ?>">
-                <div class="hero-orb hero-orb-1"></div>
-                <div class="hero-orb hero-orb-2"></div>
-                <div class="hero-orb hero-orb-3"></div>
-                <?php if ($hasHeroRobotImage) { ?>
-                <img
-                    src="<?php echo $heroRobotWebPath; ?>"
-                    alt="AI Robot"
-                    class="hero-robot-image"
-                    loading="eager"
-                >
-                <?php } else { ?>
-                <div class="ai-core">
-                    <i class="bi bi-cpu-fill" aria-hidden="true"></i>
-                    <span>AI Brain</span>
-                </div>
-                <?php } ?>
-            </div>
-        </div> -->
-    </div>
-</section>
-<?php } ?>
-
-
-
-
-
 <!-- <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
 
   <div class="carousel-inner">
@@ -460,53 +391,62 @@ body.preloading {
  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
  <script>
  (function () {
-    if (window.__homeHeroTypingInitialized) {
-        return;
-    }
-    window.__homeHeroTypingInitialized = true;
-
-     if (window.AOS) {
-         window.AOS.init({
-             duration: 700,
-             once: true,
-            offset: 40
-        });
-    }
-
-    var words = ["Evolve.", "Innovate.", "Build AI.", "Lead the Future."];
-    var index = 0;
-    var letter = 0;
-    var isDeleting = false;
-    var typingElement = document.querySelector(".typing");
-
-    if (!typingElement) {
-        return;
-    }
-
-    function typeWord() {
-        var currentWord = words[index];
-
-        if (isDeleting) {
-            typingElement.textContent = currentWord.substring(0, letter--);
-        } else {
-            typingElement.textContent = currentWord.substring(0, letter++);
-        }
-
-        if (!isDeleting && letter === currentWord.length + 1) {
-            isDeleting = true;
-            setTimeout(typeWord, 1200);
+    function initHomeHeroAnimation() {
+        if (window.__homeHeroTypingInitialized) {
             return;
         }
 
-        if (isDeleting && letter === 0) {
-            isDeleting = false;
-            index = (index + 1) % words.length;
+        var typingElement = document.querySelector(".typing");
+        if (!typingElement) {
+            return;
         }
 
-        setTimeout(typeWord, isDeleting ? 60 : 120);
+        window.__homeHeroTypingInitialized = true;
+
+        if (window.AOS) {
+            window.AOS.init({
+                duration: 700,
+                once: true,
+                offset: 40
+            });
+        }
+
+        var words = ["Evolve.", "Innovate.", "Build AI.", "Lead the Future."];
+        var index = 0;
+        var letter = 0;
+        var isDeleting = false;
+
+        function typeWord() {
+            var currentWord = words[index];
+
+            if (isDeleting) {
+                typingElement.textContent = currentWord.substring(0, letter--);
+            } else {
+                typingElement.textContent = currentWord.substring(0, letter++);
+            }
+
+            if (!isDeleting && letter === currentWord.length + 1) {
+                isDeleting = true;
+                setTimeout(typeWord, 1200);
+                return;
+            }
+
+            if (isDeleting && letter === 0) {
+                isDeleting = false;
+                index = (index + 1) % words.length;
+            }
+
+            setTimeout(typeWord, isDeleting ? 60 : 120);
+        }
+
+        typeWord();
     }
- 
-     typeWord();
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initHomeHeroAnimation, { once: true });
+    } else {
+        initHomeHeroAnimation();
+    }
  })();
  </script>
  <?php } ?>
@@ -596,4 +536,4 @@ body.preloading {
  })();
  </script>
  
- <section class="page-content <?php echo $isUserArea ? 'user-page-content' : 'py-5'; ?>">
+ <section class="page-content <?php echo $isUserArea ? 'user-page-content' : ($isHomePage ? '' : 'py-5'); ?>">

@@ -21,7 +21,39 @@ $leadershipComments = array(
 );
 ?>
 
-<div class="container my-5 home-shell">
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <span class="hero-kicker">Department of AIML</span>
+            <h1 class="hero-title">
+                <span>Code.</span> <span>Learn.</span> <span class="typing hero-accent">Evolve.</span>
+            </h1>
+            <p class="hero-subtitle">
+                Transforming ideas into AI-driven solutions through research, hands-on labs, and industry-ready learning paths.
+            </p>
+
+            <div class="hero-actions">
+                <a href="<?php echo BASE_URL; ?>/public/pages/department/department.php" class="btn hero-btn hero-btn-primary">
+                    Explore Department
+                    <span aria-hidden="true">-></span>
+                </a>
+            </div>
+
+            <div class="hero-stats" data-aos="fade-up" data-aos-delay="140">
+                <div class="hero-stat">
+                    <strong>700+</strong>
+                    <span>Students</span>
+                </div>
+                <div class="hero-stat">
+                    <strong>14+</strong>
+                    <span>Placements</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container home-shell">
     <section class="home-overview mb-5">
         <div class="row g-4 align-items-stretch">
             <div class="col-lg-8">
@@ -43,15 +75,15 @@ $leadershipComments = array(
                 <div class="home-aside-card h-100">
                     <span class="home-kicker">At A Glance</span>
                     <div class="home-aside-stat">
-                        <strong>1200+</strong>
+                        <strong>700+</strong>
                         <span>students building their AI foundation</span>
                     </div>
-                    <div class="home-aside-stat">
+                    <!-- <div class="home-aside-stat">
                         <strong>25+</strong>
                         <span>research and innovation spaces</span>
-                    </div>
+                    </div> -->
                     <div class="home-aside-stat">
-                        <strong>40+</strong>
+                        <strong>14+</strong>
                         <span>recent placement opportunities</span>
                     </div>
                 </div>

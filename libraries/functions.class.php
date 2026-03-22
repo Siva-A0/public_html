@@ -12,6 +12,7 @@
  			$this->dbObj = new DataBasePDO();
 			try { $this->ensureModernAuthSchema(); } catch (Exception $e) {}
 			try { $this->ensureStaffAuthSchema(); } catch (Exception $e) {}
+			try { $this->ensureAchievementsSchema(); } catch (Exception $e) {}
 			try { $this->ensureGallerySchema(); } catch (Exception $e) {}
 			try { $this->ensureSectionBatchSchema(); } catch (Exception $e) {}
 			try { $this->ensureAcademicBatchSchema(); } catch (Exception $e) {}
@@ -140,6 +141,46 @@
 			$this->dbObj->executeQuery('ALTER TABLE `'.$table.'` ADD COLUMN `password` varchar(255) NOT NULL DEFAULT "" AFTER `e_mail`');
 		} else {
 			$this->ensureColumnDefinition($table, 'password', "varchar(255) NOT NULL DEFAULT ''");
+		}
+	}
+
+	private function ensureAchievementsSchema(){
+		$table = $this->assertSafeIdentifier(TB_ACHIEVEMENTS);
+
+		$this->dbObj->executeQuery(
+			'CREATE TABLE IF NOT EXISTS `'.$table.'` (
+				`id` int(11) NOT NULL AUTO_INCREMENT,
+				`category_id` tinyint(4) NOT NULL,
+				`achievement_desc` blob NOT NULL,
+				PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1'
+		);
+
+		$idColumn = $this->dbObj->getOnePrepared(
+			"SELECT COLUMN_KEY, EXTRA
+			 FROM information_schema.COLUMNS
+			 WHERE TABLE_SCHEMA = DATABASE()
+			   AND TABLE_NAME = :table_name
+			   AND COLUMN_NAME = 'id'
+			 LIMIT 1",
+			array(':table_name' => $table)
+		);
+
+		if (empty($idColumn)) {
+			$this->dbObj->executeQuery('ALTER TABLE `'.$table.'` ADD COLUMN `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST');
+			return;
+		}
+
+		$columnKey = strtoupper((string)($idColumn['COLUMN_KEY'] ?? ''));
+		$extra = strtolower((string)($idColumn['EXTRA'] ?? ''));
+		if ($columnKey !== 'PRI' || strpos($extra, 'auto_increment') === false) {
+			$this->dbObj->executeQuery('ALTER TABLE `'.$table.'` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT');
+			if ($columnKey !== 'PRI') {
+				$primaryKey = $this->dbObj->getAllResults('SHOW INDEX FROM `'.$table.'` WHERE Key_name = "PRIMARY"');
+				if (empty($primaryKey)) {
+					$this->dbObj->executeQuery('ALTER TABLE `'.$table.'` ADD PRIMARY KEY (`id`)');
+				}
+			}
 		}
 	}
 
@@ -2414,20 +2455,105 @@
 			return $this->dbObj->getAllResults($sql);
 	 }
 
+	 private function getTaggedAchievementEntries($table, $conditions){
+			$table = trim((string)$table);
+			if ($table === '' || empty($conditions)) {
+				return array();
+			}
+
+			$sql = 'SELECT id, category_id, achievement_desc
+					FROM '.$table.'
+					WHERE '.implode(' OR ', $conditions).'
+					ORDER BY id DESC';
+
+			return $this->dbObj->getAllResults($sql);
+	 }
+
+	 public function getStudentAchievements($table, $admissionId){
+			$admissionId = preg_replace('/[^A-Za-z0-9_-]/', '', (string)$admissionId);
+			if ($admissionId === '') {
+				return array();
+			}
+
+			$prefix = addslashes('[APP:STUDENT:ACHIEVEMENT][ID:'.$admissionId.'] ');
+			$legacyNeedle = addslashes('%['.$admissionId.']%');
+
+			return $this->getTaggedAchievementEntries(
+				$table,
+				array(
+					'achievement_desc LIKE "'.$prefix.'%"',
+					'(achievement_desc LIKE "'.$legacyNeedle.'" AND achievement_desc NOT LIKE "[APP:%")'
+				)
+			);
+	 }
+
+	 public function getStudentCertifications($table, $admissionId){
+			$admissionId = preg_replace('/[^A-Za-z0-9_-]/', '', (string)$admissionId);
+			if ($admissionId === '') {
+				return array();
+			}
+
+			$prefix = addslashes('[APP:STUDENT:CERTIFICATION][ID:'.$admissionId.'] ');
+			return $this->getTaggedAchievementEntries($table, array('achievement_desc LIKE "'.$prefix.'%"'));
+	 }
+
+	 public function getFacultyAchievements($table, $facultyId){
+			$facultyId = preg_replace('/[^A-Za-z0-9_-]/', '', (string)$facultyId);
+			if ($facultyId === '') {
+				return array();
+			}
+
+			$prefix = addslashes('[APP:FACULTY:ACHIEVEMENT][ID:'.$facultyId.'] ');
+			return $this->getTaggedAchievementEntries($table, array('achievement_desc LIKE "'.$prefix.'%"'));
+	 }
+
+	 public function getFacultyCertifications($table, $facultyId){
+			$facultyId = preg_replace('/[^A-Za-z0-9_-]/', '', (string)$facultyId);
+			if ($facultyId === '') {
+				return array();
+			}
+
+			$prefix = addslashes('[APP:FACULTY:CERTIFICATION][ID:'.$facultyId.'] ');
+			return $this->getTaggedAchievementEntries($table, array('achievement_desc LIKE "'.$prefix.'%"'));
+	 }
+
+	 public function getPublicAchievementEntries($table, $categoryId){
+			$categoryId = (int)$categoryId;
+			$sql = 'SELECT id, category_id, achievement_desc
+					FROM '.$table.'
+					WHERE category_id = '.$categoryId.'
+					AND (
+						achievement_desc NOT LIKE "[APP:%"
+						OR achievement_desc LIKE "[APP:STUDENT:ACHIEVEMENT]%"
+						OR achievement_desc LIKE "[APP:FACULTY:ACHIEVEMENT]%"
+					)
+					ORDER BY id DESC';
+
+			return $this->dbObj->getAllResults($sql);
+	 }
+
 	/*
 	 *  INSERT NEW ACHIEVEMENT
 	 */
 	 public function addAchievement($table, $varArray){
+			$this->setLastError('');
 			
 			$typeId			= $varArray['typeId'];
 			$achieveDesc	= $varArray['achievement_desc'];
 
-			$sqlQuery		= 'INSERT INTO '.$table.' ( category_id, achievement_desc )
-							 	VALUES ( "'.$typeId.'" , "'.$achieveDesc.'" )';
+			$sqlQuery = 'INSERT INTO '.$table.' ( category_id, achievement_desc )
+							 VALUES ( :type_id, :achievement_desc )';
 			
-			$result		= $this->dbObj->executeQuery($sqlQuery);
+			$result = $this->dbObj->executePrepared($sqlQuery, array(
+				':type_id' => $typeId,
+				':achievement_desc' => $achieveDesc
+			));
+
+			if ($result === false) {
+				$this->setLastError(method_exists($this->dbObj, 'getLastError') ? $this->dbObj->getLastError() : 'Unable to save achievement.');
+			}
 			
-			return $result;
+			return $result !== false;
 	}
 
 	/*

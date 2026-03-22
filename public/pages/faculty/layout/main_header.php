@@ -474,6 +474,133 @@ body.faculty-preloading {
         padding: 4px 7px;
     }
 }
+
+html[data-theme="dark"] body.faculty-role {
+    background:
+        radial-gradient(circle at 6% 0%, rgba(59, 130, 246, 0.14), transparent 35%),
+        radial-gradient(circle at 100% 0%, rgba(45, 212, 191, 0.10), transparent 26%),
+        #0b1422;
+    color: #dce9fb;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-page-topbar {
+    background: #111f34;
+    border-color: #2a3f5d;
+    box-shadow: 0 8px 18px rgba(2, 8, 20, 0.35);
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-page-greet {
+    color: #e6f0ff;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-page-topbar .faculty-sidebar-toggle,
+html[data-theme="dark"] body.faculty-role .faculty-theme-toggle {
+    background: rgba(13, 39, 68, 0.42);
+    border-color: #4f78ad;
+    color: #e7f0ff;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-page-topbar .faculty-sidebar-toggle:hover,
+html[data-theme="dark"] body.faculty-role .faculty-theme-toggle:hover {
+    background: #1b3556;
+    border-color: #6a95ce;
+    color: #ffffff;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-topbar-avatar-fallback {
+    background: #1a3455;
+    border-color: #33557e;
+    color: #d7e8ff;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-dashboard-shell > .col-lg-9 {
+    background:
+        radial-gradient(circle at 8% 8%, rgba(45, 212, 191, 0.08), transparent 30%),
+        linear-gradient(180deg, #0f1b2c 0%, #0b1523 100%);
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-panel,
+html[data-theme="dark"] body.faculty-role .faculty-stat-card,
+html[data-theme="dark"] body.faculty-role .faculty-achievement-card,
+html[data-theme="dark"] body.faculty-role .faculty-hero,
+html[data-theme="dark"] body.faculty-role .faculty-info-card {
+    background: #111f34 !important;
+    border-color: #2a3f5d !important;
+    color: #dce9fb !important;
+    box-shadow: 0 16px 30px rgba(2, 8, 20, 0.45) !important;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-hero {
+    background:
+        radial-gradient(circle at top right, rgba(240,179,35,.12), transparent 30%),
+        linear-gradient(135deg, #122338 0%, #0f1b2c 100%) !important;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-panel-title,
+html[data-theme="dark"] body.faculty-role .faculty-stat-value,
+html[data-theme="dark"] body.faculty-role .faculty-achievement-title,
+html[data-theme="dark"] body.faculty-role .faculty-hero h1,
+html[data-theme="dark"] body.faculty-role .faculty-info-card h3,
+html[data-theme="dark"] body.faculty-role .faculty-label {
+    color: #edf4ff !important;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-panel-subtitle,
+html[data-theme="dark"] body.faculty-role .faculty-stat-label,
+html[data-theme="dark"] body.faculty-role .faculty-stat-note,
+html[data-theme="dark"] body.faculty-role .faculty-achievement-context,
+html[data-theme="dark"] body.faculty-role .faculty-date,
+html[data-theme="dark"] body.faculty-role .faculty-hero p,
+html[data-theme="dark"] body.faculty-role .faculty-help,
+html[data-theme="dark"] body.faculty-role .faculty-info-card p {
+    color: #a8bfdc !important;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-meta-pill,
+html[data-theme="dark"] body.faculty-role .faculty-kicker,
+html[data-theme="dark"] body.faculty-role .faculty-tag,
+html[data-theme="dark"] body.faculty-role .faculty-type-badge {
+    background: #1a3455 !important;
+    border-color: #33557e !important;
+    color: #d7e8ff !important;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-input,
+html[data-theme="dark"] body.faculty-role .faculty-select,
+html[data-theme="dark"] body.faculty-role .faculty-textarea {
+    background: #13253e !important;
+    color: #e6f0ff !important;
+    border-color: #2f4a6f !important;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-input::placeholder,
+html[data-theme="dark"] body.faculty-role .faculty-textarea::placeholder {
+    color: #9db4d1 !important;
+    opacity: 1;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-input:focus,
+html[data-theme="dark"] body.faculty-role .faculty-select:focus,
+html[data-theme="dark"] body.faculty-role .faculty-textarea:focus {
+    border-color: #5a8dd2 !important;
+    box-shadow: 0 0 0 4px rgba(90, 141, 210, 0.26) !important;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-empty-note {
+    background: #13253e !important;
+    border-color: #33557e !important;
+    color: #a8bfdc !important;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-alert.alert-success {
+    background: #0f2e23 !important;
+    color: #8fe0b2 !important;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-alert.alert-danger {
+    background: #3b1820 !important;
+    color: #ffb4bf !important;
+}
 </style>
 
 <div id="faculty-site-preloader" class="faculty-preloader is-hidden" aria-hidden="true">
@@ -495,15 +622,17 @@ body.faculty-preloading {
                 <nav class="faculty-side-nav faculty-side-nav-main">
                     <div class="faculty-side-section">Workspace</div>
                     <a class="faculty-side-link<?php echo facultyNavActive('dashboard', $facultyActivePage); ?>" href="<?php echo BASE_URL; ?>/public/pages/faculty/dashboard.php"><i class="bi bi-speedometer2 faculty-side-link-icon"></i><span>Dashboard</span></a>
-                    <a class="faculty-side-link is-disabled" href="javascript:void(0)" aria-disabled="true"><i class="bi bi-trophy faculty-side-link-icon"></i><span>Upload Achievement</span><span class="faculty-side-link-note">Soon</span></a>
-                    <a class="faculty-side-link is-disabled" href="javascript:void(0)" aria-disabled="true"><i class="bi bi-award faculty-side-link-icon"></i><span>My Achievements</span><span class="faculty-side-link-note">Soon</span></a>
+                    <a class="faculty-side-link<?php echo facultyNavActive('achievements', $facultyActivePage); ?>" href="<?php echo BASE_URL; ?>/public/pages/faculty/achievements.php"><i class="bi bi-trophy faculty-side-link-icon"></i><span>Upload Achievement</span></a>
+                    <a class="faculty-side-link<?php echo facultyNavActive('my_achievements', $facultyActivePage); ?>" href="<?php echo BASE_URL; ?>/public/pages/faculty/my_achievements.php"><i class="bi bi-award faculty-side-link-icon"></i><span>My Achievements</span></a>
+                    <a class="faculty-side-link<?php echo facultyNavActive('certifications', $facultyActivePage); ?>" href="<?php echo BASE_URL; ?>/public/pages/faculty/certifications.php"><i class="bi bi-patch-check faculty-side-link-icon"></i><span>Upload Certification</span></a>
+                    <a class="faculty-side-link<?php echo facultyNavActive('my_certifications', $facultyActivePage); ?>" href="<?php echo BASE_URL; ?>/public/pages/faculty/my_certifications.php"><i class="bi bi-file-earmark-medical faculty-side-link-icon"></i><span>My Certifications</span></a>
                     <a class="faculty-side-link<?php echo facultyNavActive('profile', $facultyActivePage); ?>" href="<?php echo BASE_URL; ?>/public/pages/faculty/profile.php"><i class="bi bi-person-gear faculty-side-link-icon"></i><span>Account Settings</span></a>
                     <a class="faculty-side-link is-disabled" href="javascript:void(0)" aria-disabled="true"><i class="bi bi-download faculty-side-link-icon"></i><span>Downloads</span><span class="faculty-side-link-note">Soon</span></a>
                 </nav>
 
                 <nav class="faculty-side-nav faculty-side-nav-utility">
                     <div class="faculty-side-section">Session</div>
-                    <a class="faculty-side-link faculty-side-link-logout" href="<?php echo BASE_URL; ?>/public/pages/Authentication/logout.php"><i class="bi bi-box-arrow-right faculty-side-link-icon"></i><span>Logout</span></a>
+                    <a class="faculty-side-link faculty-side-link-logout" href="<?php echo BASE_URL; ?>/public/pages/Authentication/logout.php?role=faculty"><i class="bi bi-box-arrow-right faculty-side-link-icon"></i><span>Logout</span></a>
                 </nav>
             </aside>
         </div>
@@ -518,6 +647,10 @@ body.faculty-preloading {
                 </div>
 
                 <div class="faculty-page-topbar-right">
+                    <button id="facultyThemeToggle" type="button" class="faculty-theme-toggle" aria-label="Switch faculty theme">
+                        <i id="facultyThemeToggleIcon" class="bi bi-moon-stars-fill"></i>
+                        <span id="facultyThemeToggleText">Dark</span>
+                    </button>
                     <?php if ($facultyImageUrl !== '') { ?>
                         <img src="<?php echo htmlspecialchars($facultyImageUrl, ENT_QUOTES, 'UTF-8'); ?>" alt="Faculty" class="faculty-topbar-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
                         <span class="faculty-topbar-avatar-fallback" style="display:none;"><?php echo htmlspecialchars($facultyInitial, ENT_QUOTES, 'UTF-8'); ?></span>

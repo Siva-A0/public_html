@@ -5,6 +5,7 @@ if (session_id() == '') {
 
 require_once(__DIR__ . '/../../../config.php');
 require_once(LIB_PATH . '/functions.class.php');
+require_once(LIB_PATH . '/submission_helpers.php');
 
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user' || !isset($_SESSION['userName'])) {
     header('Location: ' . BASE_URL . '/public/pages/Authentication/login.php');
@@ -21,7 +22,7 @@ if (empty($userData)) {
 
 $user = $userData[0];
 $admissionId = trim((string)($user['admission_id'] ?? ''));
-$achievements = $admissionId !== '' ? $fcObj->getAchievementsForAdmission(TB_ACHIEVEMENTS, $admissionId) : array();
+$achievements = $admissionId !== '' ? $fcObj->getStudentAchievements(TB_ACHIEVEMENTS, $admissionId) : array();
 $documentCount = 0;
 $textCount = 0;
 foreach ($achievements as $achievementRow) {
@@ -30,40 +31,6 @@ foreach ($achievements as $achievementRow) {
     } else {
         $textCount++;
     }
-}
-
-function app_safe_achievement_file_url($fileName) {
-    $fileName = trim((string)$fileName);
-    if ($fileName === '' || preg_match('/^[A-Za-z0-9._-]+$/', $fileName) !== 1) {
-        return '';
-    }
-    $diskPath = ROOT_PATH . '/public/assets/images/achievements/' . $fileName;
-    if (!is_file($diskPath)) {
-        return '';
-    }
-    return BASE_URL . '/public/assets/images/achievements/' . rawurlencode($fileName);
-}
-
-function app_format_achievement_meta($desc) {
-    $desc = trim((string)$desc);
-    $parts = explode(' - ', $desc, 3);
-    if (count($parts) === 3) {
-        return array('context' => $parts[1], 'text' => $parts[2]);
-    }
-    return array('context' => '', 'text' => $desc);
-}
-
-function app_guess_achievement_time($fileName) {
-    $fileName = trim((string)$fileName);
-    if (preg_match('/_([0-9]{14})_/', $fileName, $m) !== 1) {
-        return '';
-    }
-    $raw = $m[1];
-    $dt = DateTime::createFromFormat('YmdHis', $raw);
-    if (!$dt) {
-        return '';
-    }
-    return $dt->format('Y-m-d H:i');
 }
 
 include_once(INCLUDES_PATH . '/header.php');
@@ -106,17 +73,10 @@ include_once(__DIR__ . '/layout/main_header.php');
             <div class="student-achievement-list">
                 <?php foreach ($achievements as $row) { ?>
                     <?php
-                        $rawDesc = (string)($row['achievement_desc'] ?? '');
-                        $fileName = '';
-                        $descText = $rawDesc;
-                        if (strpos($rawDesc, '$$') !== false) {
-                            $split = explode('$$', $rawDesc, 2);
-                            $descText = $split[0];
-                            $fileName = $split[1] ?? '';
-                        }
-                        $meta = app_format_achievement_meta($descText);
-                        $fileUrl = app_safe_achievement_file_url($fileName);
-                        $submittedAt = $fileName !== '' ? app_guess_achievement_time($fileName) : '';
+                        $split = app_split_submission_file((string)($row['achievement_desc'] ?? ''));
+                        $meta = app_format_submission_meta($split['text']);
+                        $fileUrl = app_safe_submission_file_url($split['file']);
+                        $submittedAt = $split['file'] !== '' ? app_guess_submission_time($split['file']) : '';
                         $typeLabel = ((int)($row['category_id'] ?? 0) === DOCUMENT) ? 'Document' : 'Text';
                     ?>
                     <article class="student-achievement-card">

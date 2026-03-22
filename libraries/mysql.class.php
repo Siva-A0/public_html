@@ -35,13 +35,16 @@ class DataBasePDO
 	private $last_result		= NULL;
 	private $row_count			= NULL;
 	private $affected_row		= NULL;
+	private $last_error			= '';
 
 	private function logDatabaseError($exception = null){
 		if ($exception instanceof Throwable) {
+			$this->last_error = (string)$exception->getMessage();
 			error_log('Database query failed: ' . $exception->getMessage());
 			return;
 		}
 
+		$this->last_error = 'Database query failed.';
 		error_log('Database query failed.');
 	}
 
@@ -448,6 +451,10 @@ class DataBasePDO
 	 */
 	public function getLastQuery(){
 			return $this->last_query;
+	}
+
+	public function getLastError(){
+			return $this->last_error;
 	}
 
 	/**

@@ -74,3 +74,40 @@
     syncAria();
 })();
 </script>
+
+<script>
+(function () {
+    var root = document.documentElement;
+    var themeBtn = document.getElementById('facultyThemeToggle');
+    var themeIcon = document.getElementById('facultyThemeToggleIcon');
+    var themeText = document.getElementById('facultyThemeToggleText');
+
+    function updateThemeUI(theme) {
+        if (!themeIcon || !themeText) {
+            return;
+        }
+        if (theme === 'dark') {
+            themeIcon.className = 'bi bi-sun-fill';
+            themeText.textContent = 'Light';
+        } else {
+            themeIcon.className = 'bi bi-moon-stars-fill';
+            themeText.textContent = 'Dark';
+        }
+    }
+
+    var currentTheme = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    updateThemeUI(currentTheme);
+
+    if (themeBtn) {
+        themeBtn.addEventListener('click', function () {
+            var current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+            var next = current === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', next);
+            updateThemeUI(next);
+            try {
+                localStorage.setItem('faculty-theme', next);
+            } catch (e) {}
+        });
+    }
+})();
+</script>

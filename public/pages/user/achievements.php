@@ -5,6 +5,7 @@ if (session_id() == '') {
 
 require_once(__DIR__ . '/../../../config.php');
 require_once(LIB_PATH . '/functions.class.php');
+require_once(LIB_PATH . '/submission_helpers.php');
 
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user' || !isset($_SESSION['userName'])) {
     header('Location: ' . BASE_URL . '/public/pages/Authentication/login.php');
@@ -73,7 +74,7 @@ if (isset($_POST['submit_achievement'])) {
                 } else {
                     $varArray = array(
                         'typeId' => DOCUMENT,
-                        'achievement_desc' => addslashes($studentTag . ' - ' . $contextTag . ' - ' . $title) . '$$' . $fileName
+                        'achievement_desc' => addslashes(app_build_submission_desc('student', 'achievement', $user['admission_id'], $studentTag, $contextTag, $title)) . '$$' . $fileName
                     );
                     $saved = $fcObj->addAchievement(TB_ACHIEVEMENTS, $varArray);
 
@@ -82,7 +83,7 @@ if (isset($_POST['submit_achievement'])) {
                         $achievementMessageType = 'success';
                     } else {
                         @unlink($targetFile);
-                        $achievementMessage = 'Unable to save achievement right now. Please try again.';
+                        $achievementMessage = $fcObj->getLastError() !== '' ? $fcObj->getLastError() : 'Unable to save achievement right now. Please try again.';
                         $achievementMessageType = 'danger';
                     }
                 }
@@ -95,7 +96,7 @@ if (isset($_POST['submit_achievement'])) {
         } else {
             $varArray = array(
                 'typeId' => NON_DOCUMENT,
-                'achievement_desc' => addslashes($studentTag . ' - ' . $contextTag . ' - ' . $description)
+                'achievement_desc' => addslashes(app_build_submission_desc('student', 'achievement', $user['admission_id'], $studentTag, $contextTag, $description))
             );
             $saved = $fcObj->addAchievement(TB_ACHIEVEMENTS, $varArray);
 
@@ -103,7 +104,7 @@ if (isset($_POST['submit_achievement'])) {
                 $achievementMessage = 'Achievement submitted successfully. It is now available for recognition.';
                 $achievementMessageType = 'success';
             } else {
-                $achievementMessage = 'Unable to submit achievement right now. Please try again.';
+                $achievementMessage = $fcObj->getLastError() !== '' ? $fcObj->getLastError() : 'Unable to submit achievement right now. Please try again.';
                 $achievementMessageType = 'danger';
             }
         }

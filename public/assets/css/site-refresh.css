@@ -43,8 +43,8 @@ h1, h2, h3, h4, h5, h6 {
         radial-gradient(circle at top right, rgba(230, 195, 106, 0.16), transparent 22%),
         radial-gradient(circle at top left, rgba(163, 171, 207, 0.18), transparent 18%),
         linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(243, 246, 252, 0.94));
-    border-bottom: 1px solid rgba(163, 171, 207, 0.2);
-    box-shadow: 0 14px 32px rgba(18, 28, 52, 0.08);
+    border-bottom: 0;
+    box-shadow: none;
 }
 
 .topbar::before {
