@@ -56,9 +56,9 @@ $leadershipComments = array(
 <div class="container home-shell">
     <section class="home-overview mb-5">
         <div class="row g-4 align-items-stretch">
-            <div class="col-lg-8">
+            <div class="col-12">
                 <div class="home-intro-card h-100">
-                    <span class="home-kicker">Logo-Inspired Homepage Direction</span>
+                    <span class="home-kicker">Department Overview</span>
                     <h2 class="fw-bold mb-3 home-section-title">Learn with intelligence. Build with purpose.</h2>
                     <p class="home-intro-text mb-0">
                         Our AIML department combines strong academic foundations, applied lab work, and industry-facing learning experiences so students can build intelligent systems with clarity, responsibility, and real-world impact.
@@ -70,24 +70,6 @@ $leadershipComments = array(
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-4">
-                <div class="home-aside-card h-100">
-                    <span class="home-kicker">At A Glance</span>
-                    <div class="home-aside-stat">
-                        <strong>700+</strong>
-                        <span>students building their AI foundation</span>
-                    </div>
-                    <!-- <div class="home-aside-stat">
-                        <strong>25+</strong>
-                        <span>research and innovation spaces</span>
-                    </div> -->
-                    <div class="home-aside-stat">
-                        <strong>14+</strong>
-                        <span>recent placement opportunities</span>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -95,35 +77,65 @@ $leadershipComments = array(
         <article class="home-feature-card">
             <span class="home-feature-index">01</span>
             <h3>About the Department</h3>
-            <p>The AIML department focuses on building intelligent systems that can learn, analyze, and make decisions. It provides strong foundations in data science, machine learning, deep learning, and real-world AI applications to prepare students for future technologies.</p>
+            <p>The AIML department builds intelligent systems that can learn, analyze, and support decisions. Students develop strong foundations in data science, machine learning, deep learning, and practical AI applications.</p>
         </article>
         <article class="home-feature-card">
             <span class="home-feature-index">02</span>
             <h3>Core Technologies &amp; Skills</h3>
-            <p>Students gain hands-on experience in Python, Machine Learning, Deep Learning, NLP, Computer Vision, and Data Analytics. The curriculum is designed to align with industry demands, ensuring practical knowledge through projects and labs.</p>
+            <p>Students gain hands-on experience in Python, machine learning, deep learning, NLP, computer vision, and data analytics. Projects and labs help turn core concepts into practical, industry-ready skills.</p>
         </article>
         <article class="home-feature-card">
             <span class="home-feature-index">03</span>
             <h3>Career &amp; Opportunities</h3>
-            <p>The department prepares students for roles like AI Engineer, Data Scientist, ML Engineer, and Research Analyst. With strong placement support, internships, and research opportunities, students are equipped for both industry and higher studies.</p>
+            <p>The department prepares students for roles such as AI Engineer, Data Scientist, ML Engineer, and Research Analyst. Internships, placement support, and research exposure strengthen both career and higher-study pathways.</p>
         </article>
     </section>
 
     <section class="home-highlight-band mb-5">
-        <div>
+        <div class="home-highlight-copy">
             <span class="home-kicker">Department Focus</span>
             <h3 class="home-section-title mb-2">Building intelligent systems with academic rigor and practical relevance.</h3>
             <p class="home-intro-text mb-0">
                 From core machine learning concepts to applied development, the department encourages students to move from understanding to implementation through guided projects, research culture, and collaborative learning.
             </p>
         </div>
-        <div class="home-pill-row">
-            <span class="home-pill">Indigo base</span>
-            <span class="home-pill">Muted gold accents</span>
-            <span class="home-pill">Silver-blue surfaces</span>
-            <span class="home-pill">Research culture</span>
-            <span class="home-pill">Student outcomes</span>
-            <span class="home-pill">Practical AI learning</span>
+        <div class="home-focus-grid">
+            <article class="home-focus-item">
+                <div class="home-focus-icon">
+                    <i class="bi bi-braces" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <h4 class="home-focus-title">Applied AI &amp; ML</h4>
+                    <p class="home-focus-desc">Hands-on training in Python, TensorFlow, and PyTorch across structured lab sessions and capstone projects.</p>
+                </div>
+            </article>
+            <article class="home-focus-item">
+                <div class="home-focus-icon">
+                    <i class="bi bi-diagram-3" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <h4 class="home-focus-title">Research &amp; Innovation</h4>
+                    <p class="home-focus-desc">Students engage in faculty-led research on NLP, Computer Vision, and Generative AI with publication opportunities.</p>
+                </div>
+            </article>
+            <article class="home-focus-item">
+                <div class="home-focus-icon">
+                    <i class="bi bi-buildings" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <h4 class="home-focus-title">Industry Connect</h4>
+                    <p class="home-focus-desc">Active tie-ups with tech companies for internships, live projects, guest lectures, and placement drives.</p>
+                </div>
+            </article>
+            <article class="home-focus-item">
+                <div class="home-focus-icon">
+                    <i class="bi bi-person-workspace" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <h4 class="home-focus-title">Student Development</h4>
+                    <p class="home-focus-desc">Competitions, hackathons, workshops, and mentorship programs designed to sharpen problem-solving and communication skills.</p>
+                </div>
+            </article>
         </div>
     </section>
 

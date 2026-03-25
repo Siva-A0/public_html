@@ -10,10 +10,10 @@
 Advancing Artificial Intelligence and Machine Learning through innovation, research, and real-world impact.            </p>
 
             <div class="social-icons">
-                <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
-                <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                <a href="https://www.instagram.com/aiml_nrcm?igsh=eDUzMjR2MXJmZjA1" target="_blank" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                <a href="https://whatsapp.com/channel/0029VbCIDQlA2pLJdhaqgI2z" aria-label="Facebook" target="_blank"><i class="bi bi-whatsapp"></i></a>
+                <a href="#" aria-label="LinkedIn" target="_blank"><i class="bi bi-linkedin"></i></a>
+                <!-- <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a> -->
             </div>
         </div>
 
@@ -43,8 +43,10 @@ Advancing Artificial Intelligence and Machine Learning through innovation, resea
         <div class="footer-contact">
             <h4>Contact</h4>
             <p>Hyderabad, Telangana</p>
-            <p>Email: AIML@college.edu</p>
-            <p>Phone: +91 98765 43210</p>
+            <p>Email: hodaiml@nrcmec.org</p>
+            <p>Phone:  +91 90320 14200<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 +91 97041 56948</p>
         </div>
 
     </div>
