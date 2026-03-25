@@ -29,6 +29,7 @@ $navItems = array(
     // array('href' => BASE_URL . '/admin/main_home.php#overview', 'icon' => 'bi bi-bar-chart', 'label' => 'Overview', 'match' => '/admin/__overview_anchor__'),
     array('href' => BASE_URL . '/admin/committe/assoc.php', 'icon' => 'bi bi-cpu', 'label' => 'Pragya AI', 'match' => '/admin/committe/assoc.php'),
     array('href' => BASE_URL . '/admin/Department/department.php', 'icon' => 'bi bi-building', 'label' => 'Department', 'match' => '/admin/Department/department.php'),
+    array('href' => BASE_URL . '/admin/placements/placements.php', 'icon' => 'bi bi-briefcase', 'label' => 'Placements', 'match' => '/admin/placements/'),
     array('href' => BASE_URL . '/admin/users/students.php', 'icon' => 'bi bi-people', 'label' => 'Students', 'match' => '/admin/users/students.php'),
     array('href' => BASE_URL . '/admin/users/alumni.php', 'icon' => 'bi bi-person-badge', 'label' => 'Alumni', 'match' => '/admin/users/alumni.php'),
     array('href' => BASE_URL . '/admin/gallery/gallery.php', 'icon' => 'bi bi-image', 'label' => 'Gallery', 'match' => '/admin/gallery/'),

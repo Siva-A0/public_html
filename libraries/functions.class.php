@@ -14,6 +14,7 @@
 			try { $this->ensureStaffAuthSchema(); } catch (Exception $e) {}
 			try { $this->ensureAchievementsSchema(); } catch (Exception $e) {}
 			try { $this->ensureGallerySchema(); } catch (Exception $e) {}
+			try { $this->ensurePlacementsSchema(); } catch (Exception $e) {}
 			try { $this->ensureSectionBatchSchema(); } catch (Exception $e) {}
 			try { $this->ensureAcademicBatchSchema(); } catch (Exception $e) {}
 			try { $this->ensureUsersAlumniFallbackSchema(); } catch (Exception $e) {}
@@ -204,6 +205,193 @@
 		$this->ensureGalleryCategoryColumn($categoryTable, 'is_active', "tinyint(4) NOT NULL DEFAULT 1");
 
 		$this->syncLegacyGalleryCategories($galleryTable, $categoryTable);
+	}
+
+	private function ensurePlacementsSchema(){
+		$table = $this->assertSafeIdentifier(TB_PLACEMENTS);
+		$statsTable = $this->assertSafeIdentifier(TB_PLACEMENT_STATS);
+
+		$this->dbObj->executeQuery(
+			'CREATE TABLE IF NOT EXISTS `'.$table.'` (
+				`id` int(11) NOT NULL AUTO_INCREMENT,
+				`category_id` tinyint(4) NOT NULL,
+				`placement_desc` blob NOT NULL,
+				PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1'
+		);
+
+		$idColumn = $this->dbObj->getOnePrepared(
+			"SELECT COLUMN_KEY, EXTRA
+			 FROM information_schema.COLUMNS
+			 WHERE TABLE_SCHEMA = DATABASE()
+			   AND TABLE_NAME = :table_name
+			   AND COLUMN_NAME = 'id'
+			 LIMIT 1",
+			array(':table_name' => $table)
+		);
+
+		if (empty($idColumn)) {
+			$this->dbObj->executeQuery('ALTER TABLE `'.$table.'` ADD COLUMN `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST');
+		} else {
+			$columnKey = strtoupper((string)($idColumn['COLUMN_KEY'] ?? ''));
+			$extra = strtolower((string)($idColumn['EXTRA'] ?? ''));
+			if ($columnKey !== 'PRI' || strpos($extra, 'auto_increment') === false) {
+				$this->dbObj->executeQuery('ALTER TABLE `'.$table.'` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT');
+				if ($columnKey !== 'PRI') {
+					$primaryKey = $this->dbObj->getAllResults('SHOW INDEX FROM `'.$table.'` WHERE Key_name = "PRIMARY"');
+					if (empty($primaryKey)) {
+						$this->dbObj->executeQuery('ALTER TABLE `'.$table.'` ADD PRIMARY KEY (`id`)');
+					}
+				}
+			}
+		}
+
+		$this->ensurePlacementColumn($table, 'academic_year', "varchar(100) NOT NULL DEFAULT ''");
+		$this->ensurePlacementColumn($table, 'batch_label', "varchar(60) NOT NULL DEFAULT ''");
+		$this->ensurePlacementColumn($table, 'student_name', "varchar(255) NOT NULL DEFAULT ''");
+		$this->ensurePlacementColumn($table, 'course_branch', "varchar(255) NOT NULL DEFAULT ''");
+		$this->ensurePlacementColumn($table, 'company_name', "varchar(255) NOT NULL DEFAULT ''");
+		$this->ensurePlacementColumn($table, 'role_title', "varchar(255) NOT NULL DEFAULT ''");
+		$this->ensurePlacementColumn($table, 'package_label', "varchar(100) NOT NULL DEFAULT ''");
+		$this->ensurePlacementColumn($table, 'package_sort', "decimal(10,2) NULL DEFAULT NULL");
+		$this->ensurePlacementColumn($table, 'profile_photo', "varchar(255) NOT NULL DEFAULT ''");
+		$this->ensurePlacementColumn($table, 'is_featured', "tinyint(1) NOT NULL DEFAULT 0");
+		$this->ensurePlacementColumn($table, 'sort_order', "int(11) NOT NULL DEFAULT 0");
+		$this->ensurePlacementColumn($table, 'is_active', "tinyint(1) NOT NULL DEFAULT 1");
+		$this->ensurePlacementColumn($table, 'created_at', "timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP");
+		$this->ensurePlacementColumn($table, 'updated_at', "timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+
+		$this->ensurePlacementIndex($table, 'idx_placements_category_batch', '(`category_id`, `batch_label`)');
+		$this->ensurePlacementIndex($table, 'idx_placements_category_year', '(`category_id`, `academic_year`)');
+		$this->ensurePlacementIndex($table, 'idx_placements_student_name', '(`student_name`)');
+		$this->ensurePlacementIndex($table, 'idx_placements_company_name', '(`company_name`)');
+
+		$this->dbObj->executeQuery(
+			'CREATE TABLE IF NOT EXISTS `'.$statsTable.'` (
+				`id` int(11) NOT NULL AUTO_INCREMENT,
+				`students_placed` varchar(50) NOT NULL DEFAULT \'\',
+				`companies_visited` varchar(50) NOT NULL DEFAULT \'\',
+				`highest_package` varchar(50) NOT NULL DEFAULT \'\',
+				`average_package` varchar(50) NOT NULL DEFAULT \'\',
+				`updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+				PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1'
+		);
+	}
+
+	private function ensurePlacementColumn($table, $columnName, $definition){
+		$table = $this->assertSafeIdentifier($table);
+		$columnName = $this->assertSafeIdentifier($columnName);
+		if (!$this->tableHasColumn($table, $columnName)) {
+			$this->dbObj->executeQuery('ALTER TABLE `'.$table.'` ADD COLUMN `'.$columnName.'` '.$definition);
+		}
+	}
+
+	private function ensurePlacementIndex($table, $indexName, $columnSql){
+		$table = $this->assertSafeIdentifier($table);
+		$indexName = $this->assertSafeIdentifier($indexName);
+		$existing = $this->dbObj->getAllResults('SHOW INDEX FROM `'.$table.'` WHERE Key_name = "'.$indexName.'"');
+		if (empty($existing)) {
+			$this->dbObj->executeQuery('CREATE INDEX `'.$indexName.'` ON `'.$table.'` '.$columnSql);
+		}
+	}
+
+	private function getPlacementRecordDefaults(){
+		return array(
+			'id' => 0,
+			'category_id' => (int)PLACEMENT_RECORD,
+			'placement_desc' => '',
+			'academic_year' => '',
+			'batch_label' => '',
+			'student_name' => '',
+			'course_branch' => 'AIML',
+			'company_name' => '',
+			'role_title' => '',
+			'package_label' => '',
+			'package_sort' => null,
+			'profile_photo' => '',
+			'is_featured' => 0,
+			'sort_order' => 0,
+			'is_active' => 1
+		);
+	}
+
+	private function decodePlacementPayload($placementDesc){
+		$placementDesc = trim((string)$placementDesc);
+		if ($placementDesc === '') {
+			return array();
+		}
+
+		if (strpos($placementDesc, 'json::') === 0) {
+			$placementDesc = substr($placementDesc, 6);
+		}
+
+		$decoded = json_decode($placementDesc, true);
+		return is_array($decoded) ? $decoded : array();
+	}
+
+	private function normalizePlacementRecordRow($row){
+		$defaults = $this->getPlacementRecordDefaults();
+		if (!is_array($row)) {
+			return $defaults;
+		}
+
+		$payload = $this->decodePlacementPayload($row['placement_desc'] ?? '');
+		$record = $defaults;
+
+		foreach ($defaults as $key => $defaultValue) {
+			if (array_key_exists($key, $row) && $row[$key] !== null && $row[$key] !== '') {
+				$record[$key] = $row[$key];
+			} elseif (array_key_exists($key, $payload) && $payload[$key] !== null && $payload[$key] !== '') {
+				$record[$key] = $payload[$key];
+			}
+		}
+
+		$record['id'] = (int)($record['id'] ?? 0);
+		$record['category_id'] = (int)($record['category_id'] ?? PLACEMENT_RECORD);
+		$record['is_featured'] = !empty($record['is_featured']) ? 1 : 0;
+		$record['is_active'] = array_key_exists('is_active', $record) ? (int)!empty($record['is_active']) : 1;
+		$record['sort_order'] = (int)($record['sort_order'] ?? 0);
+
+		if (trim((string)$record['course_branch']) === '') {
+			$record['course_branch'] = 'AIML';
+		}
+
+		return $record;
+	}
+
+	private function getPlacementSelectColumns($table){
+		$table = $this->assertSafeIdentifier($table);
+		$selectParts = array(
+			'id',
+			'category_id',
+			'placement_desc'
+		);
+
+		$fieldDefinitions = array(
+			'academic_year' => "''",
+			'batch_label' => "''",
+			'student_name' => "''",
+			'course_branch' => "''",
+			'company_name' => "''",
+			'role_title' => "''",
+			'package_label' => "''",
+			'package_sort' => 'NULL',
+			'profile_photo' => "''",
+			'is_featured' => '0',
+			'sort_order' => '0',
+			'is_active' => '1'
+		);
+
+		foreach ($fieldDefinitions as $fieldName => $fallbackSql) {
+			if ($this->tableHasColumn($table, $fieldName)) {
+				$selectParts[] = $fieldName;
+			} else {
+				$selectParts[] = $fallbackSql . ' AS ' . $fieldName;
+			}
+		}
+
+		return implode(', ', $selectParts);
 	}
 
 	private function sectionSupportsBatchId(){
@@ -2584,6 +2772,351 @@
 			
 			return $result;
 	}
+
+	/*
+	 *  GET PLACEMENT OVERVIEW STATS
+	 */
+	 public function getPlacementOverviewStats($statsTable = TB_PLACEMENT_STATS, $placementsTable = TB_PLACEMENTS){
+			$statsTable = $this->assertSafeIdentifier($statsTable);
+			$placementsTable = $this->assertSafeIdentifier($placementsTable);
+			$this->ensurePlacementsSchema();
+
+			$row = $this->dbObj->getOnePrepared(
+				'SELECT id, students_placed, companies_visited, highest_package, average_package
+				 FROM `'.$statsTable.'`
+				 ORDER BY id ASC
+				 LIMIT 1',
+				array()
+			);
+
+			$countRow = $this->dbObj->getOnePrepared(
+				'SELECT COUNT(*) AS total_students,
+				        COUNT(DISTINCT NULLIF(company_name, "")) AS total_companies
+				 FROM `'.$placementsTable.'`
+				 WHERE category_id = :category_id
+				   AND is_active = 1',
+				array(':category_id' => (int)PLACEMENT_RECORD)
+			);
+
+			$fallbackStudents = !empty($countRow) ? (string)((int)($countRow['total_students'] ?? 0)) : '0';
+			$fallbackCompanies = !empty($countRow) ? (string)((int)($countRow['total_companies'] ?? 0)) : '0';
+
+			return array(
+				'id' => isset($row['id']) ? (int)$row['id'] : 0,
+				'students_placed' => trim((string)($row['students_placed'] ?? '')) !== '' ? trim((string)$row['students_placed']) : $fallbackStudents,
+				'companies_visited' => trim((string)($row['companies_visited'] ?? '')) !== '' ? trim((string)$row['companies_visited']) : $fallbackCompanies,
+				'highest_package' => trim((string)($row['highest_package'] ?? '')),
+				'average_package' => trim((string)($row['average_package'] ?? ''))
+			);
+	 }
+
+	/*
+	 *  UPDATE PLACEMENT OVERVIEW STATS
+	 */
+	 public function savePlacementOverviewStats($statsTable, $stats){
+			$statsTable = $this->assertSafeIdentifier($statsTable);
+			$this->ensurePlacementsSchema();
+
+			$studentsPlaced = trim((string)($stats['students_placed'] ?? ''));
+			$companiesVisited = trim((string)($stats['companies_visited'] ?? ''));
+			$highestPackage = trim((string)($stats['highest_package'] ?? ''));
+			$averagePackage = trim((string)($stats['average_package'] ?? ''));
+
+			$current = $this->dbObj->getOnePrepared(
+				'SELECT id FROM `'.$statsTable.'` ORDER BY id ASC LIMIT 1',
+				array()
+			);
+
+			if (!empty($current) && isset($current['id'])) {
+				return $this->dbObj->executePrepared(
+					'UPDATE `'.$statsTable.'`
+					 SET students_placed = :students_placed,
+					     companies_visited = :companies_visited,
+					     highest_package = :highest_package,
+					     average_package = :average_package
+					 WHERE id = :id',
+					array(
+						':students_placed' => $studentsPlaced,
+						':companies_visited' => $companiesVisited,
+						':highest_package' => $highestPackage,
+						':average_package' => $averagePackage,
+						':id' => (int)$current['id']
+					)
+				);
+			}
+
+			return $this->dbObj->executePrepared(
+				'INSERT INTO `'.$statsTable.'` (students_placed, companies_visited, highest_package, average_package)
+				 VALUES (:students_placed, :companies_visited, :highest_package, :average_package)',
+				array(
+					':students_placed' => $studentsPlaced,
+					':companies_visited' => $companiesVisited,
+					':highest_package' => $highestPackage,
+					':average_package' => $averagePackage
+				)
+			);
+	 }
+
+	/*
+	 *  GET PLACEMENT BATCHES
+	 */
+	 public function getPlacementBatches($table){
+			$table = $this->assertSafeIdentifier($table);
+			$records = $this->getPlacementRecords($table, array());
+			$seen = array();
+			$batches = array();
+			foreach ($records as $record) {
+				$batchLabel = trim((string)($record['batch_label'] ?? ''));
+				if ($batchLabel === '') {
+					continue;
+				}
+				$key = strtolower($batchLabel);
+				if (!isset($seen[$key])) {
+					$seen[$key] = true;
+					$batches[] = array('batch_label' => $batchLabel);
+				}
+			}
+			usort($batches, function($a, $b){
+				return strcasecmp((string)$b['batch_label'], (string)$a['batch_label']);
+			});
+			return $batches;
+	 }
+
+	/*
+	 *  GET PLACEMENT RECORDS
+	 */
+	 public function getPlacementRecords($table, $filters = array()){
+			$table = $this->assertSafeIdentifier($table);
+			$this->ensurePlacementsSchema();
+
+			$sql = 'SELECT '.$this->getPlacementSelectColumns($table).' FROM `'.$table.'` WHERE category_id = :category_id';
+			$rows = $this->dbObj->getAllPrepared($sql, array(':category_id' => (int)PLACEMENT_RECORD));
+			$records = array();
+			foreach ($rows as $row) {
+				$record = $this->normalizePlacementRecordRow($row);
+
+				if (empty($filters['include_inactive']) && (int)$record['is_active'] !== 1) {
+					continue;
+				}
+
+				$batchLabel = trim((string)($filters['batch_label'] ?? ''));
+				if ($batchLabel !== '' && strcasecmp((string)$record['batch_label'], $batchLabel) !== 0) {
+					continue;
+				}
+
+				$academicYear = trim((string)($filters['academic_year'] ?? ''));
+				if ($academicYear !== '' && strcasecmp((string)$record['academic_year'], $academicYear) !== 0) {
+					continue;
+				}
+
+				if (isset($filters['featured_only']) && (int)$filters['featured_only'] === 1 && (int)$record['is_featured'] !== 1) {
+					continue;
+				}
+
+				$search = trim((string)($filters['search'] ?? ''));
+				if ($search !== '') {
+					$haystack = strtolower(
+						(string)$record['student_name'] . ' ' .
+						(string)$record['company_name'] . ' ' .
+						(string)$record['batch_label'] . ' ' .
+						(string)$record['academic_year']
+					);
+					if (strpos($haystack, strtolower($search)) === false) {
+						continue;
+					}
+				}
+
+				$records[] = $record;
+			}
+
+			usort($records, function($a, $b) use ($filters){
+				$featuredCompare = (int)($b['is_featured'] ?? 0) <=> (int)($a['is_featured'] ?? 0);
+				if ($featuredCompare !== 0) {
+					return $featuredCompare;
+				}
+
+				if (!empty($filters['sort']) && (string)$filters['sort'] === 'oldest') {
+					return (int)($a['id'] ?? 0) <=> (int)($b['id'] ?? 0);
+				}
+
+				return (int)($b['id'] ?? 0) <=> (int)($a['id'] ?? 0);
+			});
+
+			if (!empty($filters['limit']) && (int)$filters['limit'] > 0) {
+				$records = array_slice($records, 0, (int)$filters['limit']);
+			}
+
+			return $records;
+	 }
+
+	/*
+	 *  GET SINGLE PLACEMENT RECORD
+	 */
+	 public function getPlacementRecordById($table, $placementId){
+			$table = $this->assertSafeIdentifier($table);
+			$this->ensurePlacementsSchema();
+
+			$row = $this->dbObj->getOnePrepared(
+				'SELECT '.$this->getPlacementSelectColumns($table).'
+				 FROM `'.$table.'`
+				 WHERE id = :id
+				 LIMIT 1',
+				array(':id' => (int)$placementId)
+			);
+
+			return $this->normalizePlacementRecordRow($row);
+	 }
+
+	/*
+	 *  UPSERT PLACEMENT RECORD
+	 */
+	 public function savePlacementRecord($table, $varArray, $placementId = 0){
+			$table = $this->assertSafeIdentifier($table);
+			$this->ensurePlacementsSchema();
+
+			$placementId = (int)$placementId;
+			$academicYear = trim((string)($varArray['academic_year'] ?? ''));
+			$batchLabel = trim((string)($varArray['batch_label'] ?? ''));
+			$studentName = trim((string)($varArray['student_name'] ?? ''));
+			$courseBranch = trim((string)($varArray['course_branch'] ?? 'AIML'));
+			if ($courseBranch === '') {
+				$courseBranch = 'AIML';
+			}
+			$companyName = trim((string)($varArray['company_name'] ?? ''));
+			$roleTitle = trim((string)($varArray['role_title'] ?? ''));
+			$packageLabel = trim((string)($varArray['package_label'] ?? ''));
+			$packageSort = isset($varArray['package_sort']) && $varArray['package_sort'] !== '' ? (float)$varArray['package_sort'] : null;
+			$profilePhoto = trim((string)($varArray['profile_photo'] ?? ''));
+			$isFeatured = !empty($varArray['is_featured']) ? 1 : 0;
+			$sortOrder = (int)($varArray['sort_order'] ?? 0);
+			$isActive = array_key_exists('is_active', $varArray) ? (int)!empty($varArray['is_active']) : 1;
+			$placementDesc = trim((string)($varArray['placement_desc'] ?? ''));
+
+			$payload = array(
+				'academic_year' => $academicYear,
+				'batch_label' => $batchLabel,
+				'student_name' => $studentName,
+				'course_branch' => $courseBranch,
+				'company_name' => $companyName,
+				'role_title' => $roleTitle,
+				'package_label' => $packageLabel,
+				'package_sort' => $packageSort,
+				'profile_photo' => $profilePhoto,
+				'is_featured' => $isFeatured,
+				'sort_order' => $sortOrder,
+				'is_active' => $isActive,
+				'placement_desc' => $placementDesc
+			);
+			$placementDesc = 'json::' . json_encode($payload);
+
+			$data = array(
+				'category_id' => (int)PLACEMENT_RECORD,
+				'placement_desc' => $placementDesc
+			);
+
+			$optionalFields = array(
+				'academic_year' => $academicYear,
+				'batch_label' => $batchLabel,
+				'student_name' => $studentName,
+				'course_branch' => $courseBranch,
+				'company_name' => $companyName,
+				'role_title' => $roleTitle,
+				'package_label' => $packageLabel,
+				'package_sort' => $packageSort,
+				'profile_photo' => $profilePhoto,
+				'is_featured' => $isFeatured,
+				'sort_order' => $sortOrder,
+				'is_active' => $isActive
+			);
+
+			foreach ($optionalFields as $fieldName => $fieldValue) {
+				if ($this->tableHasColumn($table, $fieldName)) {
+					$data[$fieldName] = $fieldValue;
+				}
+			}
+
+			if ($placementId > 0) {
+				$setParts = array();
+				$params = array(':id' => $placementId);
+				foreach ($data as $fieldName => $fieldValue) {
+					$setParts[] = '`'.$fieldName.'` = :'.$fieldName;
+					$params[':'.$fieldName] = $fieldValue;
+				}
+				return $this->dbObj->executePrepared(
+					'UPDATE `'.$table.'` SET '.implode(', ', $setParts).' WHERE id = :id',
+					$params
+				);
+			}
+
+			$columns = array_keys($data);
+			$placeholders = array();
+			$params = array();
+			foreach ($columns as $columnName) {
+				$placeholders[] = ':'.$columnName;
+				$params[':'.$columnName] = $data[$columnName];
+			}
+
+			return $this->dbObj->executePrepared(
+				'INSERT INTO `'.$table.'` (`'.implode('`, `', $columns).'`) VALUES ('.implode(', ', $placeholders).')',
+				$params
+			);
+	 }
+
+	/*
+	 *  GET PLACEMENT DOCUMENTS
+	 */
+	 public function getPlacementDocuments($table){
+			$table = $this->assertSafeIdentifier($table);
+			return $this->dbObj->getAllPrepared(
+				'SELECT id, placement_desc
+				 FROM `'.$table.'`
+				 WHERE category_id = :category_id
+				 ORDER BY id DESC',
+				array(':category_id' => (int)DOCUMENT)
+			);
+	 }
+
+	/*
+	 *  SAVE PLACEMENT DOCUMENT
+	 */
+	 public function savePlacementDocument($table, $title, $fileName, $placementId = 0){
+			$table = $this->assertSafeIdentifier($table);
+			$placementId = (int)$placementId;
+			$placementDesc = trim((string)$title).'$$'.trim((string)$fileName);
+
+			if ($placementId > 0) {
+				return $this->dbObj->executePrepared(
+					'UPDATE `'.$table.'`
+					 SET category_id = :category_id,
+					     placement_desc = :placement_desc
+					 WHERE id = :id',
+					array(
+						':category_id' => (int)DOCUMENT,
+						':placement_desc' => $placementDesc,
+						':id' => $placementId
+					)
+				);
+			}
+
+			return $this->dbObj->executePrepared(
+				'INSERT INTO `'.$table.'` (category_id, placement_desc) VALUES (:category_id, :placement_desc)',
+				array(
+					':category_id' => (int)DOCUMENT,
+					':placement_desc' => $placementDesc
+				)
+			);
+	 }
+
+	/*
+	 *  DELETE PLACEMENT RECORD OR DOCUMENT
+	 */
+	 public function deletePlacementRecord($table, $placementId){
+			$table = $this->assertSafeIdentifier($table);
+			return $this->dbObj->executePrepared(
+				'DELETE FROM `'.$table.'` WHERE id = :id',
+				array(':id' => (int)$placementId)
+			);
+	 }
 
 	/*
 	 *  GET PLACEMENTS 

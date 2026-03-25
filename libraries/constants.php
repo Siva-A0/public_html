@@ -65,6 +65,7 @@ DEFINE('TB_PREV_PAPERS','prev_papers');
 DEFINE('TB_ACHIEVEMENTS','achievements');
 
 DEFINE('TB_PLACEMENTS','placements');
+DEFINE('TB_PLACEMENT_STATS','placement_stats');
 
 DEFINE('TB_ALUMNI','alumni');
 
@@ -84,6 +85,7 @@ DEFINE('BRANCH','IT');
 
 DEFINE('DOCUMENT',1);
 DEFINE('NON_DOCUMENT',2);
+DEFINE('PLACEMENT_RECORD',3);
 
 DEFINE('anu',1);
 DEFINE('AIML',1);
