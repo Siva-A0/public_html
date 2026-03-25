@@ -10,80 +10,80 @@ $configs = array(
     'classes' => array(
         'title' => 'Years / Semesters',
         'desc' => 'Academic year/semester records used to map subjects, syllabus, and resources.',
-        'add_url' => '../Class/add_class.php',
-        'manage_url' => '../Class/classes.php'
+        'add_url' => BASE_URL . '/admin/Class/add_class.php',
+        'manage_url' => BASE_URL . '/admin/Class/classes.php'
     ),
     'sections' => array(
         'title' => 'Sections',
         'desc' => 'Sections (A/B/C) mapped under each year/semester.',
-        'add_url' => '../Section/add_section.php',
-        'manage_url' => '../Section/sections.php'
+        'add_url' => BASE_URL . '/admin/Section/add_section.php',
+        'manage_url' => BASE_URL . '/admin/Section/sections.php'
     ),
     'streams' => array(
         'title' => 'Streams',
         'desc' => 'Branch and stream configuration.',
-        'add_url' => '../branch/add_branch.php',
-        'manage_url' => '../branch/branch.php'
+        'add_url' => BASE_URL . '/admin/branch/add_branch.php',
+        'manage_url' => BASE_URL . '/admin/branch/branch.php'
     ),
     'batches' => array(
         'title' => 'Academic Batches',
         'desc' => 'Academic batches used during student registration (e.g., 2023, 2024).',
-        'add_url' => '../batches/add_batch.php',
-        'manage_url' => '../batches/batch.php'
+        'add_url' => BASE_URL . '/admin/batches/add_batch.php',
+        'manage_url' => BASE_URL . '/admin/batches/batch.php'
     ),
     'subjects' => array(
         'title' => 'Subjects',
         'desc' => 'Subjects mapped to classes.',
-        'add_url' => '../Subject/add_subject.php',
-        'manage_url' => '../Subject/subjects.php'
+        'add_url' => BASE_URL . '/admin/Subject/add_subject.php',
+        'manage_url' => BASE_URL . '/admin/Subject/subjects.php'
     ),
     'syllabus' => array(
         'title' => 'Syllabus',
         'desc' => 'Syllabus records with class mapping.',
-        'add_url' => '../syllabus/add_syllabus.php',
-        'manage_url' => '../syllabus/syllabus.php'
+        'add_url' => BASE_URL . '/admin/syllabus/add_syllabus.php',
+        'manage_url' => BASE_URL . '/admin/syllabus/syllabus.php'
     ),
     'materials' => array(
         'title' => 'Notes / Materials',
         'desc' => 'Notes and materials uploaded under each subject.',
-        'add_url' => '../Materials/add_materials.php',
-        'manage_url' => '../Materials/materials.php'
+        'add_url' => BASE_URL . '/admin/Materials/add_materials.php',
+        'manage_url' => BASE_URL . '/admin/Materials/materials.php'
     ),
     'previous_papers' => array(
         'title' => 'Previous Papers',
         'desc' => 'Previous question papers uploaded under each subject.',
-        'add_url' => '../papers/add_papers.php',
-        'manage_url' => '../papers/previouspapers.php'
+        'add_url' => BASE_URL . '/admin/papers/add_papers.php',
+        'manage_url' => BASE_URL . '/admin/papers/previouspapers.php'
     ),
     'highlights' => array(
         'title' => 'Highlights',
         'desc' => 'Homepage and department highlights.',
-        'add_url' => '../Highlight/add_highlight.php',
-        'manage_url' => '../Highlight/highlights.php'
+        'add_url' => BASE_URL . '/admin/Highlight/add_highlight.php',
+        'manage_url' => BASE_URL . '/admin/Highlight/highlights.php'
     ),
     'events' => array(
         'title' => 'Events',
         'desc' => 'Event details and schedule list.',
-        'add_url' => '../events/events.php',
-        'manage_url' => '../events/view_events.php'
+        'add_url' => BASE_URL . '/admin/events/events.php',
+        'manage_url' => BASE_URL . '/admin/events/view_events.php'
     ),
     'event_candidates' => array(
         'title' => 'Registered Candidates',
         'desc' => 'Events currently open for candidate management.',
         'add_url' => '',
-        'manage_url' => '../events/eventregcand.php'
+        'manage_url' => BASE_URL . '/admin/events/eventregcand.php'
     ),
     'event_results' => array(
         'title' => 'Event Results',
         'desc' => 'Events with results available.',
         'add_url' => '',
-        'manage_url' => '../events/eventresults.php'
+        'manage_url' => BASE_URL . '/admin/events/eventresults.php'
     ),
     'support_contact' => array(
         'title' => 'Support Contact',
         'desc' => 'Support email, WhatsApp, and SMTP settings.',
         'add_url' => '',
-        'manage_url' => 'support_contact.php'
+        'manage_url' => BASE_URL . '/admin/settings/support_contact.php'
     )
 );
 

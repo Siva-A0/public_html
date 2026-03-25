@@ -12,6 +12,7 @@
  			$this->dbObj = new DataBasePDO();
 			try { $this->ensureModernAuthSchema(); } catch (Exception $e) {}
 			try { $this->ensureStaffAuthSchema(); } catch (Exception $e) {}
+			try { $this->ensureEventSchema(); } catch (Exception $e) {}
 			try { $this->ensureAchievementsSchema(); } catch (Exception $e) {}
 			try { $this->ensureGallerySchema(); } catch (Exception $e) {}
 			try { $this->ensurePlacementsSchema(); } catch (Exception $e) {}
@@ -205,6 +206,96 @@
 		$this->ensureGalleryCategoryColumn($categoryTable, 'is_active', "tinyint(4) NOT NULL DEFAULT 1");
 
 		$this->syncLegacyGalleryCategories($galleryTable, $categoryTable);
+	}
+
+	private function ensureEventSchema(){
+		$eventTypesTable = $this->assertSafeIdentifier(TB_EVENT_TYPES);
+		$eventsTable = $this->assertSafeIdentifier(TB_EVENTS);
+
+		$this->dbObj->executeQuery(
+			'CREATE TABLE IF NOT EXISTS `'.$eventTypesTable.'` (
+				`id` int(11) NOT NULL AUTO_INCREMENT,
+				`event_type` varchar(255) NOT NULL,
+				PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1'
+		);
+
+		$this->dbObj->executeQuery(
+			'CREATE TABLE IF NOT EXISTS `'.$eventsTable.'` (
+				`id` int(11) NOT NULL AUTO_INCREMENT,
+				`event_type_id` int(11) NOT NULL DEFAULT 0,
+				`event_name` varchar(255) NOT NULL DEFAULT \'\',
+				`event_desc` text NOT NULL,
+				`event_address` text NOT NULL,
+				`event_date` date NOT NULL,
+				`reg_frm_date` date NULL DEFAULT NULL,
+				`reg_to_date` date NULL DEFAULT NULL,
+				`is_registration` tinyint(1) NOT NULL DEFAULT 0,
+				PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1'
+		);
+
+		$this->ensurePrimaryAutoIncrementId($eventTypesTable);
+		$this->ensurePrimaryAutoIncrementId($eventsTable);
+
+		$this->ensureEventColumn($eventsTable, 'event_type_id', "int(11) NOT NULL DEFAULT 0");
+		$this->ensureEventColumn($eventsTable, 'event_name', "varchar(255) NOT NULL DEFAULT ''");
+		$this->ensureEventColumn($eventsTable, 'event_desc', "text NOT NULL");
+		$this->ensureEventColumn($eventsTable, 'event_address', "text NOT NULL");
+		$this->ensureEventColumn($eventsTable, 'event_date', "date NOT NULL");
+		$this->ensureEventColumn($eventsTable, 'reg_frm_date', "date NULL DEFAULT NULL");
+		$this->ensureEventColumn($eventsTable, 'reg_to_date', "date NULL DEFAULT NULL");
+		$this->ensureEventColumn($eventsTable, 'is_registration', "tinyint(1) NOT NULL DEFAULT 0");
+
+		$this->ensureEventIndex($eventTypesTable, 'idx_event_types_name', '(`event_type`)');
+		$this->ensureEventIndex($eventsTable, 'idx_events_type_date', '(`event_type_id`, `event_date`)');
+	}
+
+	private function ensurePrimaryAutoIncrementId($table){
+		$table = $this->assertSafeIdentifier($table);
+		$idColumn = $this->dbObj->getOnePrepared(
+			"SELECT COLUMN_KEY, EXTRA
+			 FROM information_schema.COLUMNS
+			 WHERE TABLE_SCHEMA = DATABASE()
+			   AND TABLE_NAME = :table_name
+			   AND COLUMN_NAME = 'id'
+			 LIMIT 1",
+			array(':table_name' => $table)
+		);
+
+		if (empty($idColumn)) {
+			$this->dbObj->executeQuery('ALTER TABLE `'.$table.'` ADD COLUMN `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST');
+			return;
+		}
+
+		$columnKey = strtoupper((string)($idColumn['COLUMN_KEY'] ?? ''));
+		$extra = strtolower((string)($idColumn['EXTRA'] ?? ''));
+		if ($columnKey !== 'PRI' || strpos($extra, 'auto_increment') === false) {
+			$this->dbObj->executeQuery('ALTER TABLE `'.$table.'` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT');
+			if ($columnKey !== 'PRI') {
+				$primaryKey = $this->dbObj->getAllResults('SHOW INDEX FROM `'.$table.'` WHERE Key_name = "PRIMARY"');
+				if (empty($primaryKey)) {
+					$this->dbObj->executeQuery('ALTER TABLE `'.$table.'` ADD PRIMARY KEY (`id`)');
+				}
+			}
+		}
+	}
+
+	private function ensureEventColumn($table, $columnName, $definition){
+		$table = $this->assertSafeIdentifier($table);
+		$columnName = $this->assertSafeIdentifier($columnName);
+		if (!$this->tableHasColumn($table, $columnName)) {
+			$this->dbObj->executeQuery('ALTER TABLE `'.$table.'` ADD COLUMN `'.$columnName.'` '.$definition);
+		}
+	}
+
+	private function ensureEventIndex($table, $indexName, $columnSql){
+		$table = $this->assertSafeIdentifier($table);
+		$indexName = $this->assertSafeIdentifier($indexName);
+		$existing = $this->dbObj->getAllResults('SHOW INDEX FROM `'.$table.'` WHERE Key_name = "'.$indexName.'"');
+		if (empty($existing)) {
+			$this->dbObj->executeQuery('CREATE INDEX `'.$indexName.'` ON `'.$table.'` '.$columnSql);
+		}
 	}
 
 	private function ensurePlacementsSchema(){
@@ -1964,21 +2055,25 @@
 	 *  GET EVENT DETAILS
 	 */
 	 public function getEventDetails($table,$eventId=NULL){
-			
+			$this->setLastError('');
 			if( $eventId==NULL ){
-				$where	= 1;
+				$sql = 'SELECT 
+							id, event_name, event_desc, event_address, event_type_id, is_registration, event_date, reg_frm_date, reg_to_date
+						FROM 
+							'.$table.'
+						ORDER BY event_date DESC, id DESC';
+				$result = $this->dbObj->getAllResults($sql);
 			}else{
-				$where	= 'id = '.$eventId;
+				$sql = 'SELECT 
+							id, event_name, event_desc, event_address, event_type_id, is_registration, event_date, reg_frm_date, reg_to_date
+						FROM 
+							'.$table.'
+						WHERE id = :id';
+				$result = $this->dbObj->getAllPrepared($sql, array(':id' => (int)$eventId));
 			}
-			
-			$sql		= 'SELECT 
-								id, event_name, event_desc, event_address, event_type_id, is_registration, event_date, reg_frm_date, reg_to_date
-						   FROM 
-						   		'.$table.'
-						   WHERE
-						   		'.$where;
-
-			$result		= $this->dbObj->getAllResults($sql);
+			if ($result === array() && $this->dbObj->getLastError() !== '') {
+				$this->setLastError($this->dbObj->getLastError());
+			}
 
 			return $result;
 	 } 	 
@@ -1987,19 +2082,38 @@
 	 *  UPDATE EVENT DETAILS
 	 */
 	 public function updateEvent($table, $varArray, $eventId){
-			
-			$eventType		= $varArray['event_type_id'];
-			$eventName		= $varArray['event_name'];
-			$eventDesc		= $varArray['event_desc'];
-			$eventAddr		= $varArray['event_address'];
-			$eventDate		= $varArray['event_date'];
-			$eventFrmDate	= $varArray['reg_frm_date'];
-			$eventToDate	= $varArray['reg_to_date'];
-			$isRegis		= $varArray['is_registration'];
-				
-			$sql			= 'UPDATE '.$table.' SET event_type_id = '.$eventType.', event_name = "'.$eventName.'", event_desc = "'.$eventDesc.'", event_address = "'.$eventAddr.'" , event_date = "'.$eventDate.'", reg_frm_date = "'.$eventFrmDate.'", reg_to_date = "'.$eventToDate.'", is_registration = "'.$isRegis.'" WHERE id = '.$eventId;
+			$this->setLastError('');
+			$eventType		= (int)($varArray['event_type_id'] ?? 0);
+			$eventName		= trim((string)($varArray['event_name'] ?? ''));
+			$eventDesc		= trim((string)($varArray['event_desc'] ?? ''));
+			$eventAddr		= trim((string)($varArray['event_address'] ?? ''));
+			$eventDate		= trim((string)($varArray['event_date'] ?? ''));
+			$eventFrmDate	= trim((string)($varArray['reg_frm_date'] ?? ''));
+			$eventToDate	= trim((string)($varArray['reg_to_date'] ?? ''));
+			$isRegis		= !empty($varArray['is_registration']) ? 1 : 0;
+			if ($eventFrmDate === '') {
+				$eventFrmDate = $eventDate;
+			}
+			if ($eventToDate === '') {
+				$eventToDate = $eventDate;
+			}
 
-			$result			= $this->dbObj->executeQuery($sql);
+			$sql			= 'UPDATE '.$table.' SET event_type_id = :event_type_id, event_name = :event_name, event_desc = :event_desc, event_address = :event_address, event_date = :event_date, reg_frm_date = :reg_frm_date, reg_to_date = :reg_to_date, is_registration = :is_registration WHERE id = :id';
+
+			$result			= $this->dbObj->executePrepared($sql, array(
+				':event_type_id' => $eventType,
+				':event_name' => $eventName,
+				':event_desc' => $eventDesc,
+				':event_address' => $eventAddr,
+				':event_date' => $eventDate,
+				':reg_frm_date' => $eventFrmDate,
+				':reg_to_date' => $eventToDate,
+				':is_registration' => $isRegis,
+				':id' => (int)$eventId
+			));
+			if ($result === false) {
+				$this->setLastError($this->dbObj->getLastError());
+			}
 			
 			return $result;
 	 } 
@@ -3325,10 +3439,13 @@
 	 *  GET EVENT TYPES
 	 */
 	 public function getEventTypes($table){
-			
-			$sqlQuery	= 'SELECT id, event_type FROM '.$table;
+			$this->setLastError('');
+			$sqlQuery	= 'SELECT id, event_type FROM '.$table.' ORDER BY event_type ASC';
 
 			$result		= $this->dbObj->getAllResults($sqlQuery);
+			if ($result === array() && $this->dbObj->getLastError() !== '') {
+				$this->setLastError($this->dbObj->getLastError());
+			}
 			
 			return $result;
 	}
@@ -3337,29 +3454,32 @@
 	 *  GET OR CREATE EVENT TYPE BY NAME
 	 */
 	 public function getOrCreateEventTypeId($table, $eventType){
+			$this->setLastError('');
 			$eventType = trim((string)$eventType);
 			if ($eventType === '') {
+				$this->setLastError('Event type is required.');
 				return 0;
 			}
 
-			$safeType = addslashes($eventType);
-
-			$existing = $this->dbObj->getAllResults(
-				'SELECT id FROM '.$table.' WHERE LOWER(event_type) = LOWER("'.$safeType.'") LIMIT 1'
+			$existing = $this->dbObj->getAllPrepared(
+				'SELECT id FROM '.$table.' WHERE LOWER(event_type) = LOWER(:event_type) LIMIT 1',
+				array(':event_type' => $eventType)
 			);
 
 			if (!empty($existing)) {
 				return (int)$existing[0]['id'];
 			}
 
-			$inserted = $this->dbObj->executeQuery(
-				'INSERT INTO '.$table.' (event_type) VALUES ("'.$safeType.'")'
+			$inserted = $this->dbObj->executePrepared(
+				'INSERT INTO '.$table.' (event_type) VALUES (:event_type)',
+				array(':event_type' => $eventType)
 			);
 
 			if ($inserted) {
 				return (int)$this->dbObj->getLastInsertId();
 			}
 
+			$this->setLastError($this->dbObj->getLastError());
 			return 0;
 	 }
 	
@@ -3367,20 +3487,38 @@
 	 *  GET NEW EVENT
 	 */
 	 public function addNewEvent($table, $varArray){
+			$this->setLastError('');
+			$eventTypeId		= (int)($varArray['event_type_id'] ?? 0);
+			$eventName			= trim((string)($varArray['event_name'] ?? ''));
+			$eventDesc			= trim((string)($varArray['event_desc'] ?? ''));
+			$eventAddress		= trim((string)($varArray['event_address'] ?? ''));
+			$eventDate			= trim((string)($varArray['event_date'] ?? ''));
+			$eventRegStartDate	= trim((string)($varArray['reg_frm_date'] ?? ''));
+			$eventRegEndDate	= trim((string)($varArray['reg_to_date'] ?? ''));
+			$isReg				= !empty($varArray['is_registration']) ? 1 : 0;
+			if ($eventRegStartDate === '') {
+				$eventRegStartDate = $eventDate;
+			}
+			if ($eventRegEndDate === '') {
+				$eventRegEndDate = $eventDate;
+			}
 			
-			$eventTypeId		= $varArray['event_type_id'];
-			$eventName			= $varArray['event_name'];
-			$eventDesc			= $varArray['event_desc'];
-			$eventAddress		= $varArray['event_address'];
-			$eventDate			= $varArray['event_date'];
-			$eventRegStartDate	= $varArray['reg_frm_date'];
-			$eventRegEndDate	= $varArray['reg_to_date'];
-			$isReg				= $varArray['is_registration'];
+			$sqlQuery	= 'INSERT INTO '.$table.' (event_type_id, event_name, event_desc, event_address, event_date, reg_frm_date, reg_to_date, is_registration)
+							VALUES (:event_type_id, :event_name, :event_desc, :event_address, :event_date, :reg_frm_date, :reg_to_date, :is_registration)';
 			
-			$sqlQuery	= 'INSERT INTO '.$table.' ( event_type_id, event_name, event_desc, event_address, event_date, reg_frm_date, reg_to_date , is_registration)
-							 VALUES ( "'.$eventTypeId.'" , "'.$eventName.'" , "'.$eventDesc.'" , "'.$eventAddress.'", "'.$eventDate.'", "'.$eventRegStartDate.'", "'.$eventRegEndDate.'", "'.$isReg.'" )';
-			
-			$result		= $this->dbObj->executeQuery($sqlQuery);
+			$result		= $this->dbObj->executePrepared($sqlQuery, array(
+				':event_type_id' => $eventTypeId,
+				':event_name' => $eventName,
+				':event_desc' => $eventDesc,
+				':event_address' => $eventAddress,
+				':event_date' => $eventDate,
+				':reg_frm_date' => $eventRegStartDate,
+				':reg_to_date' => $eventRegEndDate,
+				':is_registration' => $isReg
+			));
+			if ($result === false) {
+				$this->setLastError($this->dbObj->getLastError());
+			}
 			
 			return $result;
 	}

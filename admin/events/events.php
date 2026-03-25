@@ -172,9 +172,22 @@
 									if ($eventTypeId > 0 && trim((string)$varArray['event_name']) !== '' && trim((string)$varArray['event_date']) !== '') {
 										$addEvent = $fcObj->addNewEvent ( $tbEvents, $varArray );
 										$eventMessage = $addEvent ? 'Event Added Successfully' : 'Sorry, Please Try Again';
+										if (!$addEvent) {
+											$saveError = trim((string)$fcObj->getLastError());
+											if ($saveError === '' && method_exists($fcObj->dbObj, 'getLastError')) {
+												$saveError = trim((string)$fcObj->dbObj->getLastError());
+											}
+											if ($saveError !== '') {
+												$eventMessage .= '. ' . $saveError;
+											}
+										}
 									} else {
 										$addEvent = false;
 										$eventMessage = 'Please fill required fields (event type, event name, event date).';
+										$typeError = trim((string)$fcObj->getLastError());
+										if ($typeError !== '') {
+											$eventMessage .= ' ' . $typeError;
+										}
 									}
 									?>
 									<div class="comteeMemRow">

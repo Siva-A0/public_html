@@ -10,6 +10,8 @@ $eventId = isset($_GET['event']) ? (int)$_GET['event'] : 0;
 $tbEvents = TB_EVENTS;
 $eventDetails = $fcObj->getEventDetails($tbEvents, $eventId);
 $event = !empty($eventDetails) ? $eventDetails[0] : null;
+$eventDescription = $event ? trim((string)$event['event_desc']) : '';
+$hasRegistration = $event && (int)$event['is_registration'] === 1;
 
 $today = strtotime(date('Y-m-d'));
 $eventTime = $event ? strtotime((string)$event['event_date']) : false;
@@ -33,7 +35,7 @@ if ($event) {
     $from = strtotime((string)$event['reg_frm_date']);
     $to = strtotime((string)$event['reg_to_date']);
     $canRegister = isset($_SESSION['userId'])
-        && (int)$event['is_registration'] === 1
+        && $hasRegistration
         && $from !== false
         && $to !== false
         && $today >= $from
@@ -245,12 +247,14 @@ if ($event) {
             <span class="event-detail-kicker">Event Details</span>
             <h1 class="event-detail-title"><?php echo htmlspecialchars((string)$event['event_name'], ENT_QUOTES, 'UTF-8'); ?></h1>
             <p class="event-detail-summary">
-                <?php echo htmlspecialchars(trim((string)$event['event_desc']) !== '' ? (string)$event['event_desc'] : 'Explore the event schedule, venue, and registration information below.', ENT_QUOTES, 'UTF-8'); ?>
+                <?php echo htmlspecialchars($hasRegistration ? 'Check the event schedule, venue, and registration details below.' : 'Check the event schedule, venue, and event information below.', ENT_QUOTES, 'UTF-8'); ?>
             </p>
             <div class="event-detail-badges">
                 <span class="event-detail-badge"><?php echo htmlspecialchars($statusLabel, ENT_QUOTES, 'UTF-8'); ?></span>
-                <?php if ((int)$event['is_registration'] === 1) { ?>
+                <?php if ($hasRegistration) { ?>
                     <span class="event-detail-badge">Registration Enabled</span>
+                <?php } else { ?>
+                    <span class="event-detail-badge">Information Event</span>
                 <?php } ?>
             </div>
         </div>
@@ -272,14 +276,16 @@ if ($event) {
                         <strong>Venue</strong>
                         <span><?php echo htmlspecialchars((string)$event['event_address'], ENT_QUOTES, 'UTF-8'); ?></span>
                     </div>
-                    <div class="event-info-card">
-                        <strong>Registration Window</strong>
-                        <span>
-                            <?php echo date("d M Y", strtotime($event['reg_frm_date'])); ?>
-                            to
-                            <?php echo date("d M Y", strtotime($event['reg_to_date'])); ?>
-                        </span>
-                    </div>
+                    <?php if ($hasRegistration) { ?>
+                        <div class="event-info-card">
+                            <strong>Registration Window</strong>
+                            <span>
+                                <?php echo date("d M Y", strtotime($event['reg_frm_date'])); ?>
+                                to
+                                <?php echo date("d M Y", strtotime($event['reg_to_date'])); ?>
+                            </span>
+                        </div>
+                    <?php } ?>
                     <div class="event-info-card">
                         <strong>Association</strong>
                         <span>AIML Association</span>
@@ -287,7 +293,7 @@ if ($event) {
                 </div>
 
                 <div class="event-description-box">
-                    <p><?php echo htmlspecialchars((string)$event['event_desc'], ENT_QUOTES, 'UTF-8'); ?></p>
+                    <p><?php echo htmlspecialchars($eventDescription !== '' ? $eventDescription : 'Event details will be updated soon.', ENT_QUOTES, 'UTF-8'); ?></p>
                 </div>
 
                 <div class="event-actions">

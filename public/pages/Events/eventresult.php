@@ -1,8 +1,10 @@
 <?php 
-	require_once(__DIR__ . '/../../../config.php');
+require_once(__DIR__ . '/../../../config.php');
+header('Location: ' . BASE_URL . '/public/pages/Events/events.php');
+exit;
 
-    include_once(INCLUDES_PATH . '/header.php');
-    require_once(LIB_PATH . '/functions.class.php');
+include_once(INCLUDES_PATH . '/header.php');
+require_once(LIB_PATH . '/functions.class.php');
 
    $fcObj			= new DataFunctions();
 	
