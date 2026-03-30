@@ -1,0 +1,3 @@
+username,admission_id,firstname,lastname,mail_id,gender,address,mobile_no,section,password,status
+23X01A0001,23X01A0001,Student,One,23x01a0001@example.com,Male,Hyderabad,9000000001,A,Welcome@123,1
+23X01A0002,23X01A0002,Student,Two,23x01a0002@example.com,Female,Hyderabad,9000000002,B,Welcome@123,1

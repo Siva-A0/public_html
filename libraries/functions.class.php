@@ -4275,7 +4275,11 @@
                      LEFT JOIN `".TB_CLASS."` cls ON cls.id = sec.class_id
                      ".$origJoinSql."
                      ".$whereSql."
-                     ORDER BY u.id DESC
+                     ORDER BY
+                        COALESCE(sec.section_code, '') ASC,
+                        COALESCE(sec.section_name, '') ASC,
+                        COALESCE(u.admission_id, '') ASC,
+                        u.id ASC
                      LIMIT ".$limit." OFFSET ".$offset;
 
         return $this->dbObj->getAllPrepared($sqlQuery, $params);
