@@ -51,14 +51,14 @@ if (isset($_POST['editStaffDetails'])) {
 
     if ($_FILES['staffImage']['error'] == 0) {
 
-        if (file_exists("../../public/assets/images/staff/" . $previousImage)) {
-            unlink("../../public/assets/images/staff/" . $previousImage);
+        if (file_exists("../../public/assets/images/faculty/" . $previousImage)) {
+            unlink("../../public/assets/images/faculty/" . $previousImage);
         }
 
         $userName = $_POST['firstName'] . $_POST['lastName'];
         $fileName = strtolower(str_replace(' ', '', $userName)) . '.png';
 
-        if (move_uploaded_file($_FILES['staffImage']['tmp_name'], "../../public/assets/images/staff/" . $fileName)) {
+        if (move_uploaded_file($_FILES['staffImage']['tmp_name'], "../../public/assets/images/faculty/" . $fileName)) {
             $varArray['image'] = $fileName;
         } else {
             $varArray['image'] = '';
@@ -89,131 +89,18 @@ if (isset($_POST['editStaffDetails'])) {
     }
 }
 
+if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_feature_pages.css';
+
 include_once('../layout/main_header.php');
 
 $staffCateg = $fcObj->getStaffCategories($tbStaffCateg);
 $staffCatCnt = sizeof($staffCateg);
 ?>
 
-<style>
-.edit-staff-page {
-    background: linear-gradient(180deg, #f3f7fb 0%, #eef4fa 100%);
-    border-radius: 24px;
-    padding: 24px;
-}
 
-.edit-staff-page .page-hero {
-    position: relative;
-    overflow: hidden;
-    border: 1px solid #d9e3ef;
-    border-radius: 18px;
-    padding: 18px 22px;
-    background: linear-gradient(135deg, #f9fbfe 0%, #eef4fa 100%);
-    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-    margin-bottom: 18px;
-}
-
-.edit-staff-page .page-hero::before {
-    content: "";
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: 6px;
-    background: linear-gradient(180deg, #f0b323, #d79a12);
-}
-
-.edit-staff-page .staff-title {
-    margin: 0;
-    font-size: 32px;
-    font-weight: 800;
-    letter-spacing: -0.6px;
-    color: #13345a;
-}
-
-.edit-staff-page .staff-subtitle {
-    margin: 8px 0 0;
-    color: #6b819c;
-    font-size: 15px;
-}
-
-.edit-staff-page .staff-card {
-    border: 1px solid #d9e3ef;
-    border-radius: 18px;
-    background: #ffffff;
-    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
-}
-
-.edit-staff-page .form-label {
-    font-weight: 700;
-    color: #173d69;
-}
-
-.edit-staff-page .form-control,
-.edit-staff-page .form-select {
-    border: 1px solid #c8d8ea;
-    border-radius: 12px;
-    min-height: 50px;
-    background: #f6faff;
-}
-
-.edit-staff-page textarea.form-control {
-    min-height: 108px;
-}
-
-.edit-staff-page .form-control:focus,
-.edit-staff-page .form-select:focus {
-    border-color: #87a6cb;
-    box-shadow: 0 0 0 4px rgba(23, 61, 105, 0.12);
-    background: #ffffff;
-}
-
-.staff-password-toggle-wrap {
-    position: relative;
-}
-
-.staff-password-toggle-wrap .form-control {
-    padding-right: 92px;
-}
-
-.staff-password-toggle-btn {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    border: 0;
-    background: #ffffff;
-    border-radius: 10px;
-    min-width: 72px;
-    height: 36px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #1f3d60;
-    box-shadow: inset 0 0 0 1px #c8d8ea;
-}
-
-.edit-staff-page .btn-primary {
-    border: 0;
-    border-radius: 12px;
-    padding: 11px 20px;
-    background: linear-gradient(135deg, #13345a, #173d69);
-    font-weight: 700;
-    box-shadow: 0 10px 20px rgba(16, 42, 72, 0.24);
-}
-
-.edit-staff-page .btn-secondary {
-    border: 1px solid #c8d8ea;
-    border-radius: 12px;
-    padding: 11px 20px;
-    font-weight: 600;
-    color: #173d69;
-    background: #ffffff;
-}
-
-@media (max-width: 768px) {
-    .edit-staff-page .staff-title {
-        font-size: 26px;
-    }
-}
-</style>
 
 <div class="container-fluid edit-staff-page">
 <div class="page-hero">
@@ -369,3 +256,5 @@ $staffCatCnt = sizeof($staffCateg);
 </script>
 
 <?php include_once('../layout/footer.php'); ?>
+
+

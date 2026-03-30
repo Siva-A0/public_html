@@ -17,130 +17,14 @@ if (empty($eventDetails)) {
 
 $event = $eventDetails[0];
 
+if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_misc_pages.css';
+
 include_once('../layout/main_header.php');
 include_once('../layout/core_forms_style.php');
 ?>
-<style type="text/css">
-    .event-detail-page {
-        --ep-primary: #173d69;
-        --ep-primary-deep: #13345a;
-        --ep-accent: #f0b323;
-        --ep-accent-deep: #d79a12;
-        --ep-surface: #eef4fa;
-        --ep-border: #d9e3ef;
-        --ep-muted: #6b819c;
-        background: linear-gradient(180deg, #f3f7fb 0%, var(--ep-surface) 100%);
-        border-radius: 24px;
-        padding: 24px;
-    }
-
-    #content_left {
-        display: none;
-    }
-
-    #content {
-        grid-template-columns: 1fr;
-        gap: 0;
-    }
-
-    #page {
-        max-width: none;
-    }
-
-    .event-detail-hero {
-        position: relative;
-        overflow: hidden;
-        border: 1px solid var(--ep-border);
-        border-radius: 22px;
-        padding: 22px 24px;
-        background: linear-gradient(135deg, #f9fbfe 0%, var(--ep-surface) 100%);
-        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-        margin-bottom: 16px;
-    }
-
-    .event-detail-hero::before {
-        content: "";
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 6px;
-        background: linear-gradient(180deg, var(--ep-accent), var(--ep-accent-deep));
-    }
-
-    .event-detail-hero h1 {
-        margin: 0 0 6px;
-        font-size: 32px;
-        font-weight: 800;
-        letter-spacing: -0.6px;
-        color: var(--ep-primary-deep);
-    }
-
-    .event-detail-hero p {
-        margin: 0;
-        font-size: 15px;
-        color: var(--ep-muted);
-    }
-
-    .event-detail-card {
-        background: #ffffff;
-        border: 1px solid var(--ep-border);
-        border-radius: 18px;
-        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.07);
-        padding: 16px;
-    }
-
-    .event-detail-row {
-        display: grid;
-        grid-template-columns: 190px 1fr;
-        gap: 10px;
-        align-items: start;
-        padding: 10px 12px;
-        border-bottom: 1px solid #e5e7eb;
-    }
-
-    .event-detail-row:last-of-type {
-        border-bottom: 0;
-    }
-
-    .event-label {
-        font-weight: 700;
-        color: var(--ep-primary);
-    }
-
-    .event-value {
-        color: var(--ep-primary-deep);
-        line-height: 1.45;
-        word-break: break-word;
-    }
-
-    .event-actions {
-        margin-top: 14px;
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-    }
-
-    .event-actions .button {
-        border: 0;
-        border-radius: 12px;
-        padding: 10px 20px;
-        color: #fff;
-        font-weight: 700;
-    }
-
-    .event-actions .btn-edit {
-        background: linear-gradient(135deg, var(--ep-primary-deep), var(--ep-primary));
-    }
-
-    .event-actions .btn-delete {
-        background: linear-gradient(135deg, #b91c1c, #dc2626);
-    }
-
-    @media (max-width: 820px) {
-        .event-detail-row {
-            grid-template-columns: 1fr;
-        }
-    }
-</style>
 
 <div class="event-detail-page">
 <div id="page">
@@ -201,3 +85,4 @@ include_once('../layout/core_forms_style.php');
 </div>
 
 <?php include_once('../layout/footer.php'); ?>
+

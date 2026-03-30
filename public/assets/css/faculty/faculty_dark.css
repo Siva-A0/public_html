@@ -1,0 +1,126 @@
+html[data-theme="dark"] body.faculty-role {
+    background:
+        radial-gradient(circle at 6% 0%, rgba(59, 130, 246, 0.14), transparent 35%),
+        radial-gradient(circle at 100% 0%, rgba(45, 212, 191, 0.10), transparent 26%),
+        #0b1422;
+    color: #dce9fb;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-page-topbar {
+    background: #111f34;
+    border-color: #2a3f5d;
+    box-shadow: 0 8px 18px rgba(2, 8, 20, 0.35);
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-page-greet {
+    color: #e6f0ff;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-page-topbar .faculty-sidebar-toggle,
+html[data-theme="dark"] body.faculty-role .faculty-theme-toggle {
+    background: rgba(13, 39, 68, 0.42);
+    border-color: #4f78ad;
+    color: #e7f0ff;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-page-topbar .faculty-sidebar-toggle:hover,
+html[data-theme="dark"] body.faculty-role .faculty-theme-toggle:hover {
+    background: #1b3556;
+    border-color: #6a95ce;
+    color: #ffffff;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-topbar-avatar-fallback {
+    background: #1a3455;
+    border-color: #33557e;
+    color: #d7e8ff;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-dashboard-shell > .col-lg-9 {
+    background:
+        radial-gradient(circle at 8% 8%, rgba(45, 212, 191, 0.08), transparent 30%),
+        linear-gradient(180deg, #0f1b2c 0%, #0b1523 100%);
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-panel,
+html[data-theme="dark"] body.faculty-role .faculty-stat-card,
+html[data-theme="dark"] body.faculty-role .faculty-achievement-card,
+html[data-theme="dark"] body.faculty-role .faculty-hero,
+html[data-theme="dark"] body.faculty-role .faculty-info-card {
+    background: #111f34 !important;
+    border-color: #2a3f5d !important;
+    color: #dce9fb !important;
+    box-shadow: 0 16px 30px rgba(2, 8, 20, 0.45) !important;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-hero {
+    background:
+        radial-gradient(circle at top right, rgba(240,179,35,.12), transparent 30%),
+        linear-gradient(135deg, #122338 0%, #0f1b2c 100%) !important;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-panel-title,
+html[data-theme="dark"] body.faculty-role .faculty-stat-value,
+html[data-theme="dark"] body.faculty-role .faculty-achievement-title,
+html[data-theme="dark"] body.faculty-role .faculty-hero h1,
+html[data-theme="dark"] body.faculty-role .faculty-info-card h3,
+html[data-theme="dark"] body.faculty-role .faculty-label {
+    color: #edf4ff !important;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-panel-subtitle,
+html[data-theme="dark"] body.faculty-role .faculty-stat-label,
+html[data-theme="dark"] body.faculty-role .faculty-stat-note,
+html[data-theme="dark"] body.faculty-role .faculty-achievement-context,
+html[data-theme="dark"] body.faculty-role .faculty-date,
+html[data-theme="dark"] body.faculty-role .faculty-hero p,
+html[data-theme="dark"] body.faculty-role .faculty-help,
+html[data-theme="dark"] body.faculty-role .faculty-info-card p {
+    color: #a8bfdc !important;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-meta-pill,
+html[data-theme="dark"] body.faculty-role .faculty-kicker,
+html[data-theme="dark"] body.faculty-role .faculty-tag,
+html[data-theme="dark"] body.faculty-role .faculty-type-badge {
+    background: #1a3455 !important;
+    border-color: #33557e !important;
+    color: #d7e8ff !important;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-input,
+html[data-theme="dark"] body.faculty-role .faculty-select,
+html[data-theme="dark"] body.faculty-role .faculty-textarea {
+    background: #13253e !important;
+    color: #e6f0ff !important;
+    border-color: #2f4a6f !important;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-input::placeholder,
+html[data-theme="dark"] body.faculty-role .faculty-textarea::placeholder {
+    color: #9db4d1 !important;
+    opacity: 1;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-input:focus,
+html[data-theme="dark"] body.faculty-role .faculty-select:focus,
+html[data-theme="dark"] body.faculty-role .faculty-textarea:focus {
+    border-color: #5a8dd2 !important;
+    box-shadow: 0 0 0 4px rgba(90, 141, 210, 0.26) !important;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-empty-note {
+    background: #13253e !important;
+    border-color: #33557e !important;
+    color: #a8bfdc !important;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-alert.alert-success {
+    background: #0f2e23 !important;
+    color: #8fe0b2 !important;
+}
+
+html[data-theme="dark"] body.faculty-role .faculty-alert.alert-danger {
+    background: #3b1820 !important;
+    color: #ffb4bf !important;
+}

@@ -1,5 +1,10 @@
 <?php require_once(__DIR__ . '/../../config.php'); ?>
 <?php
+if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_misc_pages.css';
+
 include_once('../layout/main_header.php');
 require_once(LIB_PATH . '/functions.class.php');
 
@@ -235,157 +240,6 @@ switch ($option) {
 $totalRecords = count($rows);
 ?>
 
-<style type="text/css">
-    .dept-option-page {
-        --dept-primary: #173d69;
-        --dept-primary-deep: #13345a;
-        --dept-accent: #f0b323;
-        --dept-accent-deep: #d79a12;
-        --dept-accent-soft: #fff5da;
-        --dept-surface: #eef4fa;
-        --dept-card: #ffffff;
-        --dept-border: #d9e3ef;
-        --dept-border-strong: #c8d6e6;
-        --dept-text: #163a61;
-        --dept-muted: #6b819c;
-    }
-
-    .dept-option-page .page-shell {
-        background: linear-gradient(180deg, #f3f7fb 0%, var(--dept-surface) 100%);
-        border-radius: 24px;
-        padding: 24px;
-    }
-
-    .dept-option-page .page-hero {
-        position: relative;
-        overflow: hidden;
-        border: 1px solid var(--dept-border);
-        border-radius: 22px;
-        padding: 22px 24px;
-        background: linear-gradient(135deg, #f9fbfe 0%, var(--dept-surface) 100%);
-        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-        margin-bottom: 16px;
-    }
-
-    .dept-option-page .page-hero::before {
-        content: "";
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 6px;
-        background: linear-gradient(180deg, var(--dept-accent), var(--dept-accent-deep));
-    }
-
-    .dept-option-page .page-title {
-        margin: 0;
-        font-size: 30px;
-        letter-spacing: -0.6px;
-        font-weight: 800;
-        color: var(--dept-primary-deep);
-    }
-
-    .dept-option-page .page-subtitle {
-        margin: 8px 0 0;
-        color: var(--dept-muted);
-        font-size: 14px;
-    }
-
-    .dept-option-page .data-wrap {
-        border: 1px solid var(--dept-border);
-        border-radius: 16px;
-        overflow: auto;
-        background: var(--dept-card);
-        box-shadow: 0 6px 14px rgba(15, 23, 42, 0.05);
-    }
-
-    .dept-option-page .status-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 8px;
-        margin-bottom: 12px;
-    }
-
-    .dept-option-page .status-card {
-        border: 1px solid var(--dept-border);
-        border-radius: 10px;
-        background: #fff;
-        padding: 10px 12px;
-    }
-
-    .dept-option-page .status-label {
-        display: block;
-        color: var(--dept-muted);
-        font-size: 12px;
-        margin-bottom: 3px;
-    }
-
-    .dept-option-page .status-value {
-        display: block;
-        font-weight: 800;
-        color: var(--dept-primary-deep);
-        font-size: 16px;
-    }
-
-    .dept-option-page .data-table {
-        width: 100%;
-        min-width: 680px;
-        border-collapse: collapse;
-    }
-
-    .dept-option-page .data-table th {
-        background: linear-gradient(180deg, #f7f9fc 0%, #f1f5fa 100%);
-        color: var(--dept-primary);
-        text-align: left;
-        padding: 10px 12px;
-        border-bottom: 1px solid var(--dept-border);
-        font-size: 13px;
-        font-weight: 700;
-    }
-
-    .dept-option-page .data-table td {
-        padding: 10px 12px;
-        border-bottom: 1px solid #edf2fa;
-        color: #334e6f;
-        font-size: 13px;
-        vertical-align: top;
-    }
-
-    .dept-option-page .data-table tr:last-child td {
-        border-bottom: 0;
-    }
-
-    .dept-option-page .empty-row {
-        text-align: center;
-        color: var(--dept-muted);
-        padding: 24px !important;
-    }
-
-    .dept-option-page .actions {
-        margin-top: 14px;
-        border: 1px solid var(--dept-border);
-        border-radius: 12px;
-        background: #fbfdff;
-        padding: 12px;
-        display: flex;
-        justify-content: flex-end;
-        gap: 8px;
-        flex-wrap: wrap;
-    }
-
-    .dept-option-page .manage-note {
-        margin-right: auto;
-        color: var(--dept-primary);
-        font-size: 12px;
-        font-weight: 700;
-        align-self: center;
-    }
-
-    .dept-option-page .btn-action {
-        border-radius: 10px;
-        padding: 9px 14px;
-        font-weight: 700;
-    }
-</style>
-
 <div class="container-fluid dept-option-page">
     <div class="page-shell">
         <div class="page-hero">
@@ -438,3 +292,4 @@ $totalRecords = count($rows);
 </div>
 
 <?php include_once('../layout/footer.php'); ?>
+

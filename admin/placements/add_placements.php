@@ -203,77 +203,14 @@ if (isset($_POST['savePlacement'])) {
     }
 }
 
+if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_feature_pages.css';
+
 include_once('../layout/main_header.php');
 ?>
-<style>
-    .placement-form-page .page-shell {
-        background: linear-gradient(180deg, #f3f7fb 0%, #eef4fa 100%);
-        border-radius: 24px;
-        padding: 24px;
-    }
 
-    .placement-form-page .page-hero,
-    .placement-form-page .form-card {
-        border: 1px solid #d9e3ef;
-        border-radius: 22px;
-        background: #ffffff;
-        box-shadow: 0 14px 28px rgba(15, 23, 42, 0.06);
-    }
-
-    .placement-form-page .page-hero {
-        position: relative;
-        overflow: hidden;
-        padding: 24px 26px;
-        margin-bottom: 18px;
-        background: linear-gradient(135deg, #f9fbfe 0%, #eef4fa 100%);
-    }
-
-    .placement-form-page .page-hero::before {
-        content: "";
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 6px;
-        background: linear-gradient(180deg, #f0b323, #d79a12);
-    }
-
-    .placement-form-page .page-title {
-        margin: 0;
-        color: #13345a;
-        font-size: 2rem;
-        font-weight: 800;
-        letter-spacing: -0.04em;
-    }
-
-    .placement-form-page .page-subtitle {
-        margin: 8px 0 0;
-        color: #6b819c;
-    }
-
-    .placement-form-page .form-card {
-        padding: 22px;
-    }
-
-    .placement-form-page .form-control,
-    .placement-form-page .form-select {
-        min-height: 52px;
-        border-radius: 12px;
-        border: 1px solid #cfdceb;
-        background: #f7f9fc;
-    }
-
-    .placement-form-page textarea.form-control {
-        min-height: 120px;
-    }
-
-    .placement-form-page .preview-avatar {
-        width: 84px;
-        height: 84px;
-        border-radius: 22px;
-        object-fit: cover;
-        border: 1px solid #d9e3ef;
-        box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
-    }
-</style>
 
 <div class="container-fluid placement-form-page">
     <div class="page-shell">
@@ -374,3 +311,4 @@ include_once('../layout/main_header.php');
 </div>
 
 <?php include_once('../layout/footer.php'); ?>
+

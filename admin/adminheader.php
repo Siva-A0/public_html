@@ -23,33 +23,7 @@
 		<link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/site-refresh.css" />
 		<link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/admin-refresh.css" />
 
-		<!-- image slide show -->
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>/public/assets/js/jquery.min.js"></script>
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>/public/assets/js/coin-slider.min.js"></script>
-		<link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/coin-slider-styles.css" type="text/css" />
-
-		<!-- pretty photo -->
-		<link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
-		<script src="<?php echo BASE_URL; ?>/public/assets/js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
-
-
-		<script type="text/javascript">
-			$(document).ready(function() {
-				
-				$("area[rel^='image']").prettyPhoto();
-				
-					$(".gallery:first a[rel^='image']").prettyPhoto({animation_speed:'normal',theme:'facebook',slideshow:5000, autoplay_slideshow: true});
-					$(".gallery:gt(0) a[rel^='image']").prettyPhoto({animation_speed:'normal',theme:'facebook',slideshow:5000, autoplay_slideshow: true});
-
-				
-			});
-		</script>
-
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$('#coin-slider').coinslider({ height: 300, opacity: 0.7 ,effect: 'straight'});
-			});
-		</script>
 
 	</head>
 	<body>

@@ -110,9 +110,9 @@ if (isset($_POST['username']) || isset($_POST['login_input'])) {
             if ($_SESSION['role'] === 'admin') {
                 header("Location: " . BASE_URL . "/admin/main_home.php");
             } elseif ((int)$_SESSION['is_alumni'] === 1) {
-                header("Location: " . BASE_URL . "/public/pages/user/alumni_dashboard.php");
+                header("Location: " . BASE_URL . "/public/pages/student/alumni_dashboard.php");
             } else {
-                header("Location: " . BASE_URL . "/public/pages/user/dashboard.php");
+                header("Location: " . BASE_URL . "/public/pages/student/dashboard/index.php");
             }
             exit;
         }
@@ -133,7 +133,7 @@ if (isset($_POST['username']) || isset($_POST['login_input'])) {
 
             $welcomeName = trim((string)($facultyDet[0]['first_name'] ?? $uName));
             set_auth_success_preloader($welcomeName !== '' ? ('Welcome ' . $welcomeName) : 'Welcome');
-            header("Location: " . BASE_URL . "/public/pages/faculty/dashboard.php");
+            header("Location: " . BASE_URL . "/public/pages/faculty/dashboard/index.php");
             exit;
         }
 
@@ -185,11 +185,11 @@ if (isset($_SESSION['role'])) {
     if ($accountRole == "admin") {
         header("Location: " . BASE_URL . "/admin/main_home.php");
     } elseif ($_SESSION['role'] == "faculty") {
-        header("Location: " . BASE_URL . "/public/pages/faculty/dashboard.php");
+        header("Location: " . BASE_URL . "/public/pages/faculty/dashboard/index.php");
     } elseif ((int)($_SESSION['is_alumni'] ?? 0) === 1) {
-        header("Location: " . BASE_URL . "/public/pages/user/alumni_dashboard.php");
+        header("Location: " . BASE_URL . "/public/pages/student/alumni_dashboard.php");
     } else {
-        header("Location: " . BASE_URL . "/public/pages/user/dashboard.php");
+        header("Location: " . BASE_URL . "/public/pages/student/dashboard/index.php");
     }
 
     exit;
@@ -321,3 +321,5 @@ document.querySelectorAll(".switch-link").forEach((link) => {
 
 </body>
 </html>
+
+

@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $uploadTmp = isset($_FILES['usrImage']['tmp_name']) ? $_FILES['usrImage']['tmp_name'] : null;
         if (!empty($uploadName) && $uploadTmp !== null) {
             $safeAdmissionId = preg_replace('/[^a-zA-Z0-9_-]/', '', (string)$admissionId);
-            $uploadDir = ROOT_PATH . '/public/assets/images/users/';
+            $uploadDir = ROOT_PATH . '/public/assets/images/students/';
             $uploadError = '';
             $fileName = app_store_uploaded_image($_FILES['usrImage'], $uploadDir, 'user_' . $safeAdmissionId, $uploadError, 2 * 1024 * 1024);
             if ($fileName === '') {
@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit;
             } else {
                 if ($fileName !== '') {
-                    $uploadedFilePath = ROOT_PATH . '/public/assets/images/users/' . $fileName;
+                    $uploadedFilePath = ROOT_PATH . '/public/assets/images/students/' . $fileName;
                     if (is_file($uploadedFilePath)) {
                         @unlink($uploadedFilePath);
                     }
@@ -413,3 +413,4 @@ document.querySelectorAll(".switch-link").forEach((link) => {
 
 
 </html>
+

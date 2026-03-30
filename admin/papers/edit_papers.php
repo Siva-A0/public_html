@@ -76,135 +76,16 @@ if (isset($_POST['editPaper'])) {
 	}
 }
 
+if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_academic_pages.css';
+
 include_once('../layout/main_header.php');
 include_once('../layout/core_forms_style.php');
 ?>
-<style type="text/css">
-	.edit-papers-page {
-		--pp-primary: #173d69;
-		--pp-primary-deep: #13345a;
-		--pp-accent: #f0b323;
-		--pp-accent-deep: #d79a12;
-		--pp-surface: #eef4fa;
-		--pp-border: #d9e3ef;
-		--pp-border-strong: #c8d6e6;
-		--pp-muted: #6b819c;
-		background: linear-gradient(180deg, #f3f7fb 0%, var(--pp-surface) 100%);
-		border-radius: 24px;
-		padding: 24px;
-	}
 
-	#content_left {
-		display: none;
-	}
-
-	#content {
-		grid-template-columns: minmax(320px, 920px);
-		justify-content: center;
-		gap: 0;
-	}
-
-	.edit-papers-hero {
-		position: relative;
-		overflow: hidden;
-		border: 1px solid var(--pp-border);
-		border-radius: 22px;
-		padding: 22px 24px;
-		background: linear-gradient(135deg, #f9fbfe 0%, var(--pp-surface) 100%);
-		box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-		margin-bottom: 16px;
-	}
-
-	.edit-papers-hero::before {
-		content: "";
-		position: absolute;
-		inset: 0 auto 0 0;
-		width: 6px;
-		background: linear-gradient(180deg, var(--pp-accent), var(--pp-accent-deep));
-	}
-
-	.edit-papers-title {
-		margin: 0;
-		font-size: 32px;
-		font-weight: 800;
-		letter-spacing: -0.6px;
-		color: var(--pp-primary-deep);
-	}
-
-	.edit-papers-subtitle {
-		margin: 8px 0 0;
-		font-size: 15px;
-		color: var(--pp-muted);
-	}
-
-	#content_right .comteeMem {
-		max-width: 920px;
-		border: 1px solid var(--pp-border);
-		border-radius: 18px;
-		box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
-		padding: 24px;
-	}
-
-	#editMaterial .form_label label {
-		font-size: 16px;
-		font-weight: 700;
-		color: var(--pp-primary);
-	}
-
-	#editMaterial .form_field input[type="text"],
-	#editMaterial .form_field input[type="file"],
-	#editMaterial .form_field select {
-		width: 100%;
-		min-height: 52px;
-		border: 1px solid var(--pp-border-strong);
-		border-radius: 12px;
-		padding: 11px 14px;
-		background: #f7f9fc;
-		font-size: 16px;
-		outline: none;
-	}
-
-	#editMaterial .form_field input[type="file"] {
-		padding: 0;
-		line-height: 1.2;
-	}
-
-	#editMaterial .form_field input[type="file"]::file-selector-button,
-	#editMaterial .form_field input[type="file"]::-webkit-file-upload-button {
-		height: 50px;
-		margin: 0;
-		border: 0;
-		border-right: 1px solid var(--pp-border-strong);
-		padding: 0 16px;
-		background: #ffffff;
-		color: var(--pp-primary);
-		font-weight: 600;
-	}
-
-	#editMaterial .form_field input[type="text"]:focus,
-	#editMaterial .form_field input[type="file"]:focus,
-	#editMaterial .form_field select:focus {
-		border-color: #87a6cb;
-		background: #ffffff;
-		box-shadow: 0 0 0 4px rgba(23, 61, 105, 0.12);
-	}
-
-	#editMaterial .button {
-		border: 0;
-		border-radius: 12px;
-		padding: 11px 20px;
-		background: linear-gradient(135deg, var(--pp-primary-deep), var(--pp-primary));
-		font-weight: 700;
-		box-shadow: 0 10px 20px rgba(16, 42, 72, 0.24);
-	}
-
-	@media (max-width: 768px) {
-		.edit-papers-title {
-			font-size: 26px;
-		}
-	}
-</style>
-			<div id="page">
+<div id="page">
 				<div id="content">
 					<div class="post">
 						<span class="alignCenter"></span>
@@ -367,4 +248,5 @@ include_once('../layout/core_forms_style.php');
 <?php 
 	include_once('../layout/footer.php');
 ?>
+
 

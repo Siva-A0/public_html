@@ -1,5 +1,10 @@
 <?php require_once(__DIR__ . '/../config.php'); ?>
 <?php
+if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_misc_pages.css';
+
 include_once('layout/main_header.php');
 require_once(LIB_PATH . '/functions.class.php');
 
@@ -33,153 +38,6 @@ if (isset($_POST['changeImage'])) {
     }
 }
 ?>
-
-<style type="text/css">
-    .slider-page .slider-header {
-        position: relative;
-        overflow: hidden;
-        border: 1px solid #d9e3ef;
-        border-radius: 18px;
-        padding: 18px 22px;
-        background:
-            linear-gradient(135deg, #f9fbfe 0%, #eef4fa 100%);
-        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-        margin-bottom: 18px;
-    }
-
-    .slider-page .slider-header::before {
-        content: "";
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 6px;
-        background: linear-gradient(180deg, #f0b323, #d79a12);
-    }
-
-    .slider-page .slider-title {
-        font-size: 24px;
-        font-weight: 800;
-        letter-spacing: -0.3px;
-        color: #13345a;
-        margin: 0;
-    }
-
-    .slider-page .slider-subtitle {
-        margin: 8px 0 0;
-        color: #6b819c;
-        font-size: 14px;
-    }
-
-    .slider-page .slider-card {
-        border: 1px solid #d9e3ef;
-        border-radius: 16px;
-        box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
-        background: #ffffff;
-    }
-
-    .slider-page .form-label {
-        font-size: 16px;
-        font-weight: 700;
-        color: #173d69;
-        margin-bottom: 8px;
-    }
-
-    .slider-page .form-select,
-    .slider-page .form-control {
-        border: 1px solid #c8d6e6;
-        border-radius: 12px;
-        min-height: 48px;
-        background: #f6faff;
-        font-size: 15px;
-    }
-
-    .slider-page .form-select:focus,
-    .slider-page .form-control:focus {
-        border-color: #87a6cb;
-        box-shadow: 0 0 0 4px rgba(23, 61, 105, 0.12);
-        background: #ffffff;
-    }
-
-    .slider-page .file-picker {
-        display: flex;
-        align-items: stretch;
-        width: 100%;
-    }
-
-    .slider-page .file-btn {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-        border-top-left-radius: 12px;
-        border-bottom-left-radius: 12px;
-        min-height: 48px;
-        padding: 0 16px;
-        white-space: nowrap;
-    }
-
-    .slider-page .file-name {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        border-left: 0;
-        min-height: 48px;
-        display: flex;
-        align-items: center;
-    }
-
-    .slider-page .size-hint {
-        color: #6b819c;
-        font-size: 14px;
-        line-height: 1.6;
-        background: linear-gradient(90deg, #f9fbfe, #eef4fa);
-        border: 1px dashed #d9e3ef;
-        border-radius: 14px;
-        padding: 12px 14px;
-    }
-
-    .slider-page .btn-primary {
-        border: 0;
-        border-radius: 12px;
-        padding: 10px 18px;
-        background: linear-gradient(135deg, #13345a, #173d69);
-        font-weight: 700;
-        font-size: 16px;
-        box-shadow: 0 10px 20px rgba(16, 42, 72, 0.24);
-    }
-
-    .slider-page .btn-outline-secondary {
-        border-radius: 12px;
-        padding: 10px 18px;
-        font-weight: 600;
-        font-size: 16px;
-    }
-
-    .slider-page .btn-primary:hover {
-        filter: brightness(1.06);
-    }
-
-    .slider-page .action-row {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 4px;
-    }
-
-    @media (max-width: 768px) {
-        .slider-page .slider-title {
-            font-size: 22px;
-        }
-
-        .slider-page .form-label {
-            font-size: 15px;
-        }
-
-        .slider-page .form-select,
-        .slider-page .form-control,
-        .slider-page .size-hint,
-        .slider-page .btn-primary,
-        .slider-page .btn-outline-secondary {
-            font-size: 14px;
-        }
-    }
-</style>
 
 <div class="slider-page">
     <div class="slider-header">
@@ -268,3 +126,4 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <?php include_once('layout/footer.php'); ?>
+

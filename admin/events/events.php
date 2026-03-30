@@ -1,5 +1,10 @@
 <?php require_once(__DIR__ . '/../../config.php');
-	include_once('../layout/main_header.php');
+	if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_misc_pages.css';
+
+include_once('../layout/main_header.php');
 	include_once('../layout/core_forms_style.php');
 	
    require_once(LIB_PATH . '/functions.class.php');
@@ -13,131 +18,9 @@
 	
 	$eventTypes		= $fcObj->getEventTypes( $tbEventTypes );
 ?>
-		<style type="text/css">
-			.events-add-page {
-				--ep-primary: #173d69;
-				--ep-primary-deep: #13345a;
-				--ep-accent: #f0b323;
-				--ep-accent-deep: #d79a12;
-				--ep-surface: #eef4fa;
-				--ep-border: #d9e3ef;
-				--ep-border-strong: #c8d6e6;
-				--ep-muted: #6b819c;
-			}
 
-			#content_left {
-				display: none;
-			}
-
-			#content {
-				grid-template-columns: 1fr;
-				gap: 0;
-			}
-
-			#page {
-				max-width: none;
-			}
-
-			.events-add-page {
-				background: linear-gradient(180deg, #f3f7fb 0%, var(--ep-surface) 100%);
-				border-radius: 24px;
-				padding: 24px;
-			}
-
-			.events-add-hero {
-				position: relative;
-				overflow: hidden;
-				border: 1px solid var(--ep-border);
-				border-radius: 22px;
-				padding: 22px 24px;
-				background: linear-gradient(135deg, #f9fbfe 0%, var(--ep-surface) 100%);
-				box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-				margin-bottom: 16px;
-			}
-
-			.events-add-hero::before {
-				content: "";
-				position: absolute;
-				inset: 0 auto 0 0;
-				width: 6px;
-				background: linear-gradient(180deg, var(--ep-accent), var(--ep-accent-deep));
-			}
-
-			.events-add-hero h1 {
-				margin: 0 0 6px;
-				font-size: 32px;
-				font-weight: 800;
-				letter-spacing: -0.6px;
-				color: var(--ep-primary-deep);
-			}
-
-			.events-add-hero p {
-				margin: 0;
-				font-size: 15px;
-				color: var(--ep-muted);
-			}
-
-			#content_right #eventDetails {
-				background: #ffffff;
-				padding: 24px;
-				border: 1px solid var(--ep-border);
-				border-radius: 18px;
-				box-shadow: 0 10px 24px rgba(15, 23, 42, 0.07);
-			}
-
-			#addEvent .form_label label {
-				color: var(--ep-primary);
-				font-weight: 700;
-			}
-
-			#addEvent .form_field textarea {
-				width: 100%;
-				min-height: 110px;
-				border: 1px solid var(--ep-border-strong);
-				border-radius: 12px;
-				padding: 10px 12px;
-				background: #f7f9fc;
-				font-size: 15px;
-				outline: none;
-				resize: vertical;
-			}
-
-			#addEvent .form_field textarea:focus {
-				border-color: #87a6cb;
-				background: #ffffff;
-				box-shadow: 0 0 0 4px rgba(23, 61, 105, 0.12);
-			}
-
-			#addEvent .form_field input[type="date"] {
-				width: 100%;
-				min-height: 48px;
-				border: 1px solid var(--ep-border-strong);
-				border-radius: 12px;
-				padding: 10px 12px;
-				background: #f7f9fc;
-				font-size: 15px;
-				outline: none;
-			}
-
-			#addEvent .form_field input[type="date"]:focus {
-				border-color: #87a6cb;
-				background: #ffffff;
-				box-shadow: 0 0 0 4px rgba(23, 61, 105, 0.12);
-			}
-
-			#addEvent .button {
-				border: 0;
-				border-radius: 12px;
-				padding: 11px 20px;
-				background: linear-gradient(135deg, var(--ep-primary-deep), var(--ep-primary));
-				font-weight: 700;
-				box-shadow: 0 10px 20px rgba(19, 52, 90, 0.24);
-				color: #fff;
-			}
-		</style>
-
-			<div id="page">
-				<div id="content">
+<div id="page">
+				<div id="content" class="single-panel-layout">
 					<div class="post">
 						<span class="alignCenter"></span>
 						<p></p>
@@ -201,7 +84,7 @@
 								}
 								
 							?>
-							<form id='addEvent' action='events.php' method='POST' accept-charset='UTF-8' enctype="multipart/form-data">
+							<form id='addEvent' class="core-form" action='events.php' method='POST' accept-charset='UTF-8' enctype="multipart/form-data">
 								<div class="form_row">
 									<div class="form_label">
 										<label for='eventType' >Event Type:</label>
@@ -266,7 +149,7 @@
 										Is Registration Allowed
 									</div>
 								</div>
-								<div class="form_row">
+								<div class="form_row form_actions">
 									<div class="form_label">
 										
 									</div>
@@ -274,12 +157,12 @@
 										<input type='submit' name='addNewEvent' class="button" value='Add Event' />
 									</div>
 								</div>
-								<div class="form_row">
+								<div class="form_row form_actions">
 									<div class="form_label">
 										
 									</div>
 									<div class="form_field">
-										<a href="view_events.php" ><input type='button' name='' class="button" value='View Events' /></a>
+										<a href="view_events.php" class="button secondary-action">View Events</a>
 									</div>
 								</div>
 								
@@ -287,12 +170,13 @@
 							
 						</div>
 						</div>
+						<div class="mt-3 events-add-back">
+                    <a href="../settings/department_option.php?option=events" class="btn btn-outline-secondary">Back</a>
+                </div>
 					</div>
 					<br class="clearfix" />
 				</div>
-				                <div class="mt-3">
-                    <a href="../settings/department_option.php?option=events" class="btn btn-outline-secondary">Back</a>
-                </div><?php 
+				<?php 
 					include_once('../layout/sidebar.php');
 				?>
 				<br class="clearfix" />
@@ -302,3 +186,4 @@
 <?php 
 	include_once('../layout/footer.php');
 ?>
+

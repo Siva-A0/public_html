@@ -27,7 +27,7 @@
 		<a href='<?php echo BASE_URL; ?>/public/pages/Academics/previouspapers.php'>Previous Papers</a>
 	</div>
 	<div id='lefNav5' <?php if( $curUrl[0] == 'achievements.php' ) { ?> class='navigation_current' <?php }else{ ?> class='navigation' <?php } ?> >
-		<a href='<?php echo BASE_URL; ?>/public/pages/People/achievements.php'>Achievements</a>
+		<a href='<?php echo BASE_URL; ?>/public/pages/achievements/index.php'>Achievements</a>
 	</div>
 	
 	<div id='lefNav6' <?php if( $curUrl[0] == 'placements.php' ) { ?> class='navigation_current' <?php }else{ ?> class='navigation' <?php } ?> >
@@ -35,5 +35,6 @@
 	</div>
 
 	<div id='lefNav7' <?php if( $curUrl[0] == 'alumni.php' ) { ?> class='navigation_current' <?php }else{ ?> class='navigation' <?php } ?> >
-		<a href='<?php echo BASE_URL; ?>/public/pages/People/alumni.php'>Alumni</a>
+		<a href='<?php echo BASE_URL; ?>/public/pages/alumni/index.php'>Alumni</a>
 	</div>
+

@@ -33,7 +33,7 @@ if (isset($_GET['faculty']) && is_numeric($_GET['faculty'])) {
             $staffImage = $staffDet[0]['image'];
 
             if (!empty($staffImage)) {
-                $imagePath = "../../public/assets/images/staff/" . $staffImage;
+                $imagePath = "../../public/assets/images/faculty/" . $staffImage;
 
                 if (file_exists($imagePath)) {
                     unlink($imagePath);
@@ -46,3 +46,4 @@ if (isset($_GET['faculty']) && is_numeric($_GET['faculty'])) {
 header('Location: ../Department/department.php');
 exit;
 ?>
+

@@ -37,156 +37,17 @@ require_once(LIB_PATH . '/functions.class.php');
 		}
    }
 
-	include_once('../layout/main_header.php');
+	if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_misc_pages.css';
+
+include_once('../layout/main_header.php');
 	include_once('../layout/core_forms_style.php');
 
 ?>
-<style type="text/css">
-	.add-highlight-page {
-		--hp-primary: #173d69;
-		--hp-primary-deep: #13345a;
-		--hp-accent: #f0b323;
-		--hp-accent-deep: #d79a12;
-		--hp-surface: #eef4fa;
-		--hp-border: #d9e3ef;
-		--hp-border-strong: #c8d6e6;
-		--hp-muted: #6b819c;
-	}
 
-	#content_left {
-		display: none;
-	}
-
-	#content.single-panel-layout {
-		grid-template-columns: minmax(320px, 840px);
-		justify-content: center;
-		gap: 0;
-	}
-
-	#content.single-panel-layout .post {
-		display: none;
-	}
-
-	#content.single-panel-layout #content_right {
-		grid-column: 1;
-		width: 100%;
-	}
-
-	.add-highlight-page {
-		background: linear-gradient(180deg, #f3f7fb 0%, var(--hp-surface) 100%);
-		border-radius: 24px;
-		padding: 24px;
-	}
-
-	.highlight-add-hero {
-		width: 100%;
-		max-width: 840px;
-		position: relative;
-		overflow: hidden;
-		border: 1px solid var(--hp-border);
-		border-radius: 22px;
-		padding: 22px 24px;
-		background: linear-gradient(135deg, #f9fbfe 0%, var(--hp-surface) 100%);
-		box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-		margin-bottom: 16px;
-	}
-
-	.highlight-add-hero::before {
-		content: "";
-		position: absolute;
-		inset: 0 auto 0 0;
-		width: 6px;
-		background: linear-gradient(180deg, var(--hp-accent), var(--hp-accent-deep));
-	}
-
-	.highlight-add-title {
-		margin: 0;
-		font-size: 32px;
-		font-weight: 800;
-		letter-spacing: -0.6px;
-		color: var(--hp-primary-deep);
-	}
-
-	.highlight-add-subtitle {
-		margin: 8px 0 0;
-		font-size: 15px;
-		color: var(--hp-muted);
-	}
-
-	#content.single-panel-layout #content_right .comteeMem {
-		width: 100%;
-		max-width: 840px;
-		border: 1px solid var(--hp-border);
-		border-radius: 18px;
-		box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
-		padding: 24px;
-	}
-
-	#addHighLight.core-form .form_row {
-		grid-template-columns: 1fr;
-		gap: 8px;
-	}
-
-	#addHighLight.core-form .form_label {
-		min-height: 0;
-		display: block;
-		margin: 0;
-	}
-
-	#addHighLight.core-form .form_label label {
-		font-size: 16px;
-		font-weight: 700;
-		color: var(--hp-primary);
-	}
-
-	#addHighLight.core-form .form_field select,
-	#addHighLight.core-form .form_field input[type="text"],
-	#addHighLight.core-form .form_field textarea {
-		width: 100%;
-		border: 1px solid var(--hp-border-strong);
-		border-radius: 12px;
-		padding: 11px 14px;
-		background: #f7f9fc;
-		font-size: 16px;
-		outline: none;
-	}
-
-	#addHighLight.core-form .form_field select,
-	#addHighLight.core-form .form_field input[type="text"] {
-		min-height: 52px;
-	}
-
-	#addHighLight.core-form .form_field textarea {
-		min-height: 150px;
-		resize: vertical;
-	}
-
-	#addHighLight.core-form .form_field select:focus,
-	#addHighLight.core-form .form_field textarea:focus {
-		border-color: #87a6cb;
-		background: #ffffff;
-		box-shadow: 0 0 0 4px rgba(23, 61, 105, 0.12);
-	}
-
-	#addHighLight.core-form .form_row.form_actions .form_label {
-		display: none;
-	}
-
-	#addHighLight.core-form .form_row.form_actions .button {
-		border: 0;
-		border-radius: 12px;
-		padding: 11px 22px;
-		background: linear-gradient(135deg, var(--hp-primary-deep), var(--hp-primary));
-		font-size: 18px;
-		font-weight: 700;
-		box-shadow: 0 10px 20px rgba(16, 42, 72, 0.24);
-	}
-
-	#addHighLight.core-form .form_row.form_actions .button:hover {
-		filter: brightness(1.06);
-	}
-</style>
-			<div id="page">
+<div id="page">
 				<div id="content" class="single-panel-layout">
 					<div class="post">
 						<span class="alignCenter">
@@ -272,3 +133,4 @@ require_once(LIB_PATH . '/functions.class.php');
 		
 	});
 </script>
+

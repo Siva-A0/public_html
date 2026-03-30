@@ -60,168 +60,17 @@ if (isset($_POST['editSection'])) {
 }
 
 
+if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_academic_pages.css';
+
 include_once('../layout/main_header.php');
 include_once('../layout/core_forms_style.php');
 
 ?>
-<style type="text/css">
-    #content_left {
-        display: none;
-    }
 
-    #content {
-        grid-template-columns: 1fr;
-        gap: 0;
-    }
 
-    #page {
-        max-width: none;
-    }
-</style>
-
-<style type="text/css">
-    .edit-section-page {
-        --sp-primary: #173d69;
-        --sp-primary-deep: #13345a;
-        --sp-accent: #f0b323;
-        --sp-accent-deep: #d79a12;
-        --sp-surface: #eef4fa;
-        --sp-border: #d9e3ef;
-        --sp-muted: #6b819c;
-        padding-bottom: 22px;
-        background: linear-gradient(180deg, #f3f7fb 0%, var(--sp-surface) 100%);
-        border-radius: 24px;
-        padding: 24px;
-    }
-
-    .edit-section-page #page {
-        max-width: 980px;
-    }
-
-    .edit-section-page #content {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 18px;
-    }
-
-    .edit-section-page .post {
-        margin-bottom: 4px !important;
-    }
-
-    .edit-section-page .page-hero {
-        position: relative;
-        overflow: hidden;
-        border: 1px solid var(--sp-border);
-        border-radius: 22px;
-        padding: 22px 24px;
-        background: linear-gradient(135deg, #f9fbfe 0%, var(--sp-surface) 100%);
-        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-        margin-bottom: 16px;
-    }
-
-    .edit-section-page .page-hero::before {
-        content: "";
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 6px;
-        background: linear-gradient(180deg, var(--sp-accent), var(--sp-accent-deep));
-    }
-
-    .edit-section-page .hero-title {
-        font-size: 32px;
-        letter-spacing: -0.6px;
-        margin: 0;
-        color: var(--sp-primary-deep);
-        font-weight: 800;
-    }
-
-    .edit-section-page .page-subtitle {
-        margin: 8px 0 0;
-        color: var(--sp-muted);
-        font-size: 15px;
-    }
-
-    .edit-section-page #content_right .comteeMem {
-        padding: 28px 30px;
-        border-radius: 18px;
-    }
-
-    .edit-section-page .edit-form {
-        display: grid;
-        gap: 16px;
-    }
-
-    .edit-section-page .edit-form .form_row {
-        margin: 0 !important;
-    }
-
-    .edit-section-page .edit-form .form_label {
-        margin-bottom: 8px !important;
-    }
-
-    .edit-section-page .edit-form .form_label label {
-        font-size: 16px;
-        font-weight: 800;
-    }
-
-    .edit-section-page .edit-form .form_field input[type="text"] {
-        min-height: 60px !important;
-        border-radius: 14px !important;
-        font-size: 18px !important;
-        padding: 12px 16px !important;
-    }
-
-    .edit-section-page .edit-form .form_field input[readonly] {
-        background: #eef2ff !important;
-        color: #0f172a !important;
-        -webkit-text-fill-color: #0f172a;
-        opacity: 1;
-        font-weight: 700;
-    }
-
-    .edit-section-page .form-actions {
-        padding-top: 2px;
-    }
-
-    .edit-section-page .edit-form .form-actions .button {
-        min-height: 54px !important;
-        border-radius: 14px !important;
-        padding: 12px 24px !important;
-        font-size: 20px !important;
-        width: auto;
-        min-width: 220px;
-    }
-
-    .edit-section-page .form-message {
-        margin-bottom: 14px;
-        padding: 12px 14px;
-        border-radius: 11px;
-        border: 1px solid #fecaca;
-        background: #fef2f2;
-        color: #b91c1c;
-        font-weight: 700;
-        font-size: 15px;
-    }
-
-    @media (max-width: 980px) {
-        .edit-section-page .hero-title { font-size: 30px; }
-
-        .edit-section-page .edit-form .form_label label {
-            font-size: 15px;
-        }
-
-        .edit-section-page .edit-form .form_field input[type="text"] {
-            min-height: 56px !important;
-            font-size: 17px !important;
-        }
-
-        .edit-section-page .edit-form .form-actions .button {
-            width: 100%;
-            min-width: 0;
-            font-size: 19px !important;
-            min-height: 56px !important;
-        }
-    }
-</style>
 
 <div class="edit-section-page">
 <div id="page">
@@ -351,3 +200,4 @@ include_once('../layout/core_forms_style.php');
 </div>
 
 <?php include_once('../layout/footer.php'); ?>
+

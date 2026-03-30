@@ -56,129 +56,18 @@
 		}
    }
 
-	include_once('../layout/main_header.php');
+	if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_academic_pages.css';
+
+include_once('../layout/main_header.php');
 	include_once('../layout/core_forms_style.php');
 
 
 ?>
-<style type="text/css">
-	#content_left {
-		display: none;
-	}
 
-	#content.single-panel-layout {
-		grid-template-columns: minmax(320px, 840px);
-		justify-content: center;
-		gap: 0;
-	}
-
-	#content.single-panel-layout #content_right {
-		grid-column: 1;
-		width: 100%;
-	}
-
-	#content.single-panel-layout .post {
-		display: none;
-	}
-
-	.syllabus-add-hero {
-		border: 1px solid #d9e3ef;
-		border-radius: 18px;
-		padding: 18px 22px;
-		background:
-			linear-gradient(135deg, #f9fbfe 0%, #eef4fa 100%);
-		box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-		margin-bottom: 16px;
-	}
-
-	.syllabus-add-title {
-		margin: 0;
-		font-size: 32px;
-		font-weight: 800;
-		letter-spacing: -0.6px;
-		color: #13345a;
-	}
-
-	.syllabus-add-subtitle {
-		margin: 8px 0 0;
-		font-size: 15px;
-		color: #6b819c;
-	}
-
-	#content.single-panel-layout #content_right .comteeMem {
-		width: 100%;
-		max-width: 840px;
-		border: 1px solid #d7dde6;
-		border-radius: 16px;
-		box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
-		padding: 24px;
-	}
-
-	#content.single-panel-layout #content_right .syllabus-add-hero {
-		width: 100%;
-		max-width: 840px;
-	}
-
-	#addSyllabus.core-form .form_row {
-		grid-template-columns: 1fr;
-		gap: 8px;
-	}
-
-	#addSyllabus.core-form .form_label {
-		min-height: 0;
-		display: block;
-		padding: 0;
-	}
-
-	#addSyllabus.core-form .form_label label {
-		font-size: 16px;
-		font-weight: 700;
-		color: #1f324b;
-	}
-
-	#addSyllabus.core-form .field_shell {
-		border: 1px solid #c8d8ea;
-		border-radius: 12px;
-		padding: 3px;
-		background: #f6faff;
-	}
-
-	#addSyllabus.core-form .form_row--class .field_shell select {
-		min-height: 52px;
-		padding: 11px 14px;
-	}
-
-	#addSyllabus.core-form .form_row--file .field_shell {
-		min-height: 52px;
-		padding: 10px 12px;
-	}
-
-	#addSyllabus.core-form .form_hint {
-		margin-top: 8px;
-		font-size: 13px;
-		color: #5d728d;
-	}
-
-	#addSyllabus.core-form .form_actions .form_label {
-		display: none;
-	}
-
-	#addSyllabus.core-form .form_actions .button {
-		border: 0;
-		border-radius: 12px;
-		padding: 11px 22px;
-		min-height: 0;
-		background: linear-gradient(135deg, #13345a, #173d69);
-		font-size: 18px;
-		font-weight: 700;
-		box-shadow: 0 10px 20px rgba(16, 42, 72, 0.24);
-	}
-
-	#addSyllabus.core-form .form_actions .button:hover {
-		filter: brightness(1.06);
-	}
-</style>
-			<div id="page">
+<div id="page">
 				<div id="content" class="single-panel-layout">
 					<div class="post">
 						<span class="section-kicker">Academic Files</span>
@@ -274,3 +163,4 @@
 <?php 
 	include_once('../layout/footer.php');
 ?>
+

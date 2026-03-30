@@ -190,7 +190,7 @@ $isTeaching = $staff && ((int)$staff['staff_categ_id'] === (int)TEACHING);
 				<div>
 					<img
 						class="staff-photo"
-						src="<?php echo BASE_URL; ?>/public/assets/images/staff/<?php echo rawurlencode($imageName); ?>"
+						src="<?php echo BASE_URL; ?>/public/assets/images/faculty/<?php echo rawurlencode($imageName); ?>"
 						alt="<?php echo htmlspecialchars($fullName, ENT_QUOTES, 'UTF-8'); ?>"
 						title="<?php echo htmlspecialchars($fullName, ENT_QUOTES, 'UTF-8'); ?>"
 					>
@@ -267,4 +267,5 @@ $isTeaching = $staff && ((int)$staff['staff_categ_id'] === (int)TEACHING);
 </div>
 
 <?php include_once(INCLUDES_PATH . '/footer.php'); ?>
+
 

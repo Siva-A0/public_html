@@ -10,6 +10,7 @@
 		private $lastError = '';
  		public function __construct(){
  			$this->dbObj = new DataBasePDO();
+			try { $this->ensureAdminSchema(); } catch (Exception $e) {}
 			try { $this->ensureModernAuthSchema(); } catch (Exception $e) {}
 			try { $this->ensureStaffAuthSchema(); } catch (Exception $e) {}
 			try { $this->ensureEventSchema(); } catch (Exception $e) {}
@@ -18,6 +19,7 @@
 			try { $this->ensurePlacementsSchema(); } catch (Exception $e) {}
 			try { $this->ensureSectionBatchSchema(); } catch (Exception $e) {}
 			try { $this->ensureAcademicBatchSchema(); } catch (Exception $e) {}
+			try { $this->ensureLegacyCrudIdSchema(); } catch (Exception $e) {}
 			try { $this->ensureUsersAlumniFallbackSchema(); } catch (Exception $e) {}
 			try { $this->ensureUsersAcademicLifecycleSchema(); } catch (Exception $e) {}
 			try { $this->ensureUsersRoleSchema(); } catch (Exception $e) {}
@@ -138,12 +140,44 @@
 
 	private function ensureStaffAuthSchema(){
 		$table = $this->assertSafeIdentifier(TB_STAFF);
+		$idColumn = $this->dbObj->getOnePrepared(
+			"SELECT COLUMN_KEY, EXTRA
+			 FROM information_schema.COLUMNS
+			 WHERE TABLE_SCHEMA = DATABASE()
+			   AND TABLE_NAME = :table_name
+			   AND COLUMN_NAME = 'id'
+			 LIMIT 1",
+			array(':table_name' => $table)
+		);
+		if (!empty($idColumn)) {
+			$columnKey = strtoupper((string)($idColumn['COLUMN_KEY'] ?? ''));
+			$extra = strtolower((string)($idColumn['EXTRA'] ?? ''));
+			if ($columnKey === 'PRI' && strpos($extra, 'auto_increment') === false) {
+				$this->dbObj->executeQuery('ALTER TABLE `'.$table.'` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT');
+			}
+		}
+
 		$columnCheck = $this->dbObj->getAllResults('SHOW COLUMNS FROM `'.$table.'` LIKE "password"');
 		if (empty($columnCheck)) {
 			$this->dbObj->executeQuery('ALTER TABLE `'.$table.'` ADD COLUMN `password` varchar(255) NOT NULL DEFAULT "" AFTER `e_mail`');
 		} else {
 			$this->ensureColumnDefinition($table, 'password', "varchar(255) NOT NULL DEFAULT ''");
 		}
+	}
+
+	private function ensureAdminSchema(){
+		$table = $this->assertSafeIdentifier(ADMIN_TABLE);
+
+		try {
+			$this->dbObj->executeQuery(
+				"UPDATE `".$table."`
+				 SET `last_access` = NULL
+				 WHERE CAST(`last_access` AS CHAR(19)) = '0000-00-00 00:00:00'"
+			);
+		} catch (Exception $e) {}
+
+		$this->ensureColumnDefinition($table, 'last_access', "timestamp NULL DEFAULT NULL COMMENT 'customer login time and date is stored'");
+		$this->ensurePrimaryAutoIncrementId($table);
 	}
 
 	private function ensureAchievementsSchema(){
@@ -270,14 +304,37 @@
 
 		$columnKey = strtoupper((string)($idColumn['COLUMN_KEY'] ?? ''));
 		$extra = strtolower((string)($idColumn['EXTRA'] ?? ''));
-		if ($columnKey !== 'PRI' || strpos($extra, 'auto_increment') === false) {
-			$this->dbObj->executeQuery('ALTER TABLE `'.$table.'` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT');
-			if ($columnKey !== 'PRI') {
-				$primaryKey = $this->dbObj->getAllResults('SHOW INDEX FROM `'.$table.'` WHERE Key_name = "PRIMARY"');
-				if (empty($primaryKey)) {
-					$this->dbObj->executeQuery('ALTER TABLE `'.$table.'` ADD PRIMARY KEY (`id`)');
-				}
+		if ($columnKey !== 'PRI') {
+			$primaryKey = $this->dbObj->getAllResults('SHOW INDEX FROM `'.$table.'` WHERE Key_name = "PRIMARY"');
+			if (empty($primaryKey)) {
+				$this->dbObj->executeQuery('ALTER TABLE `'.$table.'` ADD PRIMARY KEY (`id`)');
 			}
+		}
+
+		if (strpos($extra, 'auto_increment') === false) {
+			$this->dbObj->executeQuery('ALTER TABLE `'.$table.'` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT');
+		}
+	}
+
+	private function ensureLegacyCrudIdSchema(){
+		$tables = array(
+			TB_BATCH,
+			TB_STREAM,
+			TB_CLASS,
+			TB_SECTION,
+			TB_SYLLABUS,
+			TB_SUBJECTS,
+			TB_MATERAILS,
+			TB_PREV_PAPERS,
+			TB_STAFF_CATEGORY,
+			TB_COMT_CATEG,
+			TB_COMMITTEE,
+			TB_GALLERY,
+			TB_GALLERY_CATEGORY
+		);
+
+		foreach ($tables as $table) {
+			$this->ensurePrimaryAutoIncrementId($table);
 		}
 	}
 

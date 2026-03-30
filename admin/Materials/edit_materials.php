@@ -76,103 +76,16 @@ if (isset($_POST['editMaterial'])) {
 	}
 }
 
+if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_academic_pages.css';
+
 include_once('../layout/main_header.php');
 include_once('../layout/core_forms_style.php');
 ?>
-<style type="text/css">
-	.edit-material-page {
-		--mp-primary: #173d69;
-		--mp-primary-deep: #13345a;
-		--mp-accent: #f0b323;
-		--mp-accent-deep: #d79a12;
-		--mp-surface: #eef4fa;
-		--mp-border: #d9e3ef;
-		--mp-border-strong: #c8d6e6;
-		--mp-muted: #6b819c;
-		background: linear-gradient(180deg, #f3f7fb 0%, var(--mp-surface) 100%);
-		border-radius: 24px;
-		padding: 24px;
-	}
 
-	#content { grid-template-columns: 1fr !important; }
-	#content_left { display: none !important; }
-	#content_right { max-width: 980px; }
-
-	.material-edit-hero {
-		position: relative;
-		overflow: hidden;
-		border: 1px solid var(--mp-border);
-		border-radius: 22px;
-		padding: 22px 24px;
-		background: linear-gradient(135deg, #f9fbfe 0%, var(--mp-surface) 100%);
-		box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-		margin-bottom: 16px;
-	}
-
-	.material-edit-hero::before {
-		content: "";
-		position: absolute;
-		inset: 0 auto 0 0;
-		width: 6px;
-		background: linear-gradient(180deg, var(--mp-accent), var(--mp-accent-deep));
-	}
-
-	.material-edit-hero h1 {
-		margin: 0 0 6px;
-		font-size: 32px;
-		font-weight: 800;
-		letter-spacing: -0.6px;
-		color: var(--mp-primary-deep);
-	}
-
-	.material-edit-hero p {
-		margin: 0;
-		font-size: 15px;
-		color: var(--mp-muted);
-	}
-
-	.comteeMem {
-		border: 1px solid var(--mp-border);
-		border-radius: 18px;
-		box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
-		padding: 24px;
-		background: #fff;
-	}
-
-	#editMaterial .form_label label { color: var(--mp-primary); font-weight: 700; }
-
-	#editMaterial .form_field select,
-	#editMaterial .form_field input[type="text"],
-	#editMaterial .form_field input[type="file"] {
-		width: 100%;
-		min-height: 52px;
-		border: 1px solid var(--mp-border-strong);
-		border-radius: 12px;
-		padding: 11px 14px;
-		background: #f7f9fc;
-		font-size: 16px;
-		outline: none;
-	}
-
-	#editMaterial .form_field select:focus,
-	#editMaterial .form_field input[type="text"]:focus,
-	#editMaterial .form_field input[type="file"]:focus {
-		border-color: #87a6cb;
-		background: #fff;
-		box-shadow: 0 0 0 4px rgba(23, 61, 105, 0.12);
-	}
-
-	#editMaterial .button {
-		border: 0;
-		border-radius: 12px;
-		padding: 11px 20px;
-		background: linear-gradient(135deg, var(--mp-primary-deep), var(--mp-primary));
-		font-weight: 700;
-		box-shadow: 0 10px 20px rgba(19, 52, 90, 0.24);
-		color: #fff;
-	}
-</style>
-			<div id="page">
+<div id="page">
 				<div id="content">
 					<div class="post">
 						<span class="alignCenter"></span>
@@ -335,4 +248,5 @@ include_once('../layout/core_forms_style.php');
 <?php 
 	include_once('../layout/footer.php');
 ?>
+
 

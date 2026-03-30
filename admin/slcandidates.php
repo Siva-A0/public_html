@@ -13,86 +13,8 @@
    $noOfCEvents		= sizeof( $curEvents );
 	
 ?>
-<style type="text/css">
-	.legacy-admin-page {
-		--la-primary: #173d69;
-		--la-primary-deep: #13345a;
-		--la-accent: #f0b323;
-		--la-accent-deep: #d79a12;
-		--la-surface: #eef4fa;
-		--la-border: #d9e3ef;
-		--la-muted: #6b819c;
-		background: linear-gradient(180deg, #f3f7fb 0%, var(--la-surface) 100%);
-		border-radius: 24px;
-		padding: 24px;
-	}
-	.legacy-admin-hero {
-		position: relative;
-		overflow: hidden;
-		border: 1px solid var(--la-border);
-		border-radius: 22px;
-		padding: 22px 24px;
-		background: linear-gradient(135deg, #f9fbfe 0%, var(--la-surface) 100%);
-		box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-		margin-bottom: 16px;
-	}
-	.legacy-admin-hero::before {
-		content: "";
-		position: absolute;
-		inset: 0 auto 0 0;
-		width: 6px;
-		background: linear-gradient(180deg, var(--la-accent), var(--la-accent-deep));
-	}
-	.legacy-admin-title {
-		margin: 0;
-		font-size: 32px;
-		font-weight: 800;
-		letter-spacing: -0.6px;
-		color: var(--la-primary-deep);
-	}
-	.legacy-admin-subtitle {
-		margin: 8px 0 0;
-		font-size: 15px;
-		color: var(--la-muted);
-	}
-	.legacy-admin-page .currentevents,
-	.legacy-admin-page .comteeMem,
-	.legacy-admin-page #eventDetails {
-		border: 1px solid var(--la-border);
-		border-radius: 18px;
-		background: #ffffff;
-		box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
-		padding: 18px;
-	}
-	.legacy-admin-page .eventDetHeader,
-	.legacy-admin-page .eventDet,
-	.legacy-admin-page .usersDetHeader,
-	.legacy-admin-page .comteeMemRow {
-		border: 1px solid #dbe6f3;
-		border-radius: 14px;
-		background: #fbfdff;
-		padding: 12px 14px;
-		margin-bottom: 10px;
-	}
-	.legacy-admin-page .eventDetHeader {
-		background: #f7faff;
-		color: var(--la-primary);
-		font-weight: 800;
-	}
-	.legacy-admin-page .button {
-		border: 0;
-		border-radius: 12px;
-		padding: 11px 20px;
-		background: linear-gradient(135deg, var(--la-primary-deep), var(--la-primary));
-		color: #ffffff;
-		font-weight: 700;
-		box-shadow: 0 10px 20px rgba(16, 42, 72, 0.24);
-	}
-	.legacy-admin-page a { color: var(--la-primary); font-weight: 700; }
-	.legacy-admin-page a:hover { color: var(--la-primary-deep); }
-</style>
 
-			<div id="page">
+<div id="page">
 				<div id="content">
 					<div class="post">
 						<span class="alignCenter">
@@ -167,3 +89,4 @@
 <?php 
 	include_once('footer.php');
 ?>
+

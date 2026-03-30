@@ -6,21 +6,16 @@ require_once(LIB_PATH . '/security.php');
 /* Decide redirect before destroying session */
 $redirectPage = BASE_URL . "/public/pages/Authentication/login.php";
 $requestedRole = trim((string)($_GET['role'] ?? ''));
+$currentRole = trim((string)($_SESSION['role'] ?? ''));
 
-if (isset($_SESSION['role'])) {
-
-    if ($_SESSION['role'] == "admin") {
-        $redirectPage = BASE_URL . "/public/pages/Authentication/login.php";
-    } elseif ($_SESSION['role'] == "faculty") {
-        $redirectPage = BASE_URL . "/public/pages/Authentication/login.php";
-    } else {
-        $redirectPage = BASE_URL . "/public/pages/Authentication/login.php";
-    }
-} elseif ($requestedRole === 'faculty') {
-    $redirectPage = BASE_URL . "/public/pages/Authentication/login.php";
-} elseif ($requestedRole === 'admin') {
-    $redirectPage = BASE_URL . "/public/pages/Authentication/login.php";
-} elseif ($requestedRole === 'user') {
+if ($currentRole === 'admin' || $requestedRole === 'admin') {
+    $redirectPage = BASE_URL . "/admin/index.php";
+} elseif (
+    $currentRole === 'faculty' ||
+    $requestedRole === 'faculty' ||
+    $currentRole === 'user' ||
+    $requestedRole === 'user'
+) {
     $redirectPage = BASE_URL . "/public/pages/Authentication/login.php";
 }
 

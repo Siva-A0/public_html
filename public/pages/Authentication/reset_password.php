@@ -11,11 +11,15 @@ $fcObj = new DataFunctions();
 
 // Logged-in users should use their profile/settings (or admin tools).
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'user') {
-    header('Location: ' . BASE_URL . '/public/pages/user/dashboard.php');
+    if ((int)($_SESSION['is_alumni'] ?? 0) === 1) {
+        header('Location: ' . BASE_URL . '/public/pages/student/alumni_dashboard.php');
+    } else {
+        header('Location: ' . BASE_URL . '/public/pages/student/dashboard/index.php');
+    }
     exit;
 }
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
-    header('Location: ' . BASE_URL . '/admin/index.php');
+    header('Location: ' . BASE_URL . '/admin/main_home.php');
     exit;
 }
 
@@ -170,4 +174,5 @@ if (isset($_POST['submit'])) {
 </div>
 </body>
 </html>
+
 

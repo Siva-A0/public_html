@@ -1,5 +1,10 @@
 <?php require_once(__DIR__ . '/../../config.php');
-	include_once('../layout/main_header.php');
+	if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_misc_pages.css';
+
+include_once('../layout/main_header.php');
 	include_once('../layout/core_forms_style.php');
 	include_once('../layout/events_list_style.php');
 
@@ -25,15 +30,7 @@
 	$eventDbId = ($eventDetails && isset($eventDetails[0]['id'])) ? $eventDetails[0]['id'] : 0;
 ?>
 
-<style type="text/css">
-	.event-result-page { background: linear-gradient(180deg, #f3f7fb 0%, #eef4fa 100%); border-radius: 24px; padding: 24px; }
-	.event-shell-hero { position: relative; overflow: hidden; border: 1px solid #d9e3ef; border-radius: 22px; padding: 22px 24px; background: linear-gradient(135deg, #f9fbfe 0%, #eef4fa 100%); box-shadow: 0 14px 30px rgba(15,23,42,.08); margin-bottom: 16px; }
-	.event-shell-hero::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 6px; background: linear-gradient(180deg, #f0b323, #d79a12); }
-	.event-shell-title { margin: 0; font-size: 32px; font-weight: 800; letter-spacing: -0.6px; color: #13345a; }
-	.event-shell-subtitle { margin: 8px 0 0; font-size: 15px; color: #6b819c; }
-</style>
-
-			<div id="page">
+<div id="page">
 				<div id="content" class="single-panel-layout">
 					<div class="post">
 						<span class="alignCenter">
@@ -104,129 +101,5 @@
 			</div>
 		</div>
 
-<style type="text/css">
-	#content_right {
-		align-self: start;
-	}
-
-	#content .post {
-		margin-bottom: 8px;
-	}
-
-	.event-result-card {
-		background: #ffffff;
-		border: 1px solid #d9e3ef;
-		border-radius: 14px;
-		box-shadow: 0 10px 24px rgba(15, 23, 42, 0.07);
-		padding: 16px;
-	}
-
-	.event-result-card .event-meta-row,
-	.event-result-card .event-grid-header,
-	.event-result-card .event-grid-row,
-	.event-result-card .eventDet {
-		display: grid;
-		grid-template-columns: 80px 1fr 180px 1.2fr;
-		gap: 10px;
-		align-items: center;
-		padding: 10px 12px;
-		border-bottom: 1px solid #d9e3ef;
-	}
-
-	.event-result-card .event-meta-row {
-		grid-template-columns: 130px 1fr;
-		background: #f8fafc;
-		border: 1px solid #e2e8f0;
-		border-radius: 10px;
-		margin-bottom: 10px;
-	}
-
-	.event-result-card .event-grid-header {
-		background: #eef4fa;
-		border: 1px solid #d9e3ef;
-		border-radius: 10px;
-		color: #173d69;
-		font-weight: 700;
-		margin-bottom: 8px;
-	}
-
-	.event-result-card .event-grid-row:last-of-type {
-		border-bottom: 0;
-	}
-
-	.event-result-card .eventHead {
-		font-weight: 700;
-		color: #173d69;
-	}
-
-	.event-result-card .eventDes,
-	.event-result-card .eventName,
-	.event-result-card .eventRegisDates {
-		word-break: break-word;
-	}
-
-	.event-result-card input[type="checkbox"] {
-		width: 18px;
-		height: 18px;
-	}
-
-	.event-result-card input[type="text"] {
-		width: 100%;
-		min-height: 42px;
-		padding: 9px 12px;
-		border: 1px solid #c8d6e6;
-		border-radius: 10px;
-		background: #f8fafc;
-		outline: none;
-	}
-
-	.event-result-card input[type="text"]:focus {
-		border-color: #87a6cb;
-		background: #ffffff;
-		box-shadow: 0 0 0 3px rgba(23, 61, 105, 0.12);
-	}
-
-	.event-result-card .button {
-		margin-top: 16px;
-		border: 0;
-		border-radius: 12px;
-		padding: 10px 20px;
-		background: linear-gradient(135deg, #13345a, #173d69);
-		color: #fff;
-		font-weight: 700;
-		box-shadow: 0 8px 16px rgba(16, 42, 72, 0.24);
-	}
-
-	.event-result-card .no-data {
-		display: flex;
-		grid-template-columns: none;
-		justify-content: center;
-		align-items: center;
-		width: 100%;
-		font-weight: 600;
-		color: #6b819c;
-		padding: 18px 12px;
-		border-bottom: 0;
-		text-align: center;
-		line-height: 1.4;
-		white-space: normal;
-	}
-
-	#content_right .event-result-card .eventDet.no-data {
-		display: flex;
-	}
-
-	@media (max-width: 980px) {
-		.event-result-card .event-grid-header,
-		.event-result-card .event-grid-row,
-		.event-result-card .eventDet {
-			grid-template-columns: 1fr;
-		}
-
-		.event-result-card .event-meta-row {
-			grid-template-columns: 1fr;
-		}
-	}
-</style>
-
 <?php include_once('../layout/footer.php'); ?>
+

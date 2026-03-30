@@ -26,9 +26,9 @@ $faculty = $staffRows[0];
 $currentProfileImage = trim((string)($faculty['image'] ?? ''));
 $currentProfileImageUrl = '';
 if ($currentProfileImage !== '' && preg_match('/^[A-Za-z0-9._-]+$/', $currentProfileImage) === 1) {
-    $currentProfileImageFsPath = ROOT_PATH . '/public/assets/images/staff/' . $currentProfileImage;
+    $currentProfileImageFsPath = ROOT_PATH . '/public/assets/images/faculty/' . $currentProfileImage;
     if (is_file($currentProfileImageFsPath)) {
-        $currentProfileImageUrl = BASE_URL . '/public/assets/images/staff/' . rawurlencode($currentProfileImage);
+        $currentProfileImageUrl = BASE_URL . '/public/assets/images/faculty/' . rawurlencode($currentProfileImage);
     }
 }
 
@@ -75,7 +75,7 @@ if (isset($_POST['update_profile'])) {
             $isNewImageUploaded = false;
 
             if (isset($_FILES['profile_image']) && is_uploaded_file($_FILES['profile_image']['tmp_name'])) {
-                $uploadDir = ROOT_PATH . '/public/assets/images/staff/';
+                $uploadDir = ROOT_PATH . '/public/assets/images/faculty/';
                 $safeFacultyId = preg_replace('/[^a-zA-Z0-9_-]/', '', (string)$faculty['id']);
                 $uploadError = '';
                 $uploadedFile = app_store_uploaded_image($_FILES['profile_image'], $uploadDir, 'faculty_' . $safeFacultyId, $uploadError, 2 * 1024 * 1024);
@@ -128,9 +128,9 @@ if (isset($_POST['update_profile'])) {
                     $currentProfileImage = trim((string)($faculty['image'] ?? ''));
                     $currentProfileImageUrl = '';
                     if ($currentProfileImage !== '' && preg_match('/^[A-Za-z0-9._-]+$/', $currentProfileImage) === 1) {
-                        $currentProfileImageFsPath = ROOT_PATH . '/public/assets/images/staff/' . $currentProfileImage;
+                        $currentProfileImageFsPath = ROOT_PATH . '/public/assets/images/faculty/' . $currentProfileImage;
                         if (is_file($currentProfileImageFsPath)) {
-                            $currentProfileImageUrl = BASE_URL . '/public/assets/images/staff/' . rawurlencode($currentProfileImage);
+                            $currentProfileImageUrl = BASE_URL . '/public/assets/images/faculty/' . rawurlencode($currentProfileImage);
                         }
                     }
                 } else {
@@ -272,3 +272,4 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 <?php include_once(__DIR__ . '/layout/main_footer.php'); ?>
+

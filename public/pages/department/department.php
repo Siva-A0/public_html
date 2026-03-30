@@ -69,7 +69,7 @@ for($i=0; $i<$categoryCnt; $i++){
                         <div class="pt-4">
                             <a href="<?php echo BASE_URL; ?>/public/pages/department/view_faculty.php?faculty=<?php echo $staffDetails[$j][$k]['id']; ?>">
                                 <img 
-                                    src="<?php echo BASE_URL; ?>/public/assets/images/staff/<?php echo $image; ?>" 
+                                    src="<?php echo BASE_URL; ?>/public/assets/images/faculty/<?php echo $image; ?>" 
                                     class="rounded-circle shadow staff-member-image"
                                     width="120"
                                     height="120"
@@ -105,3 +105,4 @@ for($i=0; $i<$categoryCnt; $i++){
 </div>
 
 <?php include_once(INCLUDES_PATH . '/footer.php'); ?>
+

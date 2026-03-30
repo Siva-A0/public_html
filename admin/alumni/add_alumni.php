@@ -43,84 +43,8 @@
 	include_once('../header.php');
 
 ?>
-<style type="text/css">
-	.legacy-admin-form {
-		--la-primary: #173d69;
-		--la-primary-deep: #13345a;
-		--la-accent: #f0b323;
-		--la-accent-deep: #d79a12;
-		--la-surface: #eef4fa;
-		--la-border: #d9e3ef;
-		--la-border-strong: #c8d6e6;
-		--la-muted: #6b819c;
-		background: linear-gradient(180deg, #f3f7fb 0%, var(--la-surface) 100%);
-		border-radius: 24px;
-		padding: 24px;
-	}
-	.legacy-admin-form .hero {
-		position: relative;
-		overflow: hidden;
-		border: 1px solid var(--la-border);
-		border-radius: 22px;
-		padding: 22px 24px;
-		background: linear-gradient(135deg, #f9fbfe 0%, var(--la-surface) 100%);
-		box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-		margin-bottom: 16px;
-	}
-	.legacy-admin-form .hero::before {
-		content: "";
-		position: absolute;
-		inset: 0 auto 0 0;
-		width: 6px;
-		background: linear-gradient(180deg, var(--la-accent), var(--la-accent-deep));
-	}
-	.legacy-admin-form .hero h3 {
-		margin: 0;
-		font-size: 32px;
-		font-weight: 800;
-		letter-spacing: -0.6px;
-		color: var(--la-primary-deep);
-	}
-	.legacy-admin-form .hero p {
-		margin: 8px 0 0;
-		color: var(--la-muted);
-	}
-	.legacy-admin-form .comteeMem {
-		border: 1px solid var(--la-border);
-		border-radius: 18px;
-		background: #ffffff;
-		box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
-		padding: 24px;
-	}
-	.legacy-admin-form .form_label label {
-		color: var(--la-primary);
-		font-weight: 700;
-	}
-	.legacy-admin-form input[type="text"],
-	.legacy-admin-form input[type="file"],
-	.legacy-admin-form select,
-	.legacy-admin-form textarea {
-		width: 100%;
-		min-height: 52px;
-		border: 1px solid var(--la-border-strong);
-		border-radius: 12px;
-		padding: 11px 14px;
-		background: #f7f9fc;
-	}
-	.legacy-admin-form textarea {
-		min-height: 120px;
-	}
-	.legacy-admin-form .button {
-		border: 0;
-		border-radius: 12px;
-		padding: 11px 20px;
-		background: linear-gradient(135deg, var(--la-primary-deep), var(--la-primary));
-		font-weight: 700;
-		box-shadow: 0 10px 20px rgba(16, 42, 72, 0.24);
-	}
-</style>
 
-			<div id="page">
+<div id="page">
 				<div id="content">
 					<div class="post">
 						<span class="alignCenter">
@@ -211,3 +135,4 @@
 <?php 
 	include_once('../footer.php');
 ?>
+

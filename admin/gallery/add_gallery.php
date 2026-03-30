@@ -64,172 +64,15 @@ if (isset($_POST['addNewGallery'])) {
     }
 }
 
+if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_misc_pages.css';
+
 include_once('../layout/main_header.php');
 
 $categories = $fcObj->getGalleryCategories($tbGalleryCategory, true);
 ?>
-
-<style type="text/css">
-    .add-gallery-page {
-        --gallery-primary: #173d69;
-        --gallery-primary-deep: #13345a;
-        --gallery-accent: #f0b323;
-        --gallery-accent-deep: #d79a12;
-        --gallery-accent-soft: #fff5da;
-        --gallery-surface: #eef4fa;
-        --gallery-card: #ffffff;
-        --gallery-border: #d9e3ef;
-        --gallery-border-strong: #c8d6e6;
-        --gallery-text: #163a61;
-        --gallery-muted: #6b819c;
-    }
-
-    .add-gallery-page .page-shell {
-        background: linear-gradient(180deg, #f3f7fb 0%, var(--gallery-surface) 100%);
-        border-radius: 24px;
-        padding: 24px;
-    }
-
-    .add-gallery-page .page-hero {
-        position: relative;
-        overflow: hidden;
-        border: 1px solid var(--gallery-border);
-        border-radius: 22px;
-        padding: 22px 24px;
-        background: linear-gradient(135deg, #f9fbfe 0%, var(--gallery-surface) 100%);
-        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-        margin-bottom: 18px;
-    }
-
-    .add-gallery-page .page-hero::before {
-        content: "";
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 6px;
-        background: linear-gradient(180deg, var(--gallery-accent), var(--gallery-accent-deep));
-    }
-
-    .add-gallery-page .page-title {
-        font-size: 32px;
-        font-weight: 800;
-        letter-spacing: -0.6px;
-        color: var(--gallery-primary-deep);
-        margin: 0;
-    }
-
-    .add-gallery-page .page-subtitle {
-        margin: 8px 0 0;
-        color: var(--gallery-muted);
-        font-size: 15px;
-    }
-
-    .add-gallery-page .gallery-form-card {
-        border: 1px solid var(--gallery-border);
-        border-radius: 18px;
-        box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
-        background: var(--gallery-card);
-    }
-
-    .add-gallery-page .gallery-form-card .card-body {
-        padding: 22px;
-    }
-
-    .add-gallery-page .form-label {
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--gallery-text);
-        margin-bottom: 8px;
-    }
-
-    .add-gallery-page .form-control,
-    .add-gallery-page .form-select {
-        border: 1px solid var(--gallery-border-strong);
-        border-radius: 12px;
-        min-height: 52px;
-        background: #f7f9fc;
-        font-size: 16px;
-    }
-
-    .add-gallery-page textarea.form-control {
-        min-height: 110px;
-        resize: vertical;
-    }
-
-    .add-gallery-page input[type="file"].form-control {
-        padding: 0;
-        min-height: 52px;
-        line-height: 1.2;
-        cursor: pointer;
-    }
-
-    .add-gallery-page input[type="file"].form-control::file-selector-button {
-        height: 52px;
-        margin: 0;
-        border: 0;
-        border-right: 1px solid var(--gallery-border-strong);
-        border-top-left-radius: 12px;
-        border-bottom-left-radius: 12px;
-        padding: 0 16px;
-        background: #ffffff;
-        color: var(--gallery-text);
-        font-weight: 600;
-        cursor: pointer;
-    }
-
-    .add-gallery-page input[type="file"].form-control::-webkit-file-upload-button {
-        height: 52px;
-        margin: 0;
-        border: 0;
-        border-right: 1px solid var(--gallery-border-strong);
-        border-top-left-radius: 12px;
-        border-bottom-left-radius: 12px;
-        padding: 0 16px;
-        background: #ffffff;
-        color: var(--gallery-text);
-        font-weight: 600;
-        cursor: pointer;
-    }
-
-    .add-gallery-page .form-control:focus,
-    .add-gallery-page .form-select:focus {
-        border-color: #87a6cb;
-        box-shadow: 0 0 0 4px rgba(23, 61, 105, 0.12);
-        background: #ffffff;
-    }
-
-    .add-gallery-page .btn-primary {
-        border: 0;
-        border-radius: 12px;
-        padding: 11px 20px;
-        background: linear-gradient(135deg, var(--gallery-primary-deep), var(--gallery-primary));
-        font-weight: 700;
-        box-shadow: 0 10px 20px rgba(19, 52, 90, 0.24);
-    }
-
-    .add-gallery-page .btn-secondary {
-        border-radius: 12px;
-        padding: 11px 20px;
-        font-weight: 600;
-    }
-
-    .add-gallery-page .upload-hint {
-        margin-top: 8px;
-        color: var(--gallery-muted);
-        font-size: 13px;
-    }
-
-    .add-gallery-page .action-row {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-    }
-
-    @media (max-width: 768px) {
-        .add-gallery-page .page-title {
-            font-size: 26px;
-        }
-    }
-</style>
 
 <div class="container-fluid add-gallery-page">
     <div class="page-shell">
@@ -310,3 +153,4 @@ $categories = $fcObj->getGalleryCategories($tbGalleryCategory, true);
 </div>
 
 <?php include_once('../layout/footer.php'); ?>
+

@@ -166,7 +166,7 @@ for ($i = 0; $i < $categoryCnt; $i++) {
                                 <div class="assoc-member">
                                     <img
                                         class="assoc-member-img"
-                                        src="<?php echo BASE_URL; ?>/public/assets/images/users/<?php echo $memberImage; ?>"
+                                        src="<?php echo BASE_URL; ?>/public/assets/images/students/<?php echo $memberImage; ?>"
                                         alt="<?php echo htmlspecialchars($fullName, ENT_QUOTES, 'UTF-8'); ?>"
                                         title="<?php echo htmlspecialchars($fullName, ENT_QUOTES, 'UTF-8'); ?>"
                                     />
@@ -197,4 +197,5 @@ for ($i = 0; $i < $categoryCnt; $i++) {
 </div>
 
 <?php include_once(INCLUDES_PATH . '/footer.php'); ?>
+
 

@@ -1,0 +1,107 @@
+.user-site-preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 10% 0%, rgba(163, 171, 207, 0.26), transparent 28%),
+                radial-gradient(circle at 92% 8%, rgba(230, 195, 106, 0.14), transparent 22%),
+                #edf1fb;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.user-site-preloader.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.user-site-preloader-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.user-site-preloader-visual {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-site-preloader-logo {
+    width: 160px;
+    height: auto;
+    position: relative;
+    z-index: 2;
+    animation: userGlowLogo 2s infinite alternate ease-in-out;
+}
+
+.user-site-preloader-spinner {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    border: 3px solid transparent;
+    border-top-color: #3b3f82;
+    border-bottom-color: #3b3f82;
+    border-radius: 50%;
+    animation: userSpinSpinner 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+    z-index: 1;
+    box-shadow: 0 0 30px rgba(59, 63, 130, 0.15);
+}
+
+.user-site-preloader-spinner::before {
+    content: '';
+    position: absolute;
+    inset: 20px;
+    border: 3px solid transparent;
+    border-left-color: #e6c36a;
+    border-right-color: #e6c36a;
+    border-radius: 50%;
+    animation: userSpinSpinnerReverse 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+
+.user-site-preloader-spinner::after {
+    content: '';
+    position: absolute;
+    inset: 45px;
+    border: 3px solid transparent;
+    border-top-color: #231c63;
+    border-radius: 50%;
+    animation: userSpinSpinner 1s linear infinite;
+}
+
+.user-site-preloader-message {
+    margin: 28px 0 0;
+    position: relative;
+    z-index: 2;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #273467;
+}
+
+body.user-preloading {
+    overflow: hidden;
+    height: 100vh;
+}
+
+@keyframes userSpinSpinner {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes userSpinSpinnerReverse {
+    0% { transform: rotate(360deg); }
+    100% { transform: rotate(-360deg); }
+}
+
+@keyframes userGlowLogo {
+    0% { filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1)); transform: scale(0.95); }
+    100% { filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.6)); transform: scale(1.05); }
+}

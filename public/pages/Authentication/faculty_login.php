@@ -48,21 +48,25 @@ if (isset($_POST['faculty_login'])) {
 
     $welcomeName = trim((string)($facultyDet[0]['first_name'] ?? $email));
     set_auth_success_preloader($welcomeName !== '' ? ('Welcome ' . $welcomeName) : 'Welcome');
-    header("Location: " . BASE_URL . "/public/pages/faculty/dashboard.php");
+    header("Location: " . BASE_URL . "/public/pages/faculty/dashboard/index.php");
     exit;
 }
 
 if (isset($_SESSION['role'])) {
     if ($_SESSION['role'] === 'faculty') {
-        header("Location: " . BASE_URL . "/public/pages/faculty/dashboard.php");
+        header("Location: " . BASE_URL . "/public/pages/faculty/dashboard/index.php");
         exit;
     }
     if ($_SESSION['role'] === 'user') {
-        header("Location: " . BASE_URL . "/public/pages/user/dashboard.php");
+        if ((int)($_SESSION['is_alumni'] ?? 0) === 1) {
+            header("Location: " . BASE_URL . "/public/pages/student/alumni_dashboard.php");
+        } else {
+            header("Location: " . BASE_URL . "/public/pages/student/dashboard/index.php");
+        }
         exit;
     }
     if ($_SESSION['role'] === 'admin') {
-        header("Location: " . BASE_URL . "/admin/index.php");
+        header("Location: " . BASE_URL . "/admin/main_home.php");
         exit;
     }
 }
@@ -175,3 +179,4 @@ document.querySelectorAll(".switch-link").forEach((link) => {
 
 </body>
 </html>
+

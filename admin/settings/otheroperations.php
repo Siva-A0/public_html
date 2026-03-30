@@ -1,5 +1,11 @@
 
+<?php require_once(__DIR__ . '/../../config.php'); ?>
 <?php
+if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_misc_pages.css';
+
 include_once('../layout/main_header.php');
 
 $options = array(
@@ -15,116 +21,6 @@ $options = array(
     'support_contact' => array('title' => 'Support Contact', 'icon' => 'bi-headset', 'desc' => 'Email, WhatsApp and SMTP settings for the student support desk.')
 );
 ?>
-
-<style type="text/css">
-    .core-settings-page {
-        --cs-primary: #173d69;
-        --cs-primary-deep: #13345a;
-        --cs-accent: #f0b323;
-        --cs-accent-soft: #fff5da;
-        --cs-surface: #eef4fa;
-        --cs-card: #ffffff;
-        --cs-border: #d9e3ef;
-        --cs-border-strong: #c8d6e6;
-        --cs-text: #163a61;
-        --cs-muted: #6b819c;
-        --cs-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-    }
-
-    .core-settings-page .page-shell {
-        background: linear-gradient(180deg, #f3f7fb 0%, var(--cs-surface) 100%);
-        border-radius: 24px;
-        padding: 24px;
-    }
-
-    .core-settings-page .page-hero {
-        position: relative;
-        overflow: hidden;
-        border: 1px solid var(--cs-border);
-        border-radius: 22px;
-        padding: 24px 26px;
-        background: linear-gradient(135deg, #f9fbfe 0%, var(--cs-surface) 100%);
-        box-shadow: var(--cs-shadow);
-        margin-bottom: 18px;
-    }
-
-    .core-settings-page .page-hero::before {
-        content: "";
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 6px;
-        background: linear-gradient(180deg, var(--cs-accent), #d79a12);
-    }
-
-    .core-settings-page .page-title {
-        margin: 0;
-        font-size: 31px;
-        letter-spacing: -0.6px;
-        font-weight: 800;
-        color: var(--cs-primary-deep);
-    }
-
-    .core-settings-page .page-subtitle {
-        margin: 8px 0 0;
-        color: var(--cs-muted);
-        font-size: 14px;
-    }
-
-    .core-settings-page .settings-list {
-        display: grid;
-        gap: 10px;
-    }
-
-    .core-settings-page .setting-link {
-        text-decoration: none;
-        color: inherit;
-    }
-
-    .core-settings-page .setting-row {
-        border: 1px solid var(--cs-border);
-        border-radius: 16px;
-        background: var(--cs-card);
-        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.05);
-        padding: 14px 16px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-    }
-
-    .core-settings-page .setting-row:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 12px 24px rgba(19, 52, 90, 0.08);
-        border-color: #b8ccdf;
-    }
-
-    .core-settings-page .setting-icon {
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        background: var(--cs-accent-soft);
-        border: 1px solid #f1d78d;
-        color: #8b6510;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 17px;
-        flex-shrink: 0;
-    }
-
-    .core-settings-page .setting-title {
-        margin: 0;
-        font-size: 16px;
-        font-weight: 800;
-        color: var(--cs-primary-deep);
-    }
-
-    .core-settings-page .setting-desc {
-        margin: 0;
-        color: var(--cs-muted);
-        font-size: 12px;
-    }
-</style>
 
 <div class="container-fluid core-settings-page">
     <div class="page-shell">
@@ -152,3 +48,4 @@ $options = array(
 </div>
 
 <?php include_once('../layout/footer.php'); ?>
+

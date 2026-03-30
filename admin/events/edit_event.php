@@ -67,123 +67,14 @@ for ($eti = 0; $eti < count($eventTypes); $eti++) {
     }
 }
 
+if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_misc_pages.css';
+
 include_once('../layout/main_header.php');
 include_once('../layout/core_forms_style.php');
 ?>
-<style type="text/css">
-    .event-edit-page {
-        --ep-primary: #173d69;
-        --ep-primary-deep: #13345a;
-        --ep-accent: #f0b323;
-        --ep-accent-deep: #d79a12;
-        --ep-surface: #eef4fa;
-        --ep-border: #d9e3ef;
-        --ep-border-strong: #c8d6e6;
-        --ep-muted: #6b819c;
-        background: linear-gradient(180deg, #f3f7fb 0%, var(--ep-surface) 100%);
-        border-radius: 24px;
-        padding: 24px;
-    }
-
-    #content_left {
-        display: none;
-    }
-
-    #content {
-        grid-template-columns: 1fr;
-        gap: 0;
-    }
-
-    #page {
-        max-width: none;
-    }
-
-    .event-edit-hero {
-        position: relative;
-        overflow: hidden;
-        border: 1px solid var(--ep-border);
-        border-radius: 22px;
-        padding: 22px 24px;
-        background: linear-gradient(135deg, #f9fbfe 0%, var(--ep-surface) 100%);
-        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-        margin-bottom: 16px;
-    }
-
-    .event-edit-hero::before {
-        content: "";
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 6px;
-        background: linear-gradient(180deg, var(--ep-accent), var(--ep-accent-deep));
-    }
-
-    .event-edit-hero h1 {
-        margin: 0 0 6px;
-        font-size: 32px;
-        font-weight: 800;
-        letter-spacing: -0.6px;
-        color: var(--ep-primary-deep);
-    }
-
-    .event-edit-hero p {
-        margin: 0;
-        font-size: 15px;
-        color: var(--ep-muted);
-    }
-
-    #content_right #eventDetails {
-        background: #ffffff;
-        padding: 24px;
-        border: 1px solid var(--ep-border);
-        border-radius: 18px;
-        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.07);
-    }
-
-    #editEvent .form_label label {
-        color: var(--ep-primary);
-        font-weight: 700;
-    }
-
-    #editEvent .form_field textarea {
-        width: 100%;
-        min-height: 110px;
-        border: 1px solid var(--ep-border-strong);
-        border-radius: 12px;
-        padding: 10px 12px;
-        background: #f7f9fc;
-        font-size: 15px;
-        outline: none;
-        resize: vertical;
-    }
-
-    #editEvent .form_field textarea:focus,
-    #editEvent .form_field input[type="date"]:focus {
-        border-color: #87a6cb;
-        background: #ffffff;
-        box-shadow: 0 0 0 4px rgba(23, 61, 105, 0.12);
-    }
-
-    #editEvent .form_field input[type="date"] {
-        width: 100%;
-        min-height: 48px;
-        border: 1px solid var(--ep-border-strong);
-        border-radius: 12px;
-        padding: 10px 12px;
-        background: #f7f9fc;
-        font-size: 15px;
-        outline: none;
-    }
-
-    #editEvent .button {
-        border: 0;
-        border-radius: 12px;
-        padding: 11px 20px;
-        background: linear-gradient(135deg, var(--ep-primary-deep), var(--ep-primary));
-        font-weight: 700;
-        box-shadow: 0 10px 20px rgba(19, 52, 90, 0.24);
-        color: #fff;
-    }
-</style>
 
 <div class="event-edit-page">
 <div id="page">
@@ -291,3 +182,4 @@ include_once('../layout/core_forms_style.php');
 </div>
 
 <?php include_once('../layout/footer.php'); ?>
+

@@ -28,7 +28,12 @@
 		$syllabus[$i]	= $fcObj->getSyllabusForClass($tbSyllabus,$classId,$batchId);
  	}
 	
-	include_once('../layout/main_header.php');
+	if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_academic_pages.css';
+
+include_once('../layout/main_header.php');
 	include_once('../layout/core_forms_style.php');
 ?>
 			<div id="page">
@@ -124,147 +129,6 @@
 	include_once('../layout/footer.php');
 ?>
 
-<style type="text/css">
-	#content.single-panel-layout {
-		grid-template-columns: minmax(320px, 840px);
-		justify-content: center;
-		gap: 0;
-	}
-
-	#content.single-panel-layout .post {
-		display: none;
-	}
-
-	#content.single-panel-layout #content_right {
-		grid-column: 1;
-		width: 100%;
-	}
-
-	.syllabus-list-hero {
-		width: 100%;
-		max-width: 840px;
-		border: 1px solid #d9e3ef;
-		border-radius: 18px;
-		padding: 18px 22px;
-		background:
-			linear-gradient(135deg, #f9fbfe 0%, #eef4fa 100%);
-		box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-		margin-bottom: 16px;
-	}
-
-	.syllabus-list-title {
-		margin: 0;
-		font-size: 32px;
-		font-weight: 800;
-		letter-spacing: -0.6px;
-		color: #13345a;
-	}
-
-	.syllabus-list-subtitle {
-		margin: 8px 0 0;
-		font-size: 15px;
-		color: #6b819c;
-	}
-
-	#content.single-panel-layout #content_right .comteeMem.syllabus-list {
-		width: 100%;
-		max-width: 840px;
-		border: 1px solid #d7dde6;
-		border-radius: 16px;
-		box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
-		padding: 24px;
-	}
-
-	.syllabus-list .committeeTitle,
-	.syllabus-list .usersDetHeader {
-		display: grid;
-		grid-template-columns: minmax(180px, 1fr) minmax(180px, 1fr) auto;
-		gap: 12px;
-		align-items: center;
-	}
-
-	.syllabus-list .committeeTitle .action-col {
-		text-align: right;
-	}
-
-	.syllabus-list .usersDetHeader {
-		margin-top: 10px;
-	}
-
-	.syllabus-list .usersDetHeader .eventCandName:last-child {
-		display: flex;
-		justify-content: flex-end;
-		gap: 8px;
-	}
-
-	.syllabus-list .usersDetHeader .eventCandName a {
-		color: #173d69;
-		font-weight: 600;
-	}
-
-	.syllabus-list .class-toggle-wrap {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		font-weight: 700;
-	}
-
-	.syllabus-list .class-toggle {
-		width: 30px;
-		height: 30px;
-		border: 1px solid #cbd5e1;
-		border-radius: 8px;
-		background: #ffffff;
-		color: #173d69;
-		font-size: 12px;
-		line-height: 1;
-		cursor: pointer;
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.syllabus-list .class-group.collapsed .class-items {
-		display: none;
-	}
-
-	.syllabus-list .class-group.collapsed .class-toggle {
-		transform: rotate(-90deg);
-	}
-
-	.syllabus-actions {
-		margin-top: 16px;
-	}
-
-	.syllabus-actions .button {
-		border: 0;
-		border-radius: 12px;
-		padding: 11px 22px;
-		background: linear-gradient(135deg, #13345a, #173d69);
-		font-size: 18px;
-		font-weight: 700;
-		box-shadow: 0 10px 20px rgba(16, 42, 72, 0.24);
-	}
-
-	.syllabus-actions .button:hover {
-		filter: brightness(1.06);
-	}
-
-	@media (max-width: 768px) {
-		.syllabus-list .committeeTitle,
-		.syllabus-list .usersDetHeader {
-			grid-template-columns: 1fr;
-			gap: 8px;
-		}
-
-		.syllabus-list .committeeTitle .action-col,
-		.syllabus-list .usersDetHeader .eventCandName:last-child {
-			text-align: left;
-			justify-content: flex-start;
-		}
-	}
-</style>
-
 <script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', function () {
 		var toggles = document.querySelectorAll('.syllabus-list .class-toggle');
@@ -280,3 +144,4 @@
 		});
 	});
 </script>
+

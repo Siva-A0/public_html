@@ -50,161 +50,16 @@ if (isset($_POST['editClass'])) {
 }
 
 
+if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_academic_pages.css';
+
 include_once('../layout/main_header.php');
 include_once('../layout/core_forms_style.php');
 ?>
-<style type="text/css">
-    #content_left {
-        display: none;
-    }
 
-    #content {
-        grid-template-columns: 1fr;
-        gap: 0;
-    }
 
-    #page {
-        max-width: none;
-    }
-</style>
-
-<style type="text/css">
-    .edit-class-page {
-        --cp-primary: #173d69;
-        --cp-primary-deep: #13345a;
-        --cp-accent: #f0b323;
-        --cp-accent-deep: #d79a12;
-        --cp-surface: #eef4fa;
-        --cp-border: #d9e3ef;
-        --cp-muted: #6b819c;
-        padding-bottom: 22px;
-        background: linear-gradient(180deg, #f3f7fb 0%, var(--cp-surface) 100%);
-        border-radius: 24px;
-        padding: 24px;
-    }
-
-    .edit-class-page #page {
-        max-width: 980px;
-    }
-
-    .edit-class-page #content {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 18px;
-        align-items: start;
-    }
-
-    .edit-class-page .post {
-        margin-bottom: 4px !important;
-    }
-
-    .edit-class-page .page-hero {
-        position: relative;
-        overflow: hidden;
-        border: 1px solid var(--cp-border);
-        border-radius: 22px;
-        padding: 22px 24px;
-        background: linear-gradient(135deg, #f9fbfe 0%, var(--cp-surface) 100%);
-        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-        margin-bottom: 16px;
-    }
-
-    .edit-class-page .page-hero::before {
-        content: "";
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 6px;
-        background: linear-gradient(180deg, var(--cp-accent), var(--cp-accent-deep));
-    }
-
-    .edit-class-page .hero-title {
-        font-size: 32px;
-        letter-spacing: -0.6px;
-        margin: 0;
-        color: var(--cp-primary-deep);
-        font-weight: 800;
-    }
-
-    .edit-class-page .page-subtitle {
-        margin: 8px 0 0;
-        color: var(--cp-muted);
-        font-size: 15px;
-    }
-
-    .edit-class-page #content_right .comteeMem {
-        padding: 28px 30px;
-        border-radius: 18px;
-        max-width: 100%;
-    }
-
-    .edit-class-page .edit-form {
-        display: grid;
-        gap: 16px;
-    }
-
-    .edit-class-page .edit-form .form_row {
-        margin: 0 !important;
-    }
-
-    .edit-class-page .edit-form .form_label {
-        margin-bottom: 8px !important;
-    }
-
-    .edit-class-page .edit-form .form_label label {
-        font-size: 16px;
-        font-weight: 800;
-    }
-
-    .edit-class-page .edit-form .form_field input[type="text"] {
-        min-height: 60px !important;
-        border-radius: 14px !important;
-        font-size: 18px !important;
-        padding: 12px 16px !important;
-    }
-
-    .edit-class-page .form-actions {
-        padding-top: 2px;
-    }
-
-    .edit-class-page .edit-form .form-actions .button {
-        min-height: 54px !important;
-        border-radius: 14px !important;
-        padding: 12px 24px !important;
-        font-size: 20px !important;
-        width: auto;
-        min-width: 220px;
-    }
-
-    .edit-class-page .form-message {
-        margin-bottom: 14px;
-        padding: 12px 14px;
-        border-radius: 11px;
-        border: 1px solid #fecaca;
-        background: #fef2f2;
-        color: #b91c1c;
-        font-weight: 700;
-        font-size: 15px;
-    }
-
-    @media (max-width: 980px) {
-        .edit-class-page .hero-title { font-size: 30px; }
-
-        .edit-class-page .edit-form .form_label label {
-            font-size: 15px;
-        }
-
-        .edit-class-page .edit-form .form_field input[type="text"] {
-            min-height: 60px !important;
-            font-size: 17px !important;
-        }
-
-        .edit-class-page .edit-form .form-actions .button {
-            width: 100%;
-            font-size: 19px !important;
-            min-height: 56px !important;
-            min-width: 0;
-        }
-    }
-</style>
 
 <div class="edit-class-page">
 <div id="page">
@@ -283,3 +138,4 @@ include_once('../layout/core_forms_style.php');
 </div>
 
 <?php include_once('../layout/footer.php'); ?>
+

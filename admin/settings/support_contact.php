@@ -1,5 +1,10 @@
 <?php require_once(__DIR__ . '/../../config.php'); ?>
 <?php
+if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_misc_pages.css';
+
 include_once('../layout/main_header.php');
 require_once(LIB_PATH . '/functions.class.php');
 require_once(LIB_PATH . '/security.php');
@@ -77,86 +82,6 @@ if (isset($_POST['save_support_contact'])) {
     }
 }
 ?>
-
-<style type="text/css">
-    .support-contact-page {
-        --support-primary: #173d69;
-        --support-primary-deep: #13345a;
-        --support-accent: #f0b323;
-        --support-accent-deep: #d79a12;
-        --support-surface: #eef4fa;
-        --support-card: #ffffff;
-        --support-border: #d9e3ef;
-        --support-border-strong: #c8d6e6;
-        --support-text: #163a61;
-        --support-muted: #6b819c;
-    }
-
-    .support-contact-page .page-shell {
-        background: linear-gradient(180deg, #f3f7fb 0%, var(--support-surface) 100%);
-        border-radius: 24px;
-        padding: 24px;
-    }
-
-    .support-contact-page .page-hero {
-        position: relative;
-        overflow: hidden;
-        border: 1px solid var(--support-border);
-        border-radius: 22px;
-        padding: 22px 24px;
-        background: linear-gradient(135deg, #f9fbfe 0%, var(--support-surface) 100%);
-        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-        margin-bottom: 18px;
-    }
-
-    .support-contact-page .page-hero::before {
-        content: "";
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 6px;
-        background: linear-gradient(180deg, var(--support-accent), var(--support-accent-deep));
-    }
-
-    .support-contact-page .page-title {
-        font-size: 28px;
-        font-weight: 800;
-        letter-spacing: -0.5px;
-        color: var(--support-primary-deep);
-        margin-bottom: 8px;
-    }
-
-    .support-contact-page .page-subtitle {
-        color: var(--support-muted);
-        margin: 0;
-    }
-
-    .support-contact-page .settings-card {
-        border: 1px solid var(--support-border);
-        border-radius: 18px;
-        box-shadow: 0 10px 22px rgba(15, 23, 42, 0.07);
-        background: var(--support-card);
-    }
-
-    .support-contact-page .form-label {
-        font-weight: 700;
-        color: var(--support-text);
-    }
-
-    .support-contact-page .form-control,
-    .support-contact-page .form-select {
-        border-radius: 12px;
-        min-height: 48px;
-        border: 1px solid var(--support-border-strong);
-        background: #f7f9fc;
-    }
-
-    .support-contact-page .form-control:focus,
-    .support-contact-page .form-select:focus {
-        border-color: #87a6cb;
-        box-shadow: 0 0 0 4px rgba(23, 61, 105, 0.12);
-        background: #fff;
-    }
-</style>
 
 <div class="container-fluid support-contact-page">
     <div class="page-shell">
@@ -253,3 +178,4 @@ if (isset($_POST['save_support_contact'])) {
 </div>
 
 <?php include_once('../layout/footer.php'); ?>
+

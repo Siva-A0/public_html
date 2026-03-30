@@ -16,20 +16,20 @@ if ($basePath !== '' && strpos($requestPath, $basePath) === 0) {
 
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'user') {
     $allowedUserPaths = array(
-        '/public/pages/user/dashboard.php',
-        '/public/pages/user/academics.php',
-        '/public/pages/user/profile.php',
-        '/public/pages/user/achievements.php',
-        '/public/pages/user/my_achievements.php',
-        '/public/pages/user/certifications.php',
-        '/public/pages/user/my_certifications.php',
-        '/public/pages/user/downloads.php',
-        '/public/pages/user/studentsupport.php',
+        '/public/pages/student/dashboard/index.php',
+        '/public/pages/student/academics.php',
+        '/public/pages/student/profile.php',
+        '/public/pages/student/achievements.php',
+        '/public/pages/student/my_achievements.php',
+        '/public/pages/student/certifications.php',
+        '/public/pages/student/my_certifications.php',
+        '/public/pages/student/downloads.php',
+        '/public/pages/student/studentsupport.php',
         '/public/pages/authentication/logout.php'
     );
 
     if (!in_array($relativePath, $allowedUserPaths, true)) {
-        header('Location: ' . BASE_URL . '/public/pages/user/dashboard.php');
+        header('Location: ' . BASE_URL . '/public/pages/student/dashboard/index.php');
         exit;
     }
 }
@@ -537,3 +537,4 @@ body.preloading {
  </script>
  
  <section class="page-content <?php echo $isUserArea ? 'user-page-content' : ($isHomePage ? '' : 'py-5'); ?>">
+

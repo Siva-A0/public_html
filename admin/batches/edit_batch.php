@@ -41,36 +41,16 @@ if (empty($batchDet)) {
 	exit;
 }
 
+if (!isset($adminExtraStyles) || !is_array($adminExtraStyles)) {
+    $adminExtraStyles = array();
+}
+$adminExtraStyles[] = BASE_URL . '/public/assets/css/admin/admin_academic_pages.css';
+
 include_once('../layout/main_header.php');
 include_once('../layout/core_forms_style.php');
 ?>
-<style type="text/css">
-	.edit-batch-page {
-		--bp-primary: #173d69;
-		--bp-primary-deep: #13345a;
-		--bp-accent: #f0b323;
-		--bp-accent-deep: #d79a12;
-		--bp-surface: #eef4fa;
-		--bp-border: #d9e3ef;
-		--bp-muted: #6b819c;
-		background: linear-gradient(180deg, #f3f7fb 0%, var(--bp-surface) 100%);
-		border-radius: 24px;
-		padding: 24px;
-	}
-	#content_left {
-		display: none;
-	}
 
-	#content {
-		grid-template-columns: 1fr;
-		gap: 0;
-	}
-
-	#page {
-		max-width: none;
-	}
-</style>
-			<div class="edit-batch-page">
+<div class="edit-batch-page">
 			<div id="page">
 				<div id="content">
 					<div class="post">
@@ -136,4 +116,5 @@ include_once('../layout/core_forms_style.php');
 <?php 
 	include_once('../layout/footer.php');
 ?>
+
 
