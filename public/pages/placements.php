@@ -75,20 +75,6 @@ foreach ($placementDocuments as $documentRow) {
                 <span class="placements-stat-label">Companies Visited</span>
                 <strong><?php echo htmlspecialchars((string)($placementStats['companies_visited'] ?? '0'), ENT_QUOTES, 'UTF-8'); ?></strong>
             </article>
-            <article class="placements-stat-card">
-                <div class="placements-stat-icon placements-stat-icon-gold">
-                    <i class="bi bi-rocket-takeoff" aria-hidden="true"></i>
-                </div>
-                <span class="placements-stat-label">Highest Package</span>
-                <strong><?php echo htmlspecialchars((string)($placementStats['highest_package'] !== '' ? $placementStats['highest_package'] : 'To Be Updated'), ENT_QUOTES, 'UTF-8'); ?></strong>
-            </article>
-            <article class="placements-stat-card">
-                <div class="placements-stat-icon placements-stat-icon-purple">
-                    <i class="bi bi-graph-up-arrow" aria-hidden="true"></i>
-                </div>
-                <span class="placements-stat-label">Average Package</span>
-                <strong><?php echo htmlspecialchars((string)($placementStats['average_package'] !== '' ? $placementStats['average_package'] : 'To Be Updated'), ENT_QUOTES, 'UTF-8'); ?></strong>
-            </article>
         </div>
     </section>
 
@@ -166,7 +152,7 @@ foreach ($placementDocuments as $documentRow) {
                     }
                     $photoFile = trim((string)($placement['profile_photo'] ?? ''));
                     $photoUrl = $photoFile !== '' ? BASE_URL . '/public/uploads/placements/photos/' . rawurlencode($photoFile) : '';
-                    $searchBlob = strtolower(trim($studentName . ' ' . $companyNameValue . ' ' . $batchLabelValue . ' ' . $academicYearValue . ' aiml department ' . (string)($placement['package_label'] ?? '')));
+                    $searchBlob = strtolower(trim($studentName . ' ' . $companyNameValue . ' ' . $batchLabelValue . ' ' . $academicYearValue . ' aiml department'));
                 ?>
                 <article
                     class="placement-student-card"
@@ -206,13 +192,6 @@ foreach ($placementDocuments as $documentRow) {
                     <div class="placement-student-company">
                         <span class="placement-company-label">Placed At</span>
                         <strong><?php echo htmlspecialchars((string)($placement['company_name'] ?? ''), ENT_QUOTES, 'UTF-8'); ?></strong>
-                    </div>
-
-                    <div class="placement-student-details placement-student-details-single">
-                        <div>
-                            <span>Package</span>
-                            <strong><?php echo htmlspecialchars((string)($placement['package_label'] ?? ''), ENT_QUOTES, 'UTF-8'); ?></strong>
-                        </div>
                     </div>
                 </article>
             <?php } ?>
