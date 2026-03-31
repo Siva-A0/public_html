@@ -26,7 +26,7 @@ $options = array(
     <div class="page-shell">
         <div class="page-hero">
             <h3 class="page-title">Department Settings</h3>
-            <p class="page-subtitle">Click any module to open complete data view with actions.</p>
+            <!-- <p class="page-subtitle">Click any module to open complete data view with actions.</p> -->
         </div>
 
         <div class="settings-list">

@@ -87,7 +87,7 @@ include_once('../layout/core_forms_style.php');
         <div id='content_right' class='content_right'>
             <div class="event-edit-hero">
                 <h1>Edit Event</h1>
-                <p>Update event information, registration dates, and venue details.</p>
+                <!-- <p>Update event information, registration dates, and venue details.</p> -->
             </div>
             <div id="eventDetails">
                 <?php if ($message !== '') { ?>

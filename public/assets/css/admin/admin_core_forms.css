@@ -45,3 +45,61 @@
 #addSyllabus.core-form .form_actions .button { min-width: 190px; }
 @media (max-width: 980px) { #content, #content.single-panel-layout { grid-template-columns: 1fr; gap: 18px; } #content .post h4 { font-size: 26px; } #content_right .committeeTitle, #content_right .subjHeader, #content_right .usersDetHeader, #addSyllabus.core-form .form_row { grid-template-columns: 1fr; gap: 8px; } #addSyllabus.core-form .form_actions .button { width: 100%; } }
 @media (max-width: 767px) { #page, #content { width: 100%; grid-template-columns: 1fr; gap: 16px; } #content .post h4 { font-size: 24px; } #content_left, #content_right .comteeMem, #content.single-panel-layout #content_right .comteeMem { padding: 16px; border-radius: 16px; } #content_right .committeeTitle, #content_right .subjHeader, #content_right .usersDetHeader { grid-template-columns: 1fr; gap: 10px; padding: 12px; } #content_right .eventCandName input.button, #content_right .subjMaterials input.button, #content_right form .form_field input[type="submit"], #content_right form .form_field .button, #content_right > .eventCandName input.button { width: 100%; justify-content: center; font-size: 15px; } }
+
+body.admin-no-content-left #content {
+    grid-template-columns: 1fr !important;
+}
+
+body.admin-no-content-left #content_left {
+    display: none !important;
+}
+
+body.admin-no-content-left #content_right {
+    grid-column: 1 / -1;
+}
+
+html[data-theme="dark"] #content_right form .form_hint {
+    color: #a8bfdc !important;
+}
+
+html[data-theme="dark"] #content_right form .form_label label {
+    color: #e6f0ff !important;
+}
+
+html[data-theme="dark"] #content_right form .form_field input[type="text"],
+html[data-theme="dark"] #content_right form .form_field input[type="file"],
+html[data-theme="dark"] #content_right form .form_field select,
+html[data-theme="dark"] #content_right form .form_field textarea {
+    background: #13233a !important;
+    border-color: #2a3f5d !important;
+    color: #e7f0ff !important;
+}
+
+html[data-theme="dark"] #content_right form .form_field input[type="text"]::placeholder,
+html[data-theme="dark"] #content_right form .form_field textarea::placeholder {
+    color: #86a6c8 !important;
+}
+
+html[data-theme="dark"] #content_right form .form_field input[type="file"]::file-selector-button {
+    border-color: #2a3f5d !important;
+    background: #111d2f !important;
+    color: #e7f0ff !important;
+}
+
+html[data-theme="dark"] #content_right form .form_field input[type="text"]:focus,
+html[data-theme="dark"] #content_right form .form_field input[type="file"]:focus,
+html[data-theme="dark"] #content_right form .form_field select:focus,
+html[data-theme="dark"] #content_right form .form_field textarea:focus {
+    border-color: #60a5fa !important;
+    background: #0f1b2c !important;
+    box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.18) !important;
+}
+
+html[data-theme="dark"] #content_right form .form_field input[readonly],
+html[data-theme="dark"] #content_right form .form_field textarea[readonly],
+html[data-theme="dark"] #content_right form .form_field select[disabled] {
+    background: #102034 !important;
+    color: #cbe2ff !important;
+    -webkit-text-fill-color: #cbe2ff;
+    opacity: 1;
+}

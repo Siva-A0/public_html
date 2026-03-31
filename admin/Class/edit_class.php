@@ -67,7 +67,7 @@ include_once('../layout/core_forms_style.php');
 
         <div class="page-hero">
             <h1 class="hero-title">Edit Class</h1>
-            <p class="page-subtitle">Update the class code and class name in the same branded admin workspace.</p>
+            <!-- <p class="page-subtitle">Update the class code and class name in the same branded admin workspace.</p> -->
         </div>
 
         <div id='content_left' class='content_left'></div>

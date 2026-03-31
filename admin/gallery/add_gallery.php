@@ -78,7 +78,7 @@ $categories = $fcObj->getGalleryCategories($tbGalleryCategory, true);
     <div class="page-shell">
     <div class="page-hero">
         <h3 class="page-title">Add New Gallery Image</h3>
-        <p class="page-subtitle">Attach photos to any admin-managed gallery category.</p>
+        <!-- <p class="page-subtitle">Attach photos to any admin-managed gallery category.</p> -->
     </div>
 
     <div class="card gallery-form-card border-0">

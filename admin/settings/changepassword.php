@@ -147,7 +147,7 @@ if (!file_exists($adminImageDiskPath)) {
 <div class="profile-settings-page">
     <div class="page-hero">
         <h3 class="page-title">Profile Settings</h3>
-        <p class="page-subtitle">Manage your admin profile details, photo, and password from one place.</p>
+        <!-- <p class="page-subtitle">Manage your admin profile details, photo, and password from one place.</p> -->
     </div>
 </div>
 
@@ -188,9 +188,7 @@ if (!file_exists($adminImageDiskPath)) {
 
                         <div class="profile-form-panel">
                             <h4 class="profile-section-title">Admin Details</h4>
-                            <div class="profile-form-note">
-                                Leave the password fields empty if you only want to update your profile information.
-                            </div>
+                            
 
                             <div class="form-columns">
                                 <div class="form_row">

@@ -98,7 +98,7 @@ include_once(__DIR__ . '/layout/main_header.php');
     <section class="student-hero">
         <span class="student-kicker">Certifications</span>
         <h1>Upload Certification</h1>
-        <p>Store your verified certificates separately from achievements so they are easier to review and find later.</p>
+        <!-- <p>Store your verified certificates separately from achievements so they are easier to review and find later.</p> -->
     </section>
 
     <?php if ($message !== '') { ?>
@@ -108,14 +108,14 @@ include_once(__DIR__ . '/layout/main_header.php');
     <section class="student-layout-grid">
         <div class="student-panel">
             <div class="student-panel-header">
-                <div><h2 class="student-panel-title">Certification Submission</h2><p class="student-panel-subtitle">Upload file-based certifications with clear issuer and area details.</p></div>
+                <div><h2 class="student-panel-title">Certification Submission</h2><p class="student-panel-subtitle"></p></div>
                 <span class="student-tag">Submit</span>
             </div>
             <form method="POST" enctype="multipart/form-data">
                 <div class="student-form-grid">
-                    <div class="student-field"><label class="student-label">Issuing Organization</label><input type="text" name="issuing_organization" class="student-input" value="<?php echo isset($_POST['issuing_organization']) ? htmlspecialchars((string)$_POST['issuing_organization'], ENT_QUOTES, 'UTF-8') : ''; ?>" placeholder="Example: Coursera" required></div>
-                    <div class="student-field"><label class="student-label">Certification Area</label><input type="text" name="certification_theme" class="student-input" value="<?php echo isset($_POST['certification_theme']) ? htmlspecialchars((string)$_POST['certification_theme'], ENT_QUOTES, 'UTF-8') : ''; ?>" placeholder="Example: Machine Learning" required></div>
-                    <div class="student-field full"><label class="student-label">Certification Title</label><input type="text" name="certification_title" class="student-input" value="<?php echo isset($_POST['certification_title']) ? htmlspecialchars((string)$_POST['certification_title'], ENT_QUOTES, 'UTF-8') : ''; ?>" placeholder="Example: AI Foundations Certificate" required></div>
+                    <div class="student-field"><label class="student-label">Issuing Organization</label><input type="text" name="issuing_organization" class="student-input" value="<?php echo isset($_POST['issuing_organization']) ? htmlspecialchars((string)$_POST['issuing_organization'], ENT_QUOTES, 'UTF-8') : ''; ?>" placeholder="" required></div>
+                    <div class="student-field"><label class="student-label">Certification Area</label><input type="text" name="certification_theme" class="student-input" value="<?php echo isset($_POST['certification_theme']) ? htmlspecialchars((string)$_POST['certification_theme'], ENT_QUOTES, 'UTF-8') : ''; ?>" placeholder="" required></div>
+                    <div class="student-field full"><label class="student-label">Certification Title</label><input type="text" name="certification_title" class="student-input" value="<?php echo isset($_POST['certification_title']) ? htmlspecialchars((string)$_POST['certification_title'], ENT_QUOTES, 'UTF-8') : ''; ?>" placeholder="" required></div>
                     <div class="student-field full"><label class="student-label">Certificate File</label><div class="student-file-picker"><button type="button" class="student-file-btn" id="certification_file_btn">Choose File</button><input type="text" class="student-input" id="certification_file_name" value="No file chosen" readonly></div><input type="file" name="certification_file" id="certification_file" class="d-none" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"><div class="student-help">Allowed: PDF, DOC, DOCX, JPG, JPEG, PNG.</div></div>
                 </div>
                 <div class="student-actions">
@@ -127,13 +127,13 @@ include_once(__DIR__ . '/layout/main_header.php');
 
         <aside class="student-panel">
             <div class="student-panel-header">
-                <div><h2 class="student-panel-title">Submission Guide</h2><p class="student-panel-subtitle">A few quick reminders before you upload.</p></div>
+                <div><h2 class="student-panel-title">Submission Guide</h2><p class="student-panel-subtitle"></p></div>
                 <span class="student-tag">Guide</span>
             </div>
             <div class="student-info-list">
-                <article class="student-info-card"><h3>Use Valid Files</h3><p>Upload the actual certificate or a clear scanned copy so it is easy to verify later.</p></article>
-                <article class="student-info-card"><h3>Name It Clearly</h3><p>Keep the certification title and issuing organization exact to the original document.</p></article>
-                <article class="student-info-card"><h3>Separate From Achievements</h3><p>Use this page for certifications only. Awards, wins, and recognitions should stay under achievements.</p></article>
+                <article class="student-info-card"><h3>Use Valid Files</h3><p></p></article>
+                <article class="student-info-card"><h3>Name It Clearly</h3><p></p></article>
+                <article class="student-info-card"><h3>Separate From Achievements</h3><p></p></article>
             </div>
         </aside>
     </section>

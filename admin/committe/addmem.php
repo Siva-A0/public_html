@@ -148,7 +148,7 @@ require_once(LIB_PATH . '/functions.class.php');
 						<div class="committee-form-shell">
 						<div class="committee-add-hero">
 							<h3 class="committee-add-title">Add Committee Member</h3>
-							<p class="committee-add-subtitle">Enter a category manually and create a member profile with optional photo.</p>
+							<p class="committee-add-subtitle"></p>
 						</div>
 						<div class="login">
 							<form id='addcommitteemem' action='addmem.php' method='POST' accept-charset='UTF-8' enctype="multipart/form-data">
@@ -169,7 +169,7 @@ require_once(LIB_PATH . '/functions.class.php');
 										<label for='memberName'>Member Name:</label>
 									</div>
 									<div class="form_field">
-										<input type="text" id="memberName" name="member_name" value="" placeholder="Member name" required />
+										<input type="text" id="memberName" name="member_name" value="" placeholder="" required />
 									</div>
 								</div>
 								<div class="form_row">
@@ -177,7 +177,7 @@ require_once(LIB_PATH . '/functions.class.php');
 										<label for='memberAbout' >About:</label>
 									</div>
 									<div class="form_field">
-										<textarea id="memberAbout" name="member_about" rows="3" placeholder="Member details will appear here."></textarea>
+										<textarea id="memberAbout" name="member_about" rows="3" placeholder=""></textarea>
 									</div>
 								</div>
 								<div class="form_row">

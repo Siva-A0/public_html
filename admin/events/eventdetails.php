@@ -37,7 +37,7 @@ include_once('../layout/core_forms_style.php');
         <div id='content_right' class='content_right'>
             <div class="event-detail-hero">
                 <h1>Event Details</h1>
-                <p>View the full event information and jump directly into edit or delete actions.</p>
+                <!-- <p>View the full event information and jump directly into edit or delete actions.</p> -->
             </div>
             <div class="event-detail-card">
                 <div class="event-detail-row">

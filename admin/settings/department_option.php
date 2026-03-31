@@ -14,37 +14,37 @@ $option = isset($_GET['option']) ? trim((string)$_GET['option']) : '';
 $configs = array(
     'classes' => array(
         'title' => 'Years / Semesters',
-        'desc' => 'Academic year/semester records used to map subjects, syllabus, and resources.',
+        'desc' => '',
         'add_url' => BASE_URL . '/admin/Class/add_class.php',
         'manage_url' => BASE_URL . '/admin/Class/classes.php'
     ),
     'sections' => array(
         'title' => 'Sections',
-        'desc' => 'Sections (A/B/C) mapped under each year/semester.',
+        
         'add_url' => BASE_URL . '/admin/Section/add_section.php',
         'manage_url' => BASE_URL . '/admin/Section/sections.php'
     ),
     'streams' => array(
         'title' => 'Streams',
-        'desc' => 'Branch and stream configuration.',
+        
         'add_url' => BASE_URL . '/admin/branch/add_branch.php',
         'manage_url' => BASE_URL . '/admin/branch/branch.php'
     ),
     'batches' => array(
         'title' => 'Academic Batches',
-        'desc' => 'Academic batches used during student registration (e.g., 2023, 2024).',
+        'desc' => '',
         'add_url' => BASE_URL . '/admin/batches/add_batch.php',
         'manage_url' => BASE_URL . '/admin/batches/batch.php'
     ),
     'subjects' => array(
         'title' => 'Subjects',
-        'desc' => 'Subjects mapped to classes.',
+        
         'add_url' => BASE_URL . '/admin/Subject/add_subject.php',
         'manage_url' => BASE_URL . '/admin/Subject/subjects.php'
     ),
     'syllabus' => array(
         'title' => 'Syllabus',
-        'desc' => 'Syllabus records with class mapping.',
+         'desc' => 'Syllabus records with class mapping.',
         'add_url' => BASE_URL . '/admin/syllabus/add_syllabus.php',
         'manage_url' => BASE_URL . '/admin/syllabus/syllabus.php'
     ),

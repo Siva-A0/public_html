@@ -47,7 +47,7 @@ include_once('../layout/main_header.php');
 						<div class="class-add-page">
 						<div class="class-add-hero">
 							<h3 class="class-add-title">Add New Class</h3>
-							<p class="class-add-subtitle">Create class records with a unique class code and name.</p>
+							<!-- <p class="class-add-subtitle">Create class records with a unique class code and name.</p> -->
 						</div>
 						<div class="comteeMem">
 							<?php

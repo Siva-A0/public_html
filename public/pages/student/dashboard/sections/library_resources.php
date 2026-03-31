@@ -2,7 +2,7 @@
     <div class="student-panel-header">
         <div>
             <h2 class="student-panel-title">Library Resources</h2>
-            <p class="student-panel-subtitle">Class-level documents and syllabus materials prepared for your current academic track.</p>
+            <!-- <p class="student-panel-subtitle">Class-level documents and syllabus materials prepared for your current academic track.</p> -->
         </div>
         <span class="student-tag"><?php echo htmlspecialchars($userClassName, ENT_QUOTES, 'UTF-8'); ?></span>
     </div>
@@ -15,6 +15,6 @@
             </a>
         </div>
     <?php } else { ?>
-        <div class="student-empty-note">No syllabus has been uploaded for your class yet. Once the academic team adds it, it will appear here.</div>
+        <!-- <div class="student-empty-note">No syllabus has been uploaded for your class yet. Once the academic team adds it, it will appear here.</div> -->
     <?php } ?>
 </section>

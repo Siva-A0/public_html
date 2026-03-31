@@ -200,7 +200,7 @@ include_once(__DIR__ . '/../layout/main_header.php');
     <div class="users-shell">
         <div class="users-hero">
             <h3>Students</h3>
-            <div class="users-subtitle">Manage student records with a cleaner academic dashboard layout and faster access to key actions.</div>
+            <!-- <div class="users-subtitle">Manage student records with a cleaner academic dashboard layout and faster access to key actions.</div> -->
             <div class="users-count">Total Students: <?php echo $totalStudents; ?></div>
         </div>
 
@@ -224,7 +224,7 @@ include_once(__DIR__ . '/../layout/main_header.php');
                 <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
                     <div>
                         <h4 class="users-section-title">Filter students</h4>
-                        <p class="users-section-copy">Use batch, section, status, or search to narrow the student list quickly.</p>
+                        <!-- <p class="users-section-copy">Use batch, section, status, or search to narrow the student list quickly.</p> -->
                     </div>
                 </div>
                 <form method="get" class="row g-3 align-items-end">
@@ -258,7 +258,7 @@ include_once(__DIR__ . '/../layout/main_header.php');
                                 </option>
                             <?php } ?>
                         </select>
-                        <div class="form-text">Select a batch to load sections.</div>
+                        <!-- <div class="form-text">Select a batch to load sections.</div> -->
                     </div>
                     <div class="col-12 col-lg-3">
                         <label class="form-label users-form-label mb-1">Search</label>

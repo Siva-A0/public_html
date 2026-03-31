@@ -32,7 +32,7 @@ include_once('../layout/main_header.php');
 						<div class="batch-page">
 						<div class="batch-list-hero">
                             <h3 class="batch-list-title">Manage Batches</h3>
-                            <p class="batch-list-subtitle">Keep batch/year records organized and easy to manage.</p>
+                            <p class="batch-list-subtitle"></p>
                         </div>
 
                         <div class="batch-list-card">

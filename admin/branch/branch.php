@@ -34,7 +34,7 @@ include_once('../layout/main_header.php');
 						<div class="branch-page">
 						<div class="branch-list-hero">
                             <h3 class="branch-list-title">Manage Branches</h3>
-                            <p class="branch-list-subtitle">Keep branch/specialization records aligned and easy to manage.</p>
+                            <p class="branch-list-subtitle"></p>
                         </div>
 
                         <div class="branch-list-card">

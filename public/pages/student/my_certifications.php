@@ -36,25 +36,25 @@ include_once(__DIR__ . '/layout/main_header.php');
     <section class="student-hero">
         <span class="student-kicker">My Certifications</span>
         <h1>Certification History</h1>
-        <p>See every certification you have uploaded from one place and open the attached files whenever needed.</p>
+        <!-- <p>See every certification you have uploaded from one place and open the attached files whenever needed.</p> -->
         <div class="student-meta-line">
             <span class="student-meta-pill"><strong>Total</strong> <?php echo count($certifications); ?></span>
         </div>
     </section>
 
     <section class="student-stat-grid">
-        <article class="student-stat-card"><p class="student-stat-label">All Certifications</p><p class="student-stat-value"><?php echo count($certifications); ?></p><p class="student-stat-note">Uploaded certification files linked to your student profile.</p></article>
-        <article class="student-stat-card"><p class="student-stat-label">Document Entries</p><p class="student-stat-value"><?php echo count($certifications); ?></p><p class="student-stat-note">Each certification is stored as a file-backed document entry.</p></article>
+        <article class="student-stat-card"><p class="student-stat-label">All Certifications</p><p class="student-stat-value"><?php echo count($certifications); ?></p><p class="student-stat-note"></p></article>
+        <article class="student-stat-card"><p class="student-stat-label">Document Entries</p><p class="student-stat-value"><?php echo count($certifications); ?></p><p class="student-stat-note"></p></article>
     </section>
 
     <section class="student-panel">
         <div class="student-panel-header">
-            <div><h2 class="student-panel-title">Submitted Certifications</h2><p class="student-panel-subtitle">Review the issuer, area, and attached proof for each certification.</p></div>
+            <div><h2 class="student-panel-title">Submitted Certifications</h2><p class="student-panel-subtitle"></p></div>
             <a class="student-link-btn" href="<?php echo BASE_URL; ?>/public/pages/student/certifications.php">Upload New</a>
         </div>
 
         <?php if (empty($certifications)) { ?>
-            <div class="student-empty-note">No certifications submitted yet. Use the upload page to add your first certification.</div>
+            <div class="student-empty-note"></div>
         <?php } else { ?>
             <div class="student-achievement-list">
                 <?php foreach ($certifications as $row) { ?>

@@ -66,7 +66,7 @@ include_once('../layout/main_header.php');
 						<div class="add-highlight-page">
 						<div class="highlight-add-hero">
 							<h3 class="highlight-add-title">Add New Highlight</h3>
-							<p class="highlight-add-subtitle">Create and publish department highlight messages.</p>
+							<!-- <p class="highlight-add-subtitle">Create and publish department highlight messages.</p> -->
 						</div>
 						<div class="comteeMem">
 							<?php

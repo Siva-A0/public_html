@@ -182,7 +182,7 @@ include_once(__DIR__ . '/../layout/main_header.php');
     <div class="users-shell">
         <div class="users-hero">
             <h3>Alumni</h3>
-            <div class="users-subtitle">Keep alumni records organized with the same academic dashboard styling and clearer table actions.</div>
+            <!-- <div class="users-subtitle">Keep alumni records organized with the same academic dashboard styling and clearer table actions.</div> -->
             <div class="users-count">Total Alumni: <?php echo $totalAlumni; ?></div>
         </div>
 
@@ -206,7 +206,7 @@ include_once(__DIR__ . '/../layout/main_header.php');
                 <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
                     <div>
                         <h4 class="users-section-title">Filter alumni</h4>
-                        <p class="users-section-copy">Search alumni by batch, section, status, username, email, or roll details.</p>
+                        <!-- <p class="users-section-copy">Search alumni by batch, section, status, username, email, or roll details.</p> -->
                     </div>
                 </div>
                 <form method="get" class="row g-3 align-items-end">
@@ -240,7 +240,7 @@ include_once(__DIR__ . '/../layout/main_header.php');
                                 </option>
                             <?php } ?>
                         </select>
-                        <div class="form-text">Select a batch to load sections.</div>
+                        <!-- <div class="form-text">Select a batch to load sections.</div> -->
                     </div>
                     <div class="col-12 col-lg-3">
                         <label class="form-label users-form-label mb-1">Search</label>

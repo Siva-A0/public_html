@@ -44,7 +44,7 @@ include_once(__DIR__ . '/layout/main_header.php');
     <section class="faculty-hero">
         <span class="faculty-kicker">My Achievements</span>
         <h1>Achievement History</h1>
-        <p>Review every faculty achievement you have submitted, including document uploads and text entries.</p>
+        <p></p>
         <div class="faculty-meta-line">
             <span class="faculty-meta-pill"><strong>Total</strong> <?php echo count($achievements); ?></span>
             <span class="faculty-meta-pill"><strong>Document</strong> <?php echo $documentCount; ?></span>
@@ -53,19 +53,19 @@ include_once(__DIR__ . '/layout/main_header.php');
     </section>
 
     <section class="faculty-stat-grid">
-        <article class="faculty-stat-card"><p class="faculty-stat-label">All Submissions</p><p class="faculty-stat-value"><?php echo count($achievements); ?></p><p class="faculty-stat-note">Combined faculty achievement entries linked to your account.</p></article>
-        <article class="faculty-stat-card"><p class="faculty-stat-label">Document Entries</p><p class="faculty-stat-value"><?php echo $documentCount; ?></p><p class="faculty-stat-note">Achievements submitted with a supporting file.</p></article>
-        <article class="faculty-stat-card"><p class="faculty-stat-label">Text Entries</p><p class="faculty-stat-value"><?php echo $textCount; ?></p><p class="faculty-stat-note">Achievements recorded as text-only descriptions.</p></article>
+        <article class="faculty-stat-card"><p class="faculty-stat-label">All Submissions</p><p class="faculty-stat-value"><?php echo count($achievements); ?></p><p class="faculty-stat-note"></p></article>
+        <article class="faculty-stat-card"><p class="faculty-stat-label">Document Entries</p><p class="faculty-stat-value"><?php echo $documentCount; ?></p><p class="faculty-stat-note"></p></article>
+        <article class="faculty-stat-card"><p class="faculty-stat-label">Text Entries</p><p class="faculty-stat-value"><?php echo $textCount; ?></p><p class="faculty-stat-note"></p></article>
     </section>
 
     <section class="faculty-panel">
         <div class="faculty-panel-header">
-            <div><h2 class="faculty-panel-title">Submitted Achievements</h2><p class="faculty-panel-subtitle">Open documents or review the entry details any time.</p></div>
+            <div><h2 class="faculty-panel-title">Submitted Achievements</h2><p class="faculty-panel-subtitle"></p></div>
             <a class="faculty-link-btn" href="<?php echo BASE_URL; ?>/public/pages/faculty/achievements.php">Upload New</a>
         </div>
 
         <?php if (empty($achievements)) { ?>
-            <div class="faculty-empty-note">No achievements submitted yet. Use the upload page to add your first achievement.</div>
+            <div class="faculty-empty-note"></div>
         <?php } else { ?>
             <div class="faculty-achievement-list">
                 <?php foreach ($achievements as $row) { ?>

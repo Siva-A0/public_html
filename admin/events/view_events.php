@@ -118,7 +118,7 @@ include_once('../layout/main_header.php');
 												<?php echo date("d-m-Y", strtotime($pastEvents[$i]['event_date'])); ?>
 											</div>
 											<div class="eventRegisDates">
-												<?php echo date("d-m-Y", strtotime($pastEvents[$i]['reg_frm_date'])).' to '.date("d-m-Y", strtotime($pastEvents[$i]['reg_to_date'])); ?>
+												<span class="eventRegisRange"><?php echo date("d-m-Y", strtotime($pastEvents[$i]['reg_frm_date'])).' to '.date("d-m-Y", strtotime($pastEvents[$i]['reg_to_date'])); ?></span>
 												<a href="delete_event.php?event=<?php echo $pastEvents[$i]['id'];?>" >
 													<input type="button" class="button" id="delete" value="Delete"/>
 												</a>
@@ -171,7 +171,7 @@ include_once('../layout/main_header.php');
 												<?php echo date("d-m-Y", strtotime($curEvents[$i]['event_date'])); ?>
 											</div>
 											<div class="eventRegisDates">
-												<?php echo date("d-m-Y", strtotime($curEvents[$i]['reg_frm_date'])).' to '.date("d-m-Y", strtotime($curEvents[$i]['reg_to_date'])); ?>
+												<span class="eventRegisRange"><?php echo date("d-m-Y", strtotime($curEvents[$i]['reg_frm_date'])).' to '.date("d-m-Y", strtotime($curEvents[$i]['reg_to_date'])); ?></span>
 												<a href="edit_event.php?event=<?php echo $curEvents[$i]['id'];?>" >
 													<input type="button" class="button" id="edit" value="Edit"/>
 												</a>
@@ -228,7 +228,7 @@ include_once('../layout/main_header.php');
 												<?php echo date("d-m-Y", strtotime($futureEvents[$i]['event_date'])); ?>
 											</div>
 											<div class="eventRegisDates">
-												<?php echo date("d-m-Y", strtotime($futureEvents[$i]['reg_frm_date'])).' to '.date("d-m-Y", strtotime($futureEvents[$i]['reg_to_date'])); ?>
+												<span class="eventRegisRange"><?php echo date("d-m-Y", strtotime($futureEvents[$i]['reg_frm_date'])).' to '.date("d-m-Y", strtotime($futureEvents[$i]['reg_to_date'])); ?></span>
 												<a href="delete_event.php?event=<?php echo $futureEvents[$i]['id'];?>" >
 													<input type="button" class="button" id="delete" value="Delete"/>
 												</a>

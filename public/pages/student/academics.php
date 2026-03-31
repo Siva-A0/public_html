@@ -142,7 +142,7 @@ include_once(__DIR__ . '/layout/main_header.php');
     <section class="student-hero">
         <span class="student-kicker">Academic Calendar</span>
         <h1><?php echo htmlspecialchars($calendar['year_label']); ?></h1>
-        <p>Your academics page brings the official calendar into a cleaner dashboard layout so class work, mid exams, semester exams, and lab schedules are easier to scan on desktop and mobile.</p>
+        <!-- <p>Your academics page brings the official calendar into a cleaner dashboard layout so class work, mid exams, semester exams, and lab schedules are easier to scan on desktop and mobile.</p> -->
         <div class="student-meta-line">
             <span class="student-meta-pill"><strong>Class</strong> <?php echo htmlspecialchars($userClassName !== '' ? $userClassName : 'Not Assigned'); ?></span>
             <span class="student-meta-pill"><strong>Year</strong> <?php echo htmlspecialchars($calendarYear); ?></span>
@@ -151,10 +151,10 @@ include_once(__DIR__ . '/layout/main_header.php');
     </section>
 
     <section class="student-stat-grid">
-        <article class="student-stat-card"><p class="student-stat-label">I Semester Items</p><p class="student-stat-value"><?php echo $semesterOneCount; ?></p><p class="student-stat-note">Milestones planned for the first semester schedule.</p></article>
-        <article class="student-stat-card"><p class="student-stat-label">II Semester Items</p><p class="student-stat-value"><?php echo $semesterTwoCount; ?></p><p class="student-stat-note">Milestones planned for the second semester schedule.</p></article>
-        <article class="student-stat-card"><p class="student-stat-label">Total Academic Rows</p><p class="student-stat-value"><?php echo $totalAcademicRows; ?></p><p class="student-stat-note">Combined calendar activities shown for this academic year.</p></article>
-        <article class="student-stat-card"><p class="student-stat-label">Current Track</p><p class="student-stat-value"><?php echo htmlspecialchars($calendarYear); ?></p><p class="student-stat-note">The displayed calendar is matched to your current year mapping.</p></article>
+        <article class="student-stat-card"><p class="student-stat-label">I Semester Items</p><p class="student-stat-value"><?php echo $semesterOneCount; ?></p><p class="student-stat-note"></p></article>
+        <article class="student-stat-card"><p class="student-stat-label">II Semester Items</p><p class="student-stat-value"><?php echo $semesterTwoCount; ?></p><p class="student-stat-note"></p></article>
+        <article class="student-stat-card"><p class="student-stat-label">Total Academic Rows</p><p class="student-stat-value"><?php echo $totalAcademicRows; ?></p><p class="student-stat-note"></p></article>
+        <article class="student-stat-card"><p class="student-stat-label">Current Track</p><p class="student-stat-value"><?php echo htmlspecialchars($calendarYear); ?></p><p class="student-stat-note"></p></article>
     </section>
 
     <?php foreach (array('sem_1' => 'I Semester', 'sem_2' => 'II Semester') as $semesterKey => $semesterTitle) { ?>

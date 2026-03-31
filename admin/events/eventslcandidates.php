@@ -44,7 +44,7 @@ include_once('../layout/main_header.php');
 							<div class="event-candidates-page">
 							<div class="event-shell-hero">
 								<h3 class="event-shell-title">Shortlist Candidates</h3>
-								<p class="event-shell-subtitle">Review registered candidates and shortlist them inside the school-branded event workflow.</p>
+								<!-- <p class="event-shell-subtitle">Review registered candidates and shortlist them inside the school-branded event workflow.</p> -->
 							</div>
 						<section class="event-candidates-shell">
 							<header class="event-summary">
@@ -63,7 +63,7 @@ include_once('../layout/main_header.php');
 
 									<?php if( $noOfRegCand == 0 ) { ?>
 										<div class="candidate-row candidate-empty" role="row">
-											<div class="candidate-cell" role="cell">No registered candidates found for this event.</div>
+											<div class="candidate-cell" role="cell"></div>
 										</div>
 									<?php } ?>
 

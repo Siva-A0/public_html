@@ -58,7 +58,7 @@ include_once('../layout/main_header.php');
     <div class="page-shell">
         <div class="page-hero">
             <h1 class="page-title">Placements Control Panel</h1>
-            <p class="page-subtitle">Manage placement records, recruiter-facing success metrics, and downloadable reports from one place.</p>
+            <!-- <p class="page-subtitle">Manage placement records, recruiter-facing success metrics, and downloadable reports from one place.</p> -->
         </div>
 
         <?php if ($message !== '') { ?>
@@ -69,7 +69,7 @@ include_once('../layout/main_header.php');
 
         <section class="panel-card">
             <h2 class="section-title">Hero Statistics</h2>
-            <p class="section-copy">These values appear on the public placements hero banner.</p>
+            <!-- <p class="section-copy">These values appear on the public placements hero banner.</p> -->
 
             <form method="POST">
                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(app_get_csrf_token(), ENT_QUOTES, 'UTF-8'); ?>">
@@ -104,7 +104,7 @@ include_once('../layout/main_header.php');
             <div class="toolbar">
                 <div>
                     <h2 class="section-title">Placement Records</h2>
-                    <p class="section-copy">Manage student placements, batch tagging, company details, and profile photos.</p>
+                    <!-- <p class="section-copy">Manage student placements, batch tagging, company details, and profile photos.</p> -->
                 </div>
                 <div class="action-row">
                     <a href="add_placements.php" class="btn btn-primary">
@@ -210,7 +210,7 @@ include_once('../layout/main_header.php');
             <div class="toolbar">
                 <div>
                     <h2 class="section-title">Placement Reports</h2>
-                    <p class="section-copy">Keep placement reports and downloadable placement documents available on the public page.</p>
+                    <!-- <p class="section-copy">Keep placement reports and downloadable placement documents available on the public page.</p> -->
                 </div>
             </div>
 

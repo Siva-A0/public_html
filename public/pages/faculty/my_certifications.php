@@ -35,25 +35,25 @@ include_once(__DIR__ . '/layout/main_header.php');
     <section class="faculty-hero">
         <span class="faculty-kicker">My Certifications</span>
         <h1>Certification History</h1>
-        <p>Access every faculty certificate you have uploaded and open the supporting files from one place.</p>
+        <!-- <p>Access every faculty certificate you have uploaded and open the supporting files from one place.</p> -->
         <div class="faculty-meta-line">
             <span class="faculty-meta-pill"><strong>Total</strong> <?php echo count($certifications); ?></span>
         </div>
     </section>
 
     <section class="faculty-stat-grid">
-        <article class="faculty-stat-card"><p class="faculty-stat-label">All Certifications</p><p class="faculty-stat-value"><?php echo count($certifications); ?></p><p class="faculty-stat-note">Uploaded certifications linked to your faculty account.</p></article>
-        <article class="faculty-stat-card"><p class="faculty-stat-label">Document Entries</p><p class="faculty-stat-value"><?php echo count($certifications); ?></p><p class="faculty-stat-note">Each certification is stored as a file-backed document entry.</p></article>
+        <article class="faculty-stat-card"><p class="faculty-stat-label">All Certifications</p><p class="faculty-stat-value"><?php echo count($certifications); ?></p><p class="faculty-stat-note"></p></article>
+        <article class="faculty-stat-card"><p class="faculty-stat-label">Document Entries</p><p class="faculty-stat-value"><?php echo count($certifications); ?></p><p class="faculty-stat-note"></p></article>
     </section>
 
     <section class="faculty-panel">
         <div class="faculty-panel-header">
-            <div><h2 class="faculty-panel-title">Submitted Certifications</h2><p class="faculty-panel-subtitle">Review your certifications and open the attached proof files.</p></div>
+            <div><h2 class="faculty-panel-title">Submitted Certifications</h2><p class="faculty-panel-subtitle"></p></div>
             <a class="faculty-link-btn" href="<?php echo BASE_URL; ?>/public/pages/faculty/certifications.php">Upload New</a>
         </div>
 
         <?php if (empty($certifications)) { ?>
-            <div class="faculty-empty-note">No certifications submitted yet. Use the upload page to add your first certification.</div>
+            <div class="faculty-empty-note"></div>
         <?php } else { ?>
             <div class="faculty-achievement-list">
                 <?php foreach ($certifications as $row) { ?>

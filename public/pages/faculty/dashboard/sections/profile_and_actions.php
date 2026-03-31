@@ -36,7 +36,7 @@
         <div class="faculty-panel-header">
             <div>
                 <h2 class="faculty-panel-title">Quick Actions</h2>
-                <p class="faculty-panel-subtitle">Fast links for the most common next steps inside the faculty flow.</p>
+                <p class="faculty-panel-subtitle"></p>
             </div>
             <div class="faculty-tag">Navigation</div>
         </div>
@@ -46,21 +46,21 @@
                 <span class="faculty-action-icon"><i class="bi bi-building"></i></span>
                 <span>
                     <span class="faculty-action-title">View Department</span>
-                    <span class="faculty-action-text">Open the public department page and review faculty-facing academic content.</span>
+                    <span class="faculty-action-text"></span>
                 </span>
             </a>
             <a href="<?php echo BASE_URL; ?>/public/pages/gallery.php" class="faculty-action-card accent-soft">
                 <span class="faculty-action-icon"><i class="bi bi-image"></i></span>
                 <span>
                     <span class="faculty-action-title">Open Gallery</span>
-                    <span class="faculty-action-text">Browse department visuals, event memories, and public media in one click.</span>
+                    <span class="faculty-action-text"></span>
                 </span>
             </a>
             <a href="<?php echo BASE_URL; ?>/public/pages/Authentication/logout.php" class="faculty-action-card accent-gold">
                 <span class="faculty-action-icon"><i class="bi bi-box-arrow-right"></i></span>
                 <span>
                     <span class="faculty-action-title">Logout Securely</span>
-                    <span class="faculty-action-text">Sign out of the faculty dashboard safely when you are done.</span>
+                    <span class="faculty-action-text"></span>
                 </span>
             </a>
         </div>

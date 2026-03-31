@@ -86,7 +86,7 @@ include_once(__DIR__ . '/layout/main_header.php');
     <section class="student-hero">
         <span class="student-kicker">Downloads Hub</span>
         <h1>Student Downloads</h1>
-        <p>Everything available for your class lives here in one place, including syllabus, materials, and previous papers, with the same cleaner dashboard layout on desktop and mobile.</p>
+        <!-- <p>Everything available for your class lives here in one place, including syllabus, materials, and previous papers, with the same cleaner dashboard layout on desktop and mobile.</p> -->
         <div class="student-meta-line">
             <span class="student-meta-pill"><strong>Class</strong> <?php echo htmlspecialchars($userClassName); ?></span>
             <span class="student-meta-pill"><strong>Syllabus</strong> <?php echo $hasSyllabus ? 'Available' : 'Pending'; ?></span>
@@ -95,14 +95,14 @@ include_once(__DIR__ . '/layout/main_header.php');
     </section>
 
     <section class="student-stat-grid">
-        <article class="student-stat-card"><p class="student-stat-label">Syllabus</p><p class="student-stat-value"><?php echo $hasSyllabus ? '1' : '0'; ?></p><p class="student-stat-note">Class syllabus available for direct download.</p></article>
-        <article class="student-stat-card"><p class="student-stat-label">Materials</p><p class="student-stat-value"><?php echo $totalMaterialFiles; ?></p><p class="student-stat-note"><?php echo count($userMaterials); ?> subject group(s) currently include notes or files.</p></article>
-        <article class="student-stat-card"><p class="student-stat-label">Previous Papers</p><p class="student-stat-value"><?php echo $totalPaperFiles; ?></p><p class="student-stat-note"><?php echo count($userPapers); ?> subject group(s) currently include exam papers.</p></article>
+        <article class="student-stat-card"><p class="student-stat-label">Syllabus</p><p class="student-stat-value"><?php echo $hasSyllabus ? '1' : '0'; ?></p><p class="student-stat-note"></p></article>
+        <article class="student-stat-card"><p class="student-stat-label">Materials</p><p class="student-stat-value"><?php echo $totalMaterialFiles; ?></p><p class="student-stat-note"> </p></article>
+        <article class="student-stat-card"><p class="student-stat-label">Previous Papers</p><p class="student-stat-value"><?php echo $totalPaperFiles; ?></p><p class="student-stat-note"></p></article>
     </section>
 
     <section class="student-panel">
         <div class="student-panel-header">
-            <div><h2 class="student-panel-title">Syllabus</h2><p class="student-panel-subtitle">Official class syllabus provided for your current academic batch.</p></div>
+            <div><h2 class="student-panel-title">Syllabus</h2><p class="student-panel-subtitle"></p></div>
             <span class="student-tag"><?php echo htmlspecialchars($userClassName); ?></span>
         </div>
         <?php if ($hasSyllabus) { ?>
@@ -110,14 +110,14 @@ include_once(__DIR__ . '/layout/main_header.php');
                 <a class="student-resource-link" href="<?php echo BASE_URL; ?>/public/uploads/syllabus/<?php echo rawurlencode($userSyllabusFile); ?>" target="_blank" rel="noopener noreferrer"><span>Download Syllabus</span><i class="bi bi-file-earmark-arrow-down"></i></a>
             </div>
         <?php } else { ?>
-            <div class="student-empty-note">No syllabus has been uploaded for your class yet.</div>
+            <div class="student-empty-note"></div>
         <?php } ?>
     </section>
 
     <section class="student-resource-grid">
         <div class="student-panel">
             <div class="student-panel-header">
-                <div><h2 class="student-panel-title">Notes and Materials</h2><p class="student-panel-subtitle">Study files shared subject-wise for your learning support.</p></div>
+                <div><h2 class="student-panel-title">Notes and Materials</h2><p class="student-panel-subtitle"></p></div>
                 <span class="student-tag">Materials</span>
             </div>
             <?php if (!empty($userMaterials)) { ?>
@@ -140,13 +140,13 @@ include_once(__DIR__ . '/layout/main_header.php');
                     <?php } ?>
                 </div>
             <?php } else { ?>
-                <div class="student-empty-note">No materials have been uploaded for your class yet.</div>
+                <div class="student-empty-note"></div>
             <?php } ?>
         </div>
 
         <div class="student-panel">
             <div class="student-panel-header">
-                <div><h2 class="student-panel-title">Previous Year Papers</h2><p class="student-panel-subtitle">Question papers arranged by subject for exam practice.</p></div>
+                <div><h2 class="student-panel-title">Previous Year Papers</h2><p class="student-panel-subtitle"></p></div>
                 <span class="student-tag">Papers</span>
             </div>
             <?php if (!empty($userPapers)) { ?>
@@ -169,7 +169,7 @@ include_once(__DIR__ . '/layout/main_header.php');
                     <?php } ?>
                 </div>
             <?php } else { ?>
-                <div class="student-empty-note">No previous papers have been uploaded for your class yet.</div>
+                <div class="student-empty-note"></div>
             <?php } ?>
         </div>
     </section>

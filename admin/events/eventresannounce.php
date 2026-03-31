@@ -65,7 +65,7 @@ include_once('../layout/main_header.php');
 						<div class="legacy-admin-page">
 							<div class="legacy-admin-hero">
 								<h3 class="legacy-admin-title">Result Announcements</h3>
-								<p class="legacy-admin-subtitle">Review announced results and continue managing them in the branded event workspace.</p>
+								<!-- <p class="legacy-admin-subtitle">Review announced results and continue managing them in the branded event workspace.</p> -->
 							</div>
 						<div id="currentevents" class="currentevents">
 							<div id="eventDetails">

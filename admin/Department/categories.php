@@ -144,7 +144,7 @@ include_once('../layout/main_header.php');
     <div class="page-shell">
         <div class="page-hero">
             <h3 class="page-title">Faculty Category Management</h3>
-            <p class="page-subtitle">Create, rename, and clean up the categories used in department faculty profiles.</p>
+            <p class="page-subtitle"></p>
             <div class="page-pill-row">
                 <span class="page-pill"><i class="bi bi-collection me-1"></i><?php echo (int)count($categories); ?> Categories</span>
                 <span class="page-pill"><i class="bi bi-shield-check me-1"></i>Admin Controlled</span>
@@ -202,7 +202,7 @@ include_once('../layout/main_header.php');
                     <h4 class="section-title">Existing Categories</h4>
 
                     <?php if (empty($categories)) { ?>
-                        <div class="empty-state">No faculty categories available yet.</div>
+                        <div class="empty-state"></div>
                     <?php } else { ?>
                         <?php foreach ($categories as $category) { ?>
                             <?php $assignedCount = $fcObj->countStaffByCategory($tbStaff, (int)$category['id']); ?>

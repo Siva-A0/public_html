@@ -160,13 +160,14 @@ include_once('../layout/core_forms_style.php');
 								</div>
 							</form>
 						</div>
+						<div class="mt-3">
+							<a href="../settings/department_option.php?option=materials" class="btn btn-outline-secondary">Back</a>
+						</div>
 						</div>
 					</div>
 					<br class="clearfix" />
 				</div>
-				                <div class="mt-3">
-                    <a href="../settings/department_option.php?option=materials" class="btn btn-outline-secondary">Back</a>
-                </div><?php 
+				<?php 
 					include_once('../layout/sidebar.php');
 				?>
 				<br class="clearfix" />

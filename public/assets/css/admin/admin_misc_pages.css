@@ -2588,9 +2588,12 @@
         border-top-left-radius: 12px;
         border-bottom-left-radius: 12px;
         padding: 0 16px;
-        background: #ffffff;
-        color: var(--gallery-text);
+        background: transparent;
+        color: inherit;
         font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
     }
 
@@ -2602,9 +2605,12 @@
         border-top-left-radius: 12px;
         border-bottom-left-radius: 12px;
         padding: 0 16px;
-        background: #ffffff;
-        color: var(--gallery-text);
+        background: transparent;
+        color: inherit;
         font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
     }
 

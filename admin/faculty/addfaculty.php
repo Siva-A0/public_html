@@ -108,7 +108,7 @@ $staffCateg = $fcObj->getStaffCategories($tbStaffCateg);
 
     <div class="page-hero">
         <h4 class="staff-title">Add New Faculty</h4>
-        <p class="staff-subtitle">Create a complete profile including qualifications, experience, and publications.</p>
+        <!-- <p class="staff-subtitle">Create a complete profile including qualifications, experience, and publications.</p> -->
     </div>
 
     <?php if (isset($msg)) { ?>

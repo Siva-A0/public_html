@@ -63,10 +63,9 @@ include_once('../layout/core_forms_style.php');
 					</div>
 					<div id='content_left' class='content_left'></div>
 					<div id='content_right' class='content_right'>
-						<div class="page-hero" style="position:relative;overflow:hidden;border:1px solid #d9e3ef;border-radius:22px;padding:22px 24px;background:linear-gradient(135deg,#f9fbfe 0%,#eef4fa 100%);box-shadow:0 14px 30px rgba(15,23,42,.08);margin-bottom:16px;">
-							<div style="position:absolute;inset:0 auto 0 0;width:6px;background:linear-gradient(180deg,#f0b323,#d79a12);"></div>
-							<h1 style="margin:0 0 6px;font-size:32px;font-weight:800;letter-spacing:-.6px;color:#13345a;">Edit Batch</h1>
-							<p style="margin:0;font-size:15px;color:#6b819c;">Update academic batch names inside the same branded admin flow.</p>
+						<div class="page-hero">
+							<h1 class="hero-title">Edit Batch</h1>
+							<p class="page-subtitle">Update academic batch names inside the same branded admin flow.</p>
 						</div>
 						<div class="comteeMem">
 							<?php

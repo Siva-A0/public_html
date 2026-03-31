@@ -1895,14 +1895,17 @@
 
 	#addMaterial .form_field input[type="file"]::file-selector-button,
 	#addMaterial .form_field input[type="file"]::-webkit-file-upload-button {
-		height: 50px;
+		height: 52px;
 		margin: 0;
 		border: 0;
 		border-right: 1px solid var(--pp-border-strong);
 		padding: 0 16px;
-		background: #ffffff;
-		color: var(--pp-primary);
+		background: transparent;
+		color: inherit;
 		font-weight: 600;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	#addMaterial .form_field input[type="text"]:focus,
@@ -2020,14 +2023,17 @@
 
 	#editMaterial .form_field input[type="file"]::file-selector-button,
 	#editMaterial .form_field input[type="file"]::-webkit-file-upload-button {
-		height: 50px;
+		height: 52px;
 		margin: 0;
 		border: 0;
 		border-right: 1px solid var(--pp-border-strong);
 		padding: 0 16px;
-		background: #ffffff;
-		color: var(--pp-primary);
+		background: transparent;
+		color: inherit;
 		font-weight: 600;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	#editMaterial .form_field input[type="text"]:focus,
@@ -2956,9 +2962,89 @@
 		max-width: none;
 	}
 
+	.edit-batch-page #page {
+		max-width: 980px;
+	}
+
+	.edit-batch-page #content {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 18px;
+		align-items: start;
+	}
+
+	.edit-batch-page .post {
+		margin-bottom: 4px !important;
+	}
+
+	.edit-batch-page .page-hero {
+		position: relative;
+		overflow: hidden;
+		border: 1px solid var(--bp-border);
+		border-radius: 22px;
+		padding: 22px 24px;
+		background: linear-gradient(135deg, #f9fbfe 0%, var(--bp-surface) 100%);
+		box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+		margin-bottom: 16px;
+	}
+
+	.edit-batch-page .page-hero::before {
+		content: "";
+		position: absolute;
+		inset: 0 auto 0 0;
+		width: 6px;
+		background: linear-gradient(180deg, var(--bp-accent), var(--bp-accent-deep));
+	}
+
+	.edit-batch-page .hero-title {
+		font-size: 32px;
+		letter-spacing: -0.6px;
+		margin: 0;
+		color: var(--bp-primary-deep);
+		font-weight: 800;
+	}
+
+	.edit-batch-page .page-subtitle {
+		margin: 8px 0 0;
+		color: var(--bp-muted);
+		font-size: 15px;
+	}
+
 /* C:\xampp\htdocs\public_html\admin\syllabus\add_syllabus.php */
 #content_left {
 		display: none;
+	}
+
+html[data-theme="dark"] .edit-batch-page,
+html[data-theme="dark"] .edit-class-page,
+html[data-theme="dark"] .edit-section-page {
+		background: transparent !important;
+}
+
+html[data-theme="dark"] .edit-batch-page .page-hero,
+html[data-theme="dark"] .edit-class-page .page-hero,
+html[data-theme="dark"] .edit-section-page .page-hero {
+		background: linear-gradient(135deg, #111d2f 0%, #0f1b2c 100%) !important;
+		border-color: #273a56 !important;
+		box-shadow: 0 16px 30px rgba(2, 8, 20, 0.45) !important;
+}
+
+html[data-theme="dark"] .edit-batch-page .hero-title,
+html[data-theme="dark"] .edit-class-page .hero-title,
+html[data-theme="dark"] .edit-section-page .hero-title {
+		color: #e6f0ff !important;
+}
+
+html[data-theme="dark"] .edit-batch-page .page-subtitle,
+html[data-theme="dark"] .edit-class-page .page-subtitle,
+html[data-theme="dark"] .edit-section-page .page-subtitle {
+		color: #a8bfdc !important;
+}
+
+html[data-theme="dark"] .edit-section-page .edit-form .form_field input[readonly] {
+		background: #102034 !important;
+		color: #cbe2ff !important;
+		-webkit-text-fill-color: #cbe2ff;
+		border-color: #2a3f5d !important;
 	}
 
 	#content.single-panel-layout {

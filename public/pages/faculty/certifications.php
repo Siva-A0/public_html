@@ -79,7 +79,7 @@ if (isset($_POST['submit_certification'])) {
                     $messageType = 'success';
                 } else {
                     @unlink($targetFile);
-                    $message = $fcObj->getLastError() !== '' ? $fcObj->getLastError() : 'Unable to save certification right now. Please try again.';
+                    $message = $fcObj->getLastError() !== '' ? $fcObj->getLastError() : '';
                     $messageType = 'danger';
                 }
             }
@@ -101,7 +101,7 @@ include_once(__DIR__ . '/layout/main_header.php');
     <section class="faculty-hero">
         <span class="faculty-kicker">Certifications</span>
         <h1>Upload Certification</h1>
-        <p>Keep faculty certificates in a dedicated section so they stay separate from general achievements.</p>
+        <!-- <p>Keep faculty certificates in a dedicated section so they stay separate from general achievements.</p> -->
     </section>
 
     <?php if ($message !== '') { ?>
@@ -111,15 +111,15 @@ include_once(__DIR__ . '/layout/main_header.php');
     <section class="faculty-layout-grid">
         <div class="faculty-panel">
             <div class="faculty-panel-header">
-                <div><h2 class="faculty-panel-title">Certification Submission</h2><p class="faculty-panel-subtitle">Upload file-based certifications with issuer and area details.</p></div>
+                <div><h2 class="faculty-panel-title">Certification Submission</h2><p class="faculty-panel-subtitle"></p></div>
                 <span class="faculty-tag">Submit</span>
             </div>
             <form method="POST" enctype="multipart/form-data">
                 <div class="faculty-form-grid">
-                    <div class="faculty-field"><label class="faculty-label">Issuing Organization</label><input type="text" name="issuing_organization" class="faculty-input" value="<?php echo isset($_POST['issuing_organization']) ? htmlspecialchars((string)$_POST['issuing_organization'], ENT_QUOTES, 'UTF-8') : ''; ?>" placeholder="Example: NPTEL" required></div>
-                    <div class="faculty-field"><label class="faculty-label">Certification Area</label><input type="text" name="certification_theme" class="faculty-input" value="<?php echo isset($_POST['certification_theme']) ? htmlspecialchars((string)$_POST['certification_theme'], ENT_QUOTES, 'UTF-8') : ''; ?>" placeholder="Example: Deep Learning" required></div>
-                    <div class="faculty-field full"><label class="faculty-label">Certification Title</label><input type="text" name="certification_title" class="faculty-input" value="<?php echo isset($_POST['certification_title']) ? htmlspecialchars((string)$_POST['certification_title'], ENT_QUOTES, 'UTF-8') : ''; ?>" placeholder="Example: AI for Educators" required></div>
-                    <div class="faculty-field full"><label class="faculty-label">Certificate File</label><div class="faculty-file-picker"><button type="button" class="faculty-file-btn" id="faculty_certification_file_btn">Choose File</button><input type="text" class="faculty-input" id="faculty_certification_file_name" value="No file chosen" readonly></div><input type="file" name="certification_file" id="faculty_certification_file" class="d-none" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"><div class="faculty-help">Allowed: PDF, DOC, DOCX, JPG, JPEG, PNG.</div></div>
+                    <div class="faculty-field"><label class="faculty-label">Issuing Organization</label><input type="text" name="issuing_organization" class="faculty-input" value="<?php echo isset($_POST['issuing_organization']) ? htmlspecialchars((string)$_POST['issuing_organization'], ENT_QUOTES, 'UTF-8') : ''; ?>" placeholder="" ></div>
+                    <div class="faculty-field"><label class="faculty-label">Certification Area</label><input type="text" name="certification_theme" class="faculty-input" value="<?php echo isset($_POST['certification_theme']) ? htmlspecialchars((string)$_POST['certification_theme'], ENT_QUOTES, 'UTF-8') : ''; ?>" placeholder="" ></div>
+                    <div class="faculty-field full"><label class="faculty-label">Certification Title</label><input type="text" name="certification_title" class="faculty-input" value="<?php echo isset($_POST['certification_title']) ? htmlspecialchars((string)$_POST['certification_title'], ENT_QUOTES, 'UTF-8') : ''; ?>" placeholder="" ></div>
+                    <div class="faculty-field full"><label class="faculty-label">Certificate File</label><div class="faculty-file-picker"><button type="button" class="faculty-file-btn" id="faculty_certification_file_btn">Choose File</button><input type="text" class="faculty-input" id="faculty_certification_file_name" value="" readonly></div><input type="file" name="certification_file" id="faculty_certification_file" class="d-none" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"><div class="faculty-help">Allowed: PDF, DOC, DOCX, JPG, JPEG, PNG.</div></div>
                 </div>
                 <div class="faculty-actions">
                     <button type="submit" name="submit_certification" class="faculty-primary-btn">Submit Certification</button>
@@ -130,13 +130,13 @@ include_once(__DIR__ . '/layout/main_header.php');
 
         <aside class="faculty-panel">
             <div class="faculty-panel-header">
-                <div><h2 class="faculty-panel-title">Submission Guide</h2><p class="faculty-panel-subtitle">A few quick reminders before you upload.</p></div>
+                <div><h2 class="faculty-panel-title">Submission Guide</h2><p class="faculty-panel-subtitle"></p></div>
                 <span class="faculty-tag">Guide</span>
             </div>
             <div class="faculty-info-list">
-                <article class="faculty-info-card"><h3>Upload the Real Proof</h3><p>Use the certificate itself or a clear scan so it remains useful for reference and verification.</p></article>
-                <article class="faculty-info-card"><h3>Keep Names Accurate</h3><p>Match the certification title and issuing organization with the original document wording.</p></article>
-                <article class="faculty-info-card"><h3>Use the Right Section</h3><p>Certificates belong here, while awards and recognitions should go under faculty achievements.</p></article>
+                <article class="faculty-info-card"><h3>Upload the Real Proof</h3><p></p></article>
+                <article class="faculty-info-card"><h3>Keep Names Accurate</h3><p></p></article>
+                <article class="faculty-info-card"><h3>Use the Right Section</h3><p></p></article>
             </div>
         </aside>
     </section>

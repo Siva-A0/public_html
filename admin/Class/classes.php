@@ -30,7 +30,7 @@ include_once('../layout/core_forms_style.php');
             <div class="class-manage-page">
             <div class="class-list-hero">
                 <h3 class="class-list-title">Manage Classes</h3>
-                <p class="class-list-subtitle">Align, edit, and maintain class records in one place.</p>
+                <!-- <p class="class-list-subtitle">Align, edit, and maintain class records in one place.</p> -->
             </div>
             </div>
 

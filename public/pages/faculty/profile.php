@@ -190,7 +190,7 @@ include_once(__DIR__ . '/layout/main_header.php');
                     <span class="faculty-meta-pill"><strong>Designation</strong> <?php echo htmlspecialchars((string)($faculty['designation'] ?? 'Not Set'), ENT_QUOTES, 'UTF-8'); ?></span>
                     <span class="faculty-meta-pill"><strong>Email</strong> <?php echo htmlspecialchars((string)($faculty['e_mail'] ?? ''), ENT_QUOTES, 'UTF-8'); ?></span>
                 </div>
-                <p class="faculty-hero-copy">Manage your faculty profile, academic details, research summary, publications, and password from one working settings page that matches the redesigned faculty dashboard.</p>
+                <p class="faculty-hero-copy"></p>
             </div>
         </div>
     </section>
@@ -204,7 +204,7 @@ include_once(__DIR__ . '/layout/main_header.php');
             <div class="faculty-panel-header">
                 <div>
                     <h2 class="faculty-panel-title">Edit Faculty Profile</h2>
-                    <p class="faculty-panel-subtitle">Update the information shown across your faculty dashboard and public-facing department profile.</p>
+                    <p class="faculty-panel-subtitle"></p>
                 </div>
                 <span class="faculty-tag">Profile Form</span>
             </div>
@@ -243,7 +243,7 @@ include_once(__DIR__ . '/layout/main_header.php');
             <div class="faculty-panel-header">
                 <div>
                     <h2 class="faculty-panel-title">Profile Snapshot</h2>
-                    <p class="faculty-panel-subtitle">A quick read-only summary of your current faculty record.</p>
+                    <p class="faculty-panel-subtitle"></p>
                 </div>
                 <span class="faculty-tag">Snapshot</span>
             </div>

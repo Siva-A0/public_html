@@ -19,7 +19,7 @@
                 <span class="student-meta-pill"><strong>Section</strong> <?php echo htmlspecialchars($userSectionName, ENT_QUOTES, 'UTF-8'); ?></span>
             </div>
 
-            <p class="student-hero-copy">Your student workspace brings class resources, previous papers, notes, and support links into one cleaner dashboard that also adapts smoothly on mobile screens.</p>
+        
         </div>
     </div>
 </section>

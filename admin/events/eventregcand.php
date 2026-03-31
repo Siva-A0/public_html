@@ -64,7 +64,7 @@ include_once('../layout/main_header.php');
 						<div class="legacy-admin-page">
 							<div class="legacy-admin-hero">
 								<h3 class="legacy-admin-title">Event Candidate Approval</h3>
-								<p class="legacy-admin-subtitle">Open registration-enabled events and manage candidate shortlisting in the same branded flow.</p>
+							<!-- <p class="legacy-admin-subtitle">Open registration-enabled events and manage candidate shortlisting in the same branded flow.</p> -->
 							</div>
 						<div id="currentevents" class="currentevents">
 							<div id="eventDetails">

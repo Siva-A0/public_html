@@ -45,7 +45,7 @@ include_once('../layout/core_forms_style.php');
 						<div class="add-branch-page">
 						<div class="branch-add-hero">
 							<h3 class="branch-add-title">Add New Branch</h3>
-							<p class="branch-add-subtitle">Create branch records using unique branch code and name.</p>
+							<p class="branch-add-subtitle"></p>
 						</div>
 						<div class="comteeMem">
 							<?php

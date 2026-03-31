@@ -42,7 +42,7 @@ include_once('../layout/core_forms_style.php');
 						<div class="add-batch-page">
 						<div class="batch-add-hero">
 							<h3 class="batch-add-title">Add New Batch</h3>
-							<p class="batch-add-subtitle">Create academic batch records for enrollment and reporting.</p>
+							<p class="batch-add-subtitle"></p>
 						</div>
 						<div class="comteeMem">
 							<?php

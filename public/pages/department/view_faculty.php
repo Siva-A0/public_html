@@ -95,9 +95,10 @@ $isTeaching = $staff && ((int)$staff['staff_categ_id'] === (int)TEACHING);
 
 	.staff-role {
 		margin: 6px 0 0;
-		color: #436384;
-		font-weight: 600;
+		color: #21486d;
+		font-weight: 700;
 		font-size: 16px;
+		letter-spacing: 0.01em;
 	}
 
 	.detail-group {

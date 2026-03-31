@@ -77,7 +77,7 @@ include_once('admin/main_header.php');
 						<div class="legacy-admin-form">
 							<div class="hero">
 								<h3>Edit Achievement</h3>
-								<p>Update achievement details in the same school-branded department workspace.</p>
+								<!-- <p>Update achievement details in the same school-branded department workspace.</p> -->
 							</div>
 						<div class="comteeMem">
 							<?php

@@ -168,7 +168,7 @@ include_once('../layout/main_header.php');
     <div class="page-shell">
         <div class="page-hero">
             <h3 class="page-title">Gallery Category Management</h3>
-            <p class="page-subtitle">Create and organize the sections that appear in the gallery without touching code.</p>
+            <!-- <p class="page-subtitle">Create and organize the sections that appear in the gallery without touching code.</p> -->
             <div class="page-pill-row">
                 <span class="page-pill"><i class="bi bi-collection me-1"></i><?php echo (int)count($categories); ?> Categories</span>
                 <span class="page-pill"><i class="bi bi-palette me-1"></i>Admin Controlled</span>

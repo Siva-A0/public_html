@@ -47,7 +47,7 @@ include_once(__DIR__ . '/layout/main_header.php');
     <section class="student-hero">
         <span class="student-kicker">My Achievements</span>
         <h1>Achievement History</h1>
-        <p>Track every achievement you have submitted, including document uploads and text recognitions, from one cleaner and more readable student page.</p>
+        <!-- <p>Track every achievement you have submitted, including document uploads and text recognitions, from one cleaner and more readable student page.</p> -->
         <div class="student-meta-line">
             <span class="student-meta-pill"><strong>Total</strong> <?php echo count($achievements); ?></span>
             <span class="student-meta-pill"><strong>Document</strong> <?php echo $documentCount; ?></span>
@@ -56,19 +56,19 @@ include_once(__DIR__ . '/layout/main_header.php');
     </section>
 
     <section class="student-stat-grid">
-        <article class="student-stat-card"><p class="student-stat-label">All Submissions</p><p class="student-stat-value"><?php echo count($achievements); ?></p><p class="student-stat-note">Combined achievement entries linked to your admission record.</p></article>
-        <article class="student-stat-card"><p class="student-stat-label">Document Entries</p><p class="student-stat-value"><?php echo $documentCount; ?></p><p class="student-stat-note">Achievements submitted with a file attachment.</p></article>
-        <article class="student-stat-card"><p class="student-stat-label">Text Entries</p><p class="student-stat-value"><?php echo $textCount; ?></p><p class="student-stat-note">Achievements submitted as text-only descriptions.</p></article>
+        <article class="student-stat-card"><p class="student-stat-label">All Submissions</p><p class="student-stat-value"><?php echo count($achievements); ?></p><p class="student-stat-note"></p></article>
+        <article class="student-stat-card"><p class="student-stat-label">Document Entries</p><p class="student-stat-value"><?php echo $documentCount; ?></p><p class="student-stat-note"></p></article>
+        <article class="student-stat-card"><p class="student-stat-label">Text Entries</p><p class="student-stat-value"><?php echo $textCount; ?></p><p class="student-stat-note"></p></article>
     </section>
 
     <section class="student-panel">
         <div class="student-panel-header">
-            <div><h2 class="student-panel-title">Submitted Achievements</h2><p class="student-panel-subtitle">Review your entries and open any attached supporting files.</p></div>
+            <div><h2 class="student-panel-title">Submitted Achievements</h2><p class="student-panel-subtitle"></p></div>
             <a class="student-link-btn" href="<?php echo BASE_URL; ?>/public/pages/student/achievements.php">Upload New</a>
         </div>
 
         <?php if (empty($achievements)) { ?>
-            <div class="student-empty-note">No achievements submitted yet. Use the upload page to add your first achievement.</div>
+            <div class="student-empty-note"></div>
         <?php } else { ?>
             <div class="student-achievement-list">
                 <?php foreach ($achievements as $row) { ?>

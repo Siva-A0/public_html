@@ -42,7 +42,7 @@ include_once('../layout/main_header.php');
 							<div class="event-result-page">
 							<div class="event-shell-hero">
 								<h3 class="event-shell-title">Announce Event Result</h3>
-								<p class="event-shell-subtitle">Select shortlisted candidates and assign awards inside the same branded event workflow.</p>
+								<!-- <p class="event-shell-subtitle">Select shortlisted candidates and assign awards inside the same branded event workflow.</p> -->
 							</div>
 						<div class="eventDetails event-result-card">
 							<div class="eventTitle event-meta-row">

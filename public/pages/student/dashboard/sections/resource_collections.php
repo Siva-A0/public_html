@@ -3,7 +3,7 @@
         <div class="student-panel-header">
             <div>
                 <h2 class="student-panel-title">Previous Year Papers</h2>
-                <p class="student-panel-subtitle">Browse subject-wise question papers available for revision and exam preparation.</p>
+                <!-- <p class="student-panel-subtitle">Browse subject-wise question papers available for revision and exam preparation.</p> -->
             </div>
             <span class="student-tag">Papers</span>
         </div>
@@ -46,7 +46,7 @@
                 <?php } ?>
             </div>
         <?php } else { ?>
-            <div class="student-empty-note">No previous year papers have been uploaded for your class yet.</div>
+            <!-- <div class="student-empty-note">No previous year papers have been uploaded for your class yet.</div> -->
         <?php } ?>
     </div>
 
@@ -54,7 +54,7 @@
         <div class="student-panel-header">
             <div>
                 <h2 class="student-panel-title">Notes and Materials</h2>
-                <p class="student-panel-subtitle">Subject-wise notes, files, and study references shared for your classroom learning.</p>
+                <!-- <p class="student-panel-subtitle">Subject-wise notes, files, and study references shared for your classroom learning.</p> -->
             </div>
             <span class="student-tag">Materials</span>
         </div>
@@ -97,7 +97,7 @@
                 <?php } ?>
             </div>
         <?php } else { ?>
-            <div class="student-empty-note">No materials have been uploaded for your class yet.</div>
+            <!-- <div class="student-empty-note">No materials have been uploaded for your class yet.</div> -->
         <?php } ?>
     </div>
 </section>

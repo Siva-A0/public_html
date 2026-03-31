@@ -169,10 +169,10 @@ include_once('../layout/main_header.php');
 							</form>
 							
 						</div>
-						</div>
 						<div class="mt-3 events-add-back">
-                    <a href="../settings/department_option.php?option=events" class="btn btn-outline-secondary">Back</a>
-                </div>
+							<a href="../settings/department_option.php?option=events" class="btn btn-outline-secondary">Back</a>
+						</div>
+						</div>
 					</div>
 					<br class="clearfix" />
 				</div>

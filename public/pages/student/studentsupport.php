@@ -246,7 +246,7 @@ include_once(__DIR__ . '/layout/main_header.php');
     <section class="student-hero">
         <span class="student-kicker">Support Desk</span>
         <h1>Student Support</h1>
-        <p>Send your issue to the support team from one cleaner help desk page, with email and WhatsApp follow-up paths when those channels are configured.</p>
+        <!-- <p>Send your issue to the support team from one cleaner help desk page, with email and WhatsApp follow-up paths when those channels are configured.</p> -->
         <div class="student-meta-line">
             <?php if ($supportEmail !== '') { ?><span class="student-meta-pill"><strong>Email</strong> <?php echo htmlspecialchars($supportEmail); ?></span><?php } ?>
             <?php if ($supportWhatsappNumber !== '') { ?><span class="student-meta-pill"><strong>WhatsApp</strong> <?php echo htmlspecialchars($supportWhatsappNumber); ?></span><?php } ?>
@@ -260,24 +260,24 @@ include_once(__DIR__ . '/layout/main_header.php');
     <section class="student-layout-grid">
         <div class="student-panel">
             <div class="student-panel-header">
-                <div><h2 class="student-panel-title">Raise a Support Request</h2><p class="student-panel-subtitle">Describe the issue clearly so the team can respond faster.</p></div>
+                <div><h2 class="student-panel-title">Raise a Support Request</h2><p class="student-panel-subtitle"></p></div>
                 <span class="student-tag">Request</span>
             </div>
             <form method="POST" action="" class="student-form-grid">
-                <div class="student-field"><label class="student-label">Subject</label><input type="text" name="subject" class="student-input" placeholder="Example: Unable to access previous papers" value="<?php echo htmlspecialchars($subject); ?>" required></div>
-                <div class="student-field"><label class="student-label">Message</label><textarea name="message" class="student-textarea" placeholder="Describe your issue clearly, include where and when it happened." required><?php echo htmlspecialchars($messageBody); ?></textarea></div>
+                <div class="student-field"><label class="student-label">Subject</label><input type="text" name="subject" class="student-input" placeholder="" value="<?php echo htmlspecialchars($subject); ?>" required></div>
+                <div class="student-field"><label class="student-label">Message</label><textarea name="message" class="student-textarea" placeholder="" required><?php echo htmlspecialchars($messageBody); ?></textarea></div>
                 <div class="student-actions"><button type="submit" name="submit_support" class="student-primary-btn"><i class="bi bi-send me-1"></i> Submit Request</button></div>
             </form>
         </div>
         <aside class="student-panel">
             <div class="student-panel-header">
-                <div><h2 class="student-panel-title">How Support Works</h2><p class="student-panel-subtitle">A quick reminder of the available contact flow.</p></div>
+                <div><h2 class="student-panel-title">How Support Works</h2><p class="student-panel-subtitle"></p></div>
                 <span class="student-tag">Guide</span>
             </div>
             <div class="student-info-list">
-                <article class="student-info-card"><h3>Email Route</h3><p>If support email is configured, your request is sent directly from the portal or prepared in your mail app.</p></article>
-                <article class="student-info-card"><h3>WhatsApp Route</h3><p>If WhatsApp support is configured, a prefilled support message can open instantly for faster follow-up.</p></article>
-                <article class="student-info-card"><h3>Best Practice</h3><p>Include the exact issue, page name, and what you were trying to do so the team can reproduce the problem quickly.</p></article>
+                <article class="student-info-card"><h3>Email Route</h3><p></p></article>
+                <article class="student-info-card"><h3>WhatsApp Route</h3><p> </p></article>
+                <article class="student-info-card"><h3>Best Practice</h3><p></p></article>
             </div>
         </aside>
     </section>

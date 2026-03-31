@@ -32,7 +32,7 @@ include_once('../layout/core_forms_style.php');
             <div class="highlights-page">
             <div class="highlights-hero">
                 <h3 class="highlights-title">AIML Department</h3>
-                <p class="highlights-subtitle">Manage AIML and Department highlights.</p>
+                <!-- <p class="highlights-subtitle">Manage AIML and Department highlights.</p> -->
             </div>
 
             <div class="comteeMem highlights-card">

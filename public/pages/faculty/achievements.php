@@ -127,7 +127,7 @@ include_once(__DIR__ . '/layout/main_header.php');
     <section class="faculty-hero">
         <span class="faculty-kicker">Achievements</span>
         <h1>Upload Achievement</h1>
-        <p>Add faculty awards, recognitions, event contributions, or text-only achievements to your workspace.</p>
+        <p></p>
     </section>
 
     <?php if ($message !== '') { ?>
@@ -137,17 +137,17 @@ include_once(__DIR__ . '/layout/main_header.php');
     <section class="faculty-layout-grid">
         <div class="faculty-panel">
             <div class="faculty-panel-header">
-                <div><h2 class="faculty-panel-title">Achievement Submission</h2><p class="faculty-panel-subtitle">Choose a file-based or text-only faculty achievement entry.</p></div>
+                <div><h2 class="faculty-panel-title">Achievement Submission</h2><p class="faculty-panel-subtitle"></p></div>
                 <span class="faculty-tag">Submit</span>
             </div>
             <form method="POST" enctype="multipart/form-data">
                 <div class="faculty-form-grid">
                     <div class="faculty-field"><label class="faculty-label">Type</label><select name="achievement_type" id="faculty_achievement_type" class="faculty-select" required><option value="">Select Type</option><option value="<?php echo DOCUMENT; ?>" <?php echo (isset($_POST['achievement_type']) && (int)$_POST['achievement_type'] === DOCUMENT) ? 'selected' : ''; ?>>Document Upload</option><option value="<?php echo NON_DOCUMENT; ?>" <?php echo (isset($_POST['achievement_type']) && (int)$_POST['achievement_type'] === NON_DOCUMENT) ? 'selected' : ''; ?>>Text Achievement</option></select></div>
-                    <div class="faculty-field"><label class="faculty-label">Organization Name</label><input type="text" name="organization_name" class="faculty-input" value="<?php echo isset($_POST['organization_name']) ? htmlspecialchars((string)$_POST['organization_name'], ENT_QUOTES, 'UTF-8') : ''; ?>" placeholder="Enter organization or institution name" required></div>
-                    <div class="faculty-field full"><label class="faculty-label">Theme</label><input type="text" name="achievement_theme" class="faculty-input" value="<?php echo isset($_POST['achievement_theme']) ? htmlspecialchars((string)$_POST['achievement_theme'], ENT_QUOTES, 'UTF-8') : ''; ?>" placeholder="Enter achievement theme" required></div>
-                    <div class="faculty-field full" id="faculty_achievement_title_wrap"><label class="faculty-label">Achievement Title</label><input type="text" name="achievement_title" class="faculty-input" value="<?php echo isset($_POST['achievement_title']) ? htmlspecialchars((string)$_POST['achievement_title'], ENT_QUOTES, 'UTF-8') : ''; ?>" placeholder="Example: Best Faculty Mentor Award"></div>
+                    <div class="faculty-field"><label class="faculty-label">Organization Name</label><input type="text" name="organization_name" class="faculty-input" value="<?php echo isset($_POST['organization_name']) ? htmlspecialchars((string)$_POST['organization_name'], ENT_QUOTES, 'UTF-8') : ''; ?>" placeholder="" required></div>
+                    <div class="faculty-field full"><label class="faculty-label">Theme</label><input type="text" name="achievement_theme" class="faculty-input" value="<?php echo isset($_POST['achievement_theme']) ? htmlspecialchars((string)$_POST['achievement_theme'], ENT_QUOTES, 'UTF-8') : ''; ?>" placeholder="" required></div>
+                    <div class="faculty-field full" id="faculty_achievement_title_wrap"><label class="faculty-label">Achievement Title</label><input type="text" name="achievement_title" class="faculty-input" value="<?php echo isset($_POST['achievement_title']) ? htmlspecialchars((string)$_POST['achievement_title'], ENT_QUOTES, 'UTF-8') : ''; ?>" placeholder=""></div>
                     <div class="faculty-field full" id="faculty_achievement_file_wrap"><label class="faculty-label">Achievement File</label><div class="faculty-file-picker"><button type="button" class="faculty-file-btn" id="faculty_achievement_file_btn">Choose File</button><input type="text" class="faculty-input" id="faculty_achievement_file_name" value="No file chosen" readonly></div><input type="file" name="achievement_file" id="faculty_achievement_file" class="d-none" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"><div class="faculty-help">Allowed: PDF, DOC, DOCX, JPG, JPEG, PNG.</div></div>
-                    <div class="faculty-field full d-none" id="faculty_achievement_text_wrap"><label class="faculty-label">Achievement Details</label><textarea name="achievement_text" class="faculty-textarea" placeholder="Describe the faculty achievement in short."><?php echo isset($_POST['achievement_text']) ? htmlspecialchars((string)$_POST['achievement_text'], ENT_QUOTES, 'UTF-8') : ''; ?></textarea></div>
+                    <div class="faculty-field full d-none" id="faculty_achievement_text_wrap"><label class="faculty-label">Achievement Details</label><textarea name="achievement_text" class="faculty-textarea" placeholder=""><?php echo isset($_POST['achievement_text']) ? htmlspecialchars((string)$_POST['achievement_text'], ENT_QUOTES, 'UTF-8') : ''; ?></textarea></div>
                 </div>
                 <div class="faculty-actions">
                     <button type="submit" name="submit_achievement" class="faculty-primary-btn">Submit Achievement</button>
@@ -158,13 +158,13 @@ include_once(__DIR__ . '/layout/main_header.php');
 
         <aside class="faculty-panel">
             <div class="faculty-panel-header">
-                <div><h2 class="faculty-panel-title">Submission Guide</h2><p class="faculty-panel-subtitle">A quick reminder before saving your faculty entry.</p></div>
+                <div><h2 class="faculty-panel-title">Submission Guide</h2><p class="faculty-panel-subtitle"></p></div>
                 <span class="faculty-tag">Guide</span>
             </div>
             <div class="faculty-info-list">
-                <article class="faculty-info-card"><h3>Document Upload</h3><p>Use this for awards, letters, certificates, or other proof documents tied to the achievement.</p></article>
-                <article class="faculty-info-card"><h3>Text Achievement</h3><p>Use this when the achievement is best captured as a short written record without a file.</p></article>
-                <article class="faculty-info-card"><h3>Keep It Searchable</h3><p>Clear organization and theme names make it easier to review your history later.</p></article>
+                <article class="faculty-info-card"><h3>Document Upload</h3><p></p></article>
+                <article class="faculty-info-card"><h3>Text Achievement</h3><p></p></article>
+                <article class="faculty-info-card"><h3>Keep It Searchable</h3><p></p></article>
             </div>
         </aside>
     </section>

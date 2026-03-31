@@ -35,7 +35,7 @@ for ($i = 0; $i < $categoryCnt; $i++) {
 
 <div class="committee-header">
     <h3 class="committee-page-title">AIML Association Committee</h3>
-    <p class="committee-subtitle">Manage office bearers and members category-wise.</p>
+    <p class="committee-subtitle"></p>
     <div class="committee-stats">
         <span class="committee-stat-pill">
             <i class="bi bi-diagram-3 me-1"></i>
@@ -112,7 +112,7 @@ for ($i = 0; $i < $categoryCnt; $i++) {
                         <?php } else { ?>
 
                             <div class="committee-empty">
-                                No members assigned for this category.
+                                
                             </div>
 
                         <?php } ?>
@@ -125,7 +125,7 @@ for ($i = 0; $i < $categoryCnt; $i++) {
 
         <?php } else { ?>
 
-            <p class="text-muted">No committee categories found.</p>
+            <p class="text-muted"></p>
 
         <?php } ?>
 

@@ -177,7 +177,7 @@ include_once(__DIR__ . '/layout/main_header.php');
             <div>
                 <span class="student-kicker">Account Settings</span>
                 <h1><?php echo htmlspecialchars(strtoupper($profileDisplayName)); ?></h1>
-                <p>Update your account details, profile photo, and password from one cleaner student profile workspace that also adapts better on phones.</p>
+                <!-- <p>Update your account details, profile photo, and password from one cleaner student profile workspace that also adapts better on phones.</p> -->
                 <div class="student-meta-line">
                     <span class="student-meta-pill"><strong>Roll</strong> <?php echo htmlspecialchars((string)$user['admission_id']); ?></span>
                     <span class="student-meta-pill"><strong>Class</strong> <?php echo htmlspecialchars($className); ?></span>
@@ -194,7 +194,7 @@ include_once(__DIR__ . '/layout/main_header.php');
     <section class="student-layout-grid">
         <div class="student-panel">
             <div class="student-panel-header">
-                <div><h2 class="student-panel-title">Edit My Details</h2><p class="student-panel-subtitle">Your personal details stay connected to the current student account and class allocation.</p></div>
+                <div><h2 class="student-panel-title">Edit My Details</h2><p class="student-panel-subtitle"></p></div>
                 <span class="student-tag">Profile Form</span>
             </div>
 
@@ -219,8 +219,8 @@ include_once(__DIR__ . '/layout/main_header.php');
                     <div class="student-field"><label class="student-label">Mobile</label><input type="text" name="mobile_no" class="student-input" value="<?php echo htmlspecialchars($user['mobile_no']); ?>"></div>
                     <div class="student-field full"><label class="student-label">Gender</label><div class="student-inline-options"><?php $genderValue = strtolower((string)($user['gender'] ?? '')); ?><label class="student-radio"><input type="radio" name="gender" value="Male" <?php echo ($genderValue === 'male') ? 'checked' : ''; ?>> Male</label><label class="student-radio"><input type="radio" name="gender" value="Female" <?php echo ($genderValue === 'female') ? 'checked' : ''; ?>> Female</label><label class="student-radio"><input type="radio" name="gender" value="Other" <?php echo ($genderValue === 'other') ? 'checked' : ''; ?>> Other</label></div></div>
                     <div class="student-field full"><label class="student-label">Address</label><textarea name="address" class="student-textarea"><?php echo htmlspecialchars($user['address']); ?></textarea></div>
-                    <div class="student-field"><label class="student-label">New Password</label><input type="password" name="new_password" class="student-input" placeholder="Leave empty to keep current password"></div>
-                    <div class="student-field"><label class="student-label">Confirm Password</label><input type="password" name="confirm_password" class="student-input" placeholder="Retype new password"></div>
+                    <div class="student-field"><label class="student-label">New Password</label><input type="password" name="new_password" class="student-input" placeholder=""></div>
+                    <div class="student-field"><label class="student-label">Confirm Password</label><input type="password" name="confirm_password" class="student-input" placeholder=""></div>
                 </div>
                 <div class="student-actions"><button type="submit" name="update_profile" class="student-primary-btn">Update Profile</button></div>
             </form>
@@ -228,7 +228,7 @@ include_once(__DIR__ . '/layout/main_header.php');
 
         <aside class="student-panel">
             <div class="student-panel-header">
-                <div><h2 class="student-panel-title">Academic Snapshot</h2><p class="student-panel-subtitle">Read-only academic details linked to your account.</p></div>
+                <div><h2 class="student-panel-title">Academic Snapshot</h2><p class="student-panel-subtitle"></p></div>
                 <span class="student-tag">Student</span>
             </div>
             <div class="student-readonly-grid">

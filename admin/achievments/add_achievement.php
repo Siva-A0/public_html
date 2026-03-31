@@ -66,7 +66,7 @@
 						<div class="legacy-admin-form">
 							<div class="hero">
 								<h3>Add Achievement</h3>
-								<p>Create a new achievement entry or upload an achievement document with the same school-branded styling.</p>
+								<!-- <p>Create a new achievement entry or upload an achievement document with the same school-branded styling.</p> -->
 							</div>
 						<div class="comteeMem">
 							<?php

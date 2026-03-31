@@ -31,7 +31,7 @@
 						<div class="faculty-view-page">
 						<div class="faculty-profile-hero">
 							<h3 class="faculty-profile-title">Faculty Profile</h3>
-							<p class="faculty-profile-subtitle">View department faculty details in the same school-branded department workspace.</p>
+							<!-- <p class="faculty-profile-subtitle">View department faculty details in the same school-branded department workspace.</p> -->
 						</div>
 						<div class="eventDetails" >
 							<div class="faculty-identity">

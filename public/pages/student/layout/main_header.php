@@ -35,8 +35,8 @@ if ($userInitial === '') {
 }
 ?>
 
-<link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/student/student_layout.css">
-<link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/student/student_dark.css">
+<link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/student/student_layout.css?v=20260330">
+<link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/student/student_dark.css?v=20260330">
 
 <div id="user-site-preloader" class="user-site-preloader is-hidden" aria-hidden="true">
     <div class="user-site-preloader-content">

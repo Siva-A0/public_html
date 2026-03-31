@@ -46,7 +46,7 @@ include_once('main_header.php');
 						<div class="legacy-admin-page">
 							<div class="legacy-admin-hero">
 								<h3 class="legacy-admin-title">Achievements</h3>
-								<p class="legacy-admin-subtitle">Manage department achievements and supporting documents in the school-branded admin workspace.</p>
+								<p class="legacy-admin-subtitle"></p>
 							</div>
 						<div class="comteeMem">
 							<div class="committeeTitle">

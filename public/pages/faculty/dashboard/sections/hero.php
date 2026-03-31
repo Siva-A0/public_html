@@ -16,7 +16,7 @@
                 <div class="faculty-meta-pill"><strong>Designation</strong><span><?php echo htmlspecialchars($facultyDesignation !== '' ? $facultyDesignation : 'Not available', ENT_QUOTES, 'UTF-8'); ?></span></div>
                 <div class="faculty-meta-pill"><strong>Email</strong><span><?php echo htmlspecialchars($facultyEmail !== '' ? $facultyEmail : 'Not available', ENT_QUOTES, 'UTF-8'); ?></span></div>
             </div>
-            <p class="faculty-hero-copy">This workspace brings your faculty profile, experience snapshot, research notes, and quick navigation into one cleaner dashboard that also adapts better on mobile screens.</p>
+            <p class="faculty-hero-copy"></p>
         </div>
     </div>
 </section>

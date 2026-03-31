@@ -38,7 +38,7 @@ for($i=0; $i<$categoryCnt; $i++){
         <div class="page-header mb-4 d-flex justify-content-between align-items-start flex-wrap gap-3">
             <div>
                 <h3 class="page-title">Department Faculty Management</h3>
-                <p class="page-subtitle">Manage faculty and non-teaching members category-wise.</p>
+                <p class="page-subtitle"></p>
                 <div class="page-pills">
                     <span class="page-pill"><i class="bi bi-collection me-1"></i><?php echo (int)$categoryCnt; ?> Categories</span>
                     <span class="page-pill"><i class="bi bi-people me-1"></i><?php echo (int)$totalStaff; ?> Total Faculty</span>
@@ -72,7 +72,7 @@ for($i=0; $i<$categoryCnt; $i++){
                         if ($catStafCnt == 0) {
                     ?>
                         <div>
-                            <div class="staff-empty">No faculty members added in this category yet.</div>
+                            <div class="staff-empty"></div>
                         </div>
                     <?php
                         }

@@ -125,7 +125,7 @@ include_once(__DIR__ . '/layout/main_header.php');
     <section class="student-hero">
         <span class="student-kicker">Achievements</span>
         <h1>Upload Achievement</h1>
-        <p>Share certificates, wins, event participation, or text-only recognitions from one cleaner submission form that matches the updated student dashboard style.</p>
+        <!-- <p>Share certificates, wins, event participation, or text-only recognitions from one cleaner submission form that matches the updated student dashboard style.</p> -->
     </section>
 
     <?php if ($achievementMessage !== '') { ?>
@@ -135,7 +135,7 @@ include_once(__DIR__ . '/layout/main_header.php');
     <section class="student-layout-grid">
         <div class="student-panel">
             <div class="student-panel-header">
-                <div><h2 class="student-panel-title">Achievement Submission</h2><p class="student-panel-subtitle">Choose whether you are uploading a file-based achievement or a text-only recognition note.</p></div>
+                <div><h2 class="student-panel-title">Achievement Submission</h2><p class="student-panel-subtitle"></p></div>
                 <span class="student-tag">Submit</span>
             </div>
             <form method="POST" enctype="multipart/form-data" id="achievementUploadForm">
@@ -153,13 +153,13 @@ include_once(__DIR__ . '/layout/main_header.php');
 
         <aside class="student-panel">
             <div class="student-panel-header">
-                <div><h2 class="student-panel-title">Submission Guide</h2><p class="student-panel-subtitle">A quick reminder before you submit your entry.</p></div>
+                <div><h2 class="student-panel-title">Submission Guide</h2><p class="student-panel-subtitle"></p></div>
                 <span class="student-tag">Guide</span>
             </div>
             <div class="student-info-list">
-                <article class="student-info-card"><h3>Document Upload</h3><p>Use this when you have a certificate, proof file, or supporting document to attach with your achievement title.</p></article>
-                <article class="student-info-card"><h3>Text Achievement</h3><p>Use this when your recognition can be explained clearly in words and no document upload is required.</p></article>
-                <article class="student-info-card"><h3>Keep It Clear</h3><p>College name, theme, and description should be specific so admin can review and recognize your submission faster.</p></article>
+                <article class="student-info-card"><h3>Document Upload</h3><p></p></article>
+                <article class="student-info-card"><h3>Text Achievement</h3><p></p></article>
+                <article class="student-info-card"><h3>Keep It Clear</h3><p></p></article>
             </div>
         </aside>
     </section>

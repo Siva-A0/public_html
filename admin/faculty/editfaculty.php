@@ -105,7 +105,7 @@ $staffCatCnt = sizeof($staffCateg);
 <div class="container-fluid edit-staff-page">
 <div class="page-hero">
     <h3 class="staff-title">Edit Faculty</h3>
-    <p class="staff-subtitle">Update faculty details inside the same school-branded department workspace.</p>
+    <!-- <p class="staff-subtitle">Update faculty details inside the same school-branded department workspace.</p> -->
 </div>
 
 <div class="card shadow-sm border-0 staff-card">
