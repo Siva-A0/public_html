@@ -19,6 +19,37 @@ $leadershipComments = array(
     array('title' => 'Director Message', 'data' => $directorComment, 'alt' => 'Director'),
     array('title' => 'HOD Message', 'data' => $HodComment, 'alt' => 'HOD')
 );
+
+$resolveLeadershipImage = static function ($imageName, $fallbackImage = '') {
+    $imagesDir = ROOT_PATH . '/public/assets/images';
+    $requestedImage = trim((string)$imageName);
+    $fallbackImage = trim((string)$fallbackImage);
+    $candidateNames = array_filter(array($requestedImage, $fallbackImage));
+    $resolvedFile = '';
+
+    foreach ($candidateNames as $candidateName) {
+        $candidatePath = $imagesDir . '/' . $candidateName;
+        if (is_file($candidatePath)) {
+            $resolvedFile = $candidateName;
+            break;
+        }
+
+        $matches = glob($imagesDir . '/' . pathinfo($candidateName, PATHINFO_FILENAME) . '.*');
+        if (!empty($matches)) {
+            $resolvedFile = basename($matches[0]);
+            break;
+        }
+    }
+
+    if ($resolvedFile === '') {
+        return '';
+    }
+
+    $resolvedPath = $imagesDir . '/' . $resolvedFile;
+    $version = is_file($resolvedPath) ? '?v=' . (string)filemtime($resolvedPath) : '';
+
+    return BASE_URL . '/public/assets/images/' . rawurlencode($resolvedFile) . $version;
+};
 ?>
 
 <section class="hero-section">
@@ -155,8 +186,13 @@ $leadershipComments = array(
                         <div class="card-body p-4">
                             <div class="profile-quote-label"><?php echo $leader['title']; ?></div>
                             <div class="d-flex align-items-center gap-3">
+                                <?php
+                                $leaderImageName = (string)($leader['data'][0]['image'] ?? '');
+                                $leaderFallbackImage = $leader['alt'] === 'HOD' ? 'ITHOD.png' : '';
+                                $leaderImageUrl = $resolveLeadershipImage($leaderImageName, $leaderFallbackImage);
+                                ?>
                                 <img
-                                    src="<?php echo BASE_URL; ?>/public/assets/images/<?php echo $leader['data'][0]['image']; ?>"
+                                    src="<?php echo htmlspecialchars($leaderImageUrl !== '' ? $leaderImageUrl : (BASE_URL . '/public/assets/images/' . rawurlencode($leaderImageName)), ENT_QUOTES, 'UTF-8'); ?>"
                                     class="rounded-circle profile-quote-photo"
                                     width="80"
                                     height="80"
