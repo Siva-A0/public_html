@@ -1941,11 +1941,14 @@
 	 *  GET WISE COMMITTEE CATEGORIES
 	 */
 	 public function getComiteCatg($table){
+			$table = $this->assertSafeIdentifier($table);
 						 
 			$sql		= 'SELECT 
 								id, category_name
 						   FROM 
-						   		'.$table;
+						   		'.$table.'
+						   ORDER BY
+						   		id ASC';
 
 			$result		= $this->dbObj->getAllResults($sql);
 			
@@ -1956,6 +1959,7 @@
 	 *  GET OR CREATE COMMITTEE CATEGORY BY NAME
 	 */
 	 public function getOrCreateCommitteeCategoryId($table, $categoryName){
+			$table = $this->assertSafeIdentifier($table);
 			$categoryName = trim((string)$categoryName);
 			if ($categoryName === '') {
 				return 0;
@@ -1980,6 +1984,108 @@
 			}
 
 			return 0;
+	 }
+
+	/*
+	 *  GET COMMITTEE CATEGORY BY ID
+	 */
+	 public function getCommitteeCategoryById($table, $categoryId){
+			$table = $this->assertSafeIdentifier($table);
+			$sql = 'SELECT id, category_name FROM '.$table.' WHERE id = :id LIMIT 1';
+
+			return $this->dbObj->getAllPrepared($sql, array(
+				':id' => (int)$categoryId
+			));
+	 }
+
+	/*
+	 *  COUNT COMMITTEE MEMBERS BY CATEGORY
+	 */
+	 public function countCommitteeMembersByCategory($table, $categoryId){
+			$table = $this->assertSafeIdentifier($table);
+			$sql = 'SELECT COUNT(*) AS total FROM '.$table.' WHERE committee_cat_id = :category_id';
+
+			$result = $this->dbObj->getOnePrepared($sql, array(
+				':category_id' => (int)$categoryId
+			));
+
+			return isset($result['total']) ? (int)$result['total'] : 0;
+	 }
+
+	/*
+	 *  ADD COMMITTEE CATEGORY
+	 */
+	 public function addCommitteeCategory($table, $categoryName){
+			$table = $this->assertSafeIdentifier($table);
+			$categoryName = trim((string)$categoryName);
+
+			if ($categoryName === '') {
+				return false;
+			}
+
+			$existing = $this->dbObj->getOnePrepared(
+				'SELECT id FROM '.$table.' WHERE LOWER(category_name) = LOWER(:category_name) LIMIT 1',
+				array(':category_name' => $categoryName)
+			);
+
+			if (!empty($existing)) {
+				return 0;
+			}
+
+			$result = $this->dbObj->executePrepared(
+				'INSERT INTO '.$table.' (category_name) VALUES (:category_name)',
+				array(':category_name' => $categoryName)
+			);
+
+			if ($result === false) {
+				return false;
+			}
+
+			return (int)$this->dbObj->getLastInsertId();
+	 }
+
+	/*
+	 *  UPDATE COMMITTEE CATEGORY
+	 */
+	 public function updateCommitteeCategory($table, $categoryId, $categoryName){
+			$table = $this->assertSafeIdentifier($table);
+			$categoryName = trim((string)$categoryName);
+
+			if ($categoryName === '') {
+				return false;
+			}
+
+			$existing = $this->dbObj->getOnePrepared(
+				'SELECT id FROM '.$table.' WHERE LOWER(category_name) = LOWER(:category_name) AND id != :id LIMIT 1',
+				array(
+					':category_name' => $categoryName,
+					':id' => (int)$categoryId
+				)
+			);
+
+			if (!empty($existing)) {
+				return 0;
+			}
+
+			return $this->dbObj->executePrepared(
+				'UPDATE '.$table.' SET category_name = :category_name WHERE id = :id',
+				array(
+					':category_name' => $categoryName,
+					':id' => (int)$categoryId
+				)
+			);
+	 }
+
+	/*
+	 *  DELETE COMMITTEE CATEGORY
+	 */
+	 public function deleteCommitteeCategory($table, $categoryId){
+			$table = $this->assertSafeIdentifier($table);
+
+			return $this->dbObj->executePrepared(
+				'DELETE FROM '.$table.' WHERE id = :id',
+				array(':id' => (int)$categoryId)
+			);
 	 }
 
 	/*
@@ -3447,6 +3553,7 @@
 	 *  ASSIGN USERS AS WISE COMMITTEE MEMBERS
 	 */
 	 public function addCommitteeMember($table, $varArray){
+			$table = $this->assertSafeIdentifier($table);
 			$this->ensureCommitteeMemberColumns($table);
 			
 			$cmtCatId		= (int)$varArray['committee_cat_id'];
@@ -3456,41 +3563,76 @@
 			$memberImage	= isset($varArray['member_image']) ? addslashes((string)$varArray['member_image']) : '';
 			
 			$msg	= '';
+
+			$sql		= 'INSERT INTO '.$table.' ( committee_cat_id , user_id, member_name, member_about, member_image ) 
+						values ('.$cmtCatId.' , '.$userId.', "'.$memberName.'", "'.$memberAbout.'", "'.$memberImage.'" )';
+				
+			$addCmtMem	= $this->dbObj->executeQuery($sql);
 			
-			$isCommitMem	= $this->getCmtMembers($table,$cmtCatId);
-			
-			if( !empty( $isCommitMem ) ){
-
-				$sql		= 'UPDATE '.$table.' 
-							SET user_id = '.$userId.',
-								member_name = "'.$memberName.'",
-								member_about = "'.$memberAbout.'",
-								member_image = "'.$memberImage.'"
-							WHERE committee_cat_id = '.$cmtCatId;
-
-				$addCmtMem	= $this->dbObj->executeQuery($sql);
-
-				if( $addCmtMem	){
-					$msg		= 'Successfully Added';
-				}else{
-					$msg		= 'Sorry, Please Try Again';
-				}
+			if( $addCmtMem	){
+				$msg		= 'Successfully Added';
 			}else{
-				
-				$sql		= 'INSERT INTO '.$table.' ( committee_cat_id , user_id, member_name, member_about, member_image ) 
-							values ('.$cmtCatId.' , '.$userId.', "'.$memberName.'", "'.$memberAbout.'", "'.$memberImage.'" )';
-					
-				$addCmtMem	= $this->dbObj->executeQuery($sql);
-				
-				if( $addCmtMem	){
-					$msg		= 'Successfully Added';
-				}else{
-					$msg		= 'Sorry, Please Try Again';
-				}
+				$msg		= 'Sorry, Please Try Again';
 			}
 			
 			return $msg;
 	}
+
+	/*
+	 *  GET COMMITTEE MEMBER BY ID
+	 */
+	 public function getCommitteeMemberById($table, $memberId){
+			$table = $this->assertSafeIdentifier($table);
+			$this->ensureCommitteeMemberColumns($table);
+
+			$sql = 'SELECT id, committee_cat_id, user_id, member_name, member_about, member_image
+					FROM '.$table.'
+					WHERE id = :id
+					LIMIT 1';
+
+			return $this->dbObj->getAllPrepared($sql, array(
+				':id' => (int)$memberId
+			));
+	 }
+
+	/*
+	 *  UPDATE COMMITTEE MEMBER
+	 */
+	 public function updateCommitteeMember($table, $memberId, $varArray){
+			$table = $this->assertSafeIdentifier($table);
+			$this->ensureCommitteeMemberColumns($table);
+
+			$sql = 'UPDATE '.$table.'
+					SET committee_cat_id = :committee_cat_id,
+						user_id = :user_id,
+						member_name = :member_name,
+						member_about = :member_about,
+						member_image = :member_image
+					WHERE id = :id';
+
+			$result = $this->dbObj->executePrepared($sql, array(
+				':committee_cat_id' => (int)$varArray['committee_cat_id'],
+				':user_id' => isset($varArray['user_id']) ? (int)$varArray['user_id'] : 0,
+				':member_name' => (string)$varArray['member_name'],
+				':member_about' => (string)$varArray['member_about'],
+				':member_image' => (string)$varArray['member_image'],
+				':id' => (int)$memberId
+			));
+
+			return $result ? 'Successfully Updated' : 'Sorry, Please Try Again';
+	 }
+
+	/*
+	 *  DELETE COMMITTEE MEMBER
+	 */
+	 public function deleteCommitteeMember($table, $memberId){
+			$table = $this->assertSafeIdentifier($table);
+
+			return $this->dbObj->executePrepared(
+				'DELETE FROM '.$table.' WHERE id = :id',
+				array(':id' => (int)$memberId)
+			);
+	 }
 	
 	/*
 	 *  GET EVENT TYPES
