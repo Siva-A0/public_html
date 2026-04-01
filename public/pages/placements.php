@@ -53,27 +53,39 @@ foreach ($placementDocuments as $documentRow) {
 <div class="placement-page-shell">
     <section class="placements-hero">
         <div class="placements-hero-copy">
-            <span class="placements-kicker">Placement Success Stories</span>
-            <h1 class="placements-hero-title">Launching AIML talent into promising careers with confidence and clarity.</h1>
+            <span class="placements-kicker">Placements</span>
+            <h1 class="placements-hero-title">AIML Placement Overview</h1>
             <p class="placements-hero-text">
-                Explore AIML student placement outcomes, recruiter presence, and career milestones across recent batches through a polished campus placement showcase.
+                Review current placement outcomes, recruiter participation, and student opportunities across recent AIML batches.
             </p>
         </div>
 
         <div class="placements-stats-grid">
             <article class="placements-stat-card">
-                <div class="placements-stat-icon placements-stat-icon-blue">
-                    <i class="bi bi-mortarboard" aria-hidden="true"></i>
+                <div class="placements-stat-top">
+                    <div class="placements-stat-icon placements-stat-icon-blue">
+                        <i class="bi bi-mortarboard" aria-hidden="true"></i>
+                    </div>
+                    <span class="placements-stat-label">Students Placed</span>
                 </div>
-                <span class="placements-stat-label">Students Placed</span>
                 <strong><?php echo htmlspecialchars((string)($placementStats['students_placed'] ?? '0'), ENT_QUOTES, 'UTF-8'); ?></strong>
             </article>
             <article class="placements-stat-card">
-                <div class="placements-stat-icon placements-stat-icon-green">
-                    <i class="bi bi-buildings" aria-hidden="true"></i>
+                <div class="placements-stat-top">
+                    <div class="placements-stat-icon placements-stat-icon-green">
+                        <i class="bi bi-buildings" aria-hidden="true"></i>
+                    </div>
+                    <span class="placements-stat-label">Companies Visited</span>
                 </div>
-                <span class="placements-stat-label">Companies Visited</span>
                 <strong><?php echo htmlspecialchars((string)($placementStats['companies_visited'] ?? '0'), ENT_QUOTES, 'UTF-8'); ?></strong>
+            </article>
+            <article class="placements-stat-panel">
+                <?php if (!empty($documentCards)) { ?>
+                    <div class="placements-stat-panel-row">
+                        <span class="placements-stat-panel-label">Reports</span>
+                        <strong><?php echo (int)count($documentCards); ?></strong>
+                    </div>
+                <?php } ?>
             </article>
         </div>
     </section>

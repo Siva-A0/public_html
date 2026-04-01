@@ -3077,11 +3077,23 @@
 
 			$fallbackStudents = !empty($countRow) ? (string)((int)($countRow['total_students'] ?? 0)) : '0';
 			$fallbackCompanies = !empty($countRow) ? (string)((int)($countRow['total_companies'] ?? 0)) : '0';
+			$storedStudents = trim((string)($row['students_placed'] ?? ''));
+			$storedCompanies = trim((string)($row['companies_visited'] ?? ''));
+			$resolvedStudents = $storedStudents;
+			$resolvedCompanies = $storedCompanies;
+
+			if ($resolvedStudents === '' || ($resolvedStudents === '0' && (int)$fallbackStudents > 0)) {
+				$resolvedStudents = $fallbackStudents;
+			}
+
+			if ($resolvedCompanies === '' || ($resolvedCompanies === '0' && (int)$fallbackCompanies > 0)) {
+				$resolvedCompanies = $fallbackCompanies;
+			}
 
 			return array(
 				'id' => isset($row['id']) ? (int)$row['id'] : 0,
-				'students_placed' => trim((string)($row['students_placed'] ?? '')) !== '' ? trim((string)$row['students_placed']) : $fallbackStudents,
-				'companies_visited' => trim((string)($row['companies_visited'] ?? '')) !== '' ? trim((string)$row['companies_visited']) : $fallbackCompanies,
+				'students_placed' => $resolvedStudents,
+				'companies_visited' => $resolvedCompanies,
 				'highest_package' => trim((string)($row['highest_package'] ?? '')),
 				'average_package' => trim((string)($row['average_package'] ?? ''))
 			);

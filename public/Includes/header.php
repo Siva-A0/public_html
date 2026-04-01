@@ -41,12 +41,13 @@ $publicIsAuthenticated = in_array($publicSessionRole, array('user', 'faculty'), 
 $hidePublicNavbar = isset($hidePublicNavbar) ? (bool)$hidePublicNavbar : false;
 $currentPath = strtolower(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
+$isAssociationsPage = strpos($currentPath, '/public/pages/department/assoc.php') !== false;
 $isHomePage = $currentPage === 'index.php';
-$isDepartmentsPage = strpos($currentPath, '/public/pages/department/') !== false;
+$isDepartmentsPage = strpos($currentPath, '/public/pages/department/') !== false && !$isAssociationsPage;
 $isEventsPage = strpos($currentPath, '/public/pages/events/') !== false;
 $isGalleryPage = strpos($currentPath, '/public/pages/gallery.php') !== false;
 $isPlacementsPage = strpos($currentPath, '/public/pages/placements.php') !== false;
-$isAboutPage = strpos($currentPath, '/public/pages/aboutit.php') !== false;
+$isAboutPage = strpos($currentPath, '/public/pages/aboutit.php') !== false || $isAssociationsPage;
 
 $bodyClasses = array();
 if ($isUserArea) {
@@ -342,7 +343,7 @@ body.preloading {
             <nav class="nav-links" id="site-navigation" aria-label="Primary navigation">
                 <div class="nav-links-main">
                     <a class="<?php echo $isHomePage ? 'active' : ''; ?>" href="<?php echo BASE_URL; ?>/"><span class="nav-link-text">Home</span></a>
-                    <a class="<?php echo $isDepartmentsPage ? 'active' : ''; ?>" href="<?php echo BASE_URL; ?>/public/pages/department/department.php"><span class="nav-link-text">Departments</span></a>
+                    <a class="<?php echo $isDepartmentsPage ? 'active' : ''; ?>" href="<?php echo BASE_URL; ?>/public/pages/department/department.php"><span class="nav-link-text">Department</span></a>
                     <a class="<?php echo $isEventsPage ? 'active' : ''; ?>" href="<?php echo BASE_URL; ?>/public/pages/Events/events.php"><span class="nav-link-text">Events</span></a>
                     <a class="<?php echo $isGalleryPage ? 'active' : ''; ?>" href="<?php echo BASE_URL; ?>/public/pages/gallery.php"><span class="nav-link-text">Gallery</span></a>
                     <a class="<?php echo $isPlacementsPage ? 'active' : ''; ?>" href="<?php echo BASE_URL; ?>/public/pages/placements.php"><span class="nav-link-text">Placements</span></a>

@@ -96,6 +96,55 @@
         margin-top: 10px;
     }
 
+    .about-aiml-page .about-link-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 12px;
+        padding: 16px 18px;
+        border: 1px solid #d7e4f0;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #f8fbff 0%, #eef5fd 100%);
+        text-decoration: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .about-aiml-page .about-link-card:hover {
+        transform: translateY(-2px);
+        border-color: #c7d9ec;
+        box-shadow: 0 12px 24px rgba(15, 30, 52, 0.08);
+    }
+
+    .about-aiml-page .about-link-copy strong {
+        display: block;
+        color: #143a63;
+        font-size: 17px;
+        font-weight: 800;
+    }
+
+    .about-aiml-page .about-link-copy span {
+        display: block;
+        margin-top: 4px;
+        color: #486684;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .about-aiml-page .about-link-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 999px;
+        background: #ffffff;
+        border: 1px solid #d6e3f0;
+        color: #173d69;
+        font-size: 18px;
+        flex-shrink: 0;
+    }
+
     @media (max-width: 767px) {
         .about-aiml-page .about-shell {
             padding: 14px;
@@ -169,6 +218,22 @@
                                 <p>
                                     The AIML Department emphasizes innovation, research culture, entrepreneurship, and ethical AI development. With modern infrastructure, advanced computing facilities, and strong placement support, the department aims to produce industry-ready engineers capable of driving intelligent digital transformation.
                                 </p>
+                            </section>
+
+                            <section class="about-block">
+                                <h5>Associations</h5>
+                                <p>
+                                    The department also encourages student participation in professional bodies and association activities that strengthen technical exposure, teamwork, and leadership.
+                                </p>
+                                <a class="about-link-card" href="<?php echo BASE_URL; ?>/public/pages/department/assoc.php">
+                                    <span class="about-link-copy">
+                                        <strong>View Associations</strong>
+                                        <span>Explore CSI, IEEE, ISTE, and association committee members.</span>
+                                    </span>
+                                    <span class="about-link-icon">
+                                        <i class="bi bi-arrow-right"></i>
+                                    </span>
+                                </a>
                             </section>
                         </div>
                     </div>
