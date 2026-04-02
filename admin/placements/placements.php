@@ -180,7 +180,7 @@ include_once('../layout/main_header.php');
                                         <div class="text-muted small"><?php echo htmlspecialchars((string)($placement['academic_year'] ?? ''), ENT_QUOTES, 'UTF-8'); ?></div>
                                     </td>
                                     <td><?php echo htmlspecialchars((string)($placement['company_name'] ?? ''), ENT_QUOTES, 'UTF-8'); ?></td>
-                                    <td><?php echo htmlspecialchars((string)($placement['package_label'] ?? ''), ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?php echo htmlspecialchars(trim((string)($placement['package_label'] ?? '')) !== '' ? (string)$placement['package_label'] : '-', ENT_QUOTES, 'UTF-8'); ?></td>
                                     <td>
                                         <span class="badge-soft"><?php echo (int)($placement['is_featured'] ?? 0) === 1 ? 'Yes' : 'No'; ?></span>
                                     </td>
@@ -265,4 +265,3 @@ include_once('../layout/main_header.php');
 </div>
 
 <?php include_once('../layout/footer.php'); ?>
-

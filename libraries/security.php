@@ -141,6 +141,161 @@ if (!function_exists('app_store_uploaded_image')) {
     }
 }
 
+if (!function_exists('app_normalize_upload_base_name')) {
+    function app_normalize_upload_base_name($baseName)
+    {
+        $baseName = preg_replace('/[^a-zA-Z0-9_-]/', '', (string)$baseName);
+        return $baseName !== '' ? $baseName : 'image';
+    }
+}
+
+if (!function_exists('app_prepare_image_destination')) {
+    function app_prepare_image_destination($targetDir, $baseName, $extension, &$errorMessage = '')
+    {
+        $errorMessage = '';
+        $baseName = app_normalize_upload_base_name($baseName);
+
+        if (!is_dir($targetDir) && !@mkdir($targetDir, 0755, true) && !is_dir($targetDir)) {
+            $errorMessage = 'Unable to prepare the upload directory.';
+            return array('', '');
+        }
+
+        $fileName = $baseName . '_' . date('YmdHis') . '_' . bin2hex(random_bytes(4)) . '.' . $extension;
+        $destination = rtrim($targetDir, '/\\') . DIRECTORY_SEPARATOR . $fileName;
+
+        return array($fileName, $destination);
+    }
+}
+
+if (!function_exists('app_create_image_resource_from_string')) {
+    function app_create_image_resource_from_string($imageBinary)
+    {
+        if (!function_exists('imagecreatefromstring')) {
+            return null;
+        }
+
+        $image = @imagecreatefromstring($imageBinary);
+        return $image !== false ? $image : null;
+    }
+}
+
+if (!function_exists('app_save_image_resource')) {
+    function app_save_image_resource($imageResource, $destination, $extension)
+    {
+        $isGdObject = class_exists('GdImage', false) && ($imageResource instanceof GdImage);
+        if (!is_resource($imageResource) && !$isGdObject) {
+            return false;
+        }
+
+        imagealphablending($imageResource, true);
+        imagesavealpha($imageResource, true);
+
+        switch (strtolower((string)$extension)) {
+            case 'jpg':
+            case 'jpeg':
+                return imagejpeg($imageResource, $destination, 90);
+            case 'png':
+                return imagepng($imageResource, $destination, 6);
+            case 'webp':
+                return function_exists('imagewebp') ? imagewebp($imageResource, $destination, 90) : false;
+        }
+
+        return false;
+    }
+}
+
+if (!function_exists('app_store_cropped_image')) {
+    function app_store_cropped_image($croppedData, $targetDir, $baseName, &$errorMessage = '', $maxSize = 4194304)
+    {
+        $errorMessage = '';
+        $croppedData = trim((string)$croppedData);
+        if ($croppedData === '') {
+            $errorMessage = 'No cropped image data was provided.';
+            return '';
+        }
+
+        if (strpos($croppedData, 'data:image/') !== 0 || strpos($croppedData, ';base64,') === false) {
+            $errorMessage = 'Invalid cropped image data.';
+            return '';
+        }
+
+        $parts = explode(';base64,', $croppedData, 2);
+        $mimePart = strtolower((string)($parts[0] ?? ''));
+        $encoded = (string)($parts[1] ?? '');
+        $allowedMimeMap = array(
+            'data:image/jpeg' => 'jpg',
+            'data:image/png' => 'png',
+            'data:image/webp' => 'webp'
+        );
+
+        if (!isset($allowedMimeMap[$mimePart])) {
+            $errorMessage = 'Only JPG, PNG, and WEBP cropped images are allowed.';
+            return '';
+        }
+
+        $imageBinary = base64_decode($encoded, true);
+        if ($imageBinary === false || $imageBinary === '') {
+            $errorMessage = 'Unable to decode the cropped image.';
+            return '';
+        }
+
+        if (strlen($imageBinary) > $maxSize) {
+            $errorMessage = 'Cropped image is too large.';
+            return '';
+        }
+
+        $imageInfo = @getimagesizefromstring($imageBinary);
+        if ($imageInfo === false || empty($imageInfo['mime'])) {
+            $errorMessage = 'Invalid cropped image.';
+            return '';
+        }
+
+        $extension = $allowedMimeMap[$mimePart];
+        if (($imageInfo[0] ?? 0) < 50 || ($imageInfo[1] ?? 0) < 50) {
+            $errorMessage = 'Cropped image is too small.';
+            return '';
+        }
+
+        list($fileName, $destination) = app_prepare_image_destination($targetDir, $baseName, $extension, $errorMessage);
+        if ($destination === '') {
+            return '';
+        }
+
+        $saved = false;
+        $imageResource = app_create_image_resource_from_string($imageBinary);
+        if ($imageResource !== null) {
+            $saved = app_save_image_resource($imageResource, $destination, $extension);
+            imagedestroy($imageResource);
+        } else {
+            $saved = @file_put_contents($destination, $imageBinary) !== false;
+        }
+
+        if (!$saved) {
+            $errorMessage = 'Unable to save the cropped image.';
+            return '';
+        }
+
+        return $fileName;
+    }
+}
+
+if (!function_exists('app_store_processed_image')) {
+    function app_store_processed_image($file, $croppedData, $targetDir, $baseName, &$errorMessage = '', $maxSize = 2097152)
+    {
+        $croppedData = trim((string)$croppedData);
+        if ($croppedData !== '') {
+            return app_store_cropped_image($croppedData, $targetDir, $baseName, $errorMessage, max($maxSize * 2, 4194304));
+        }
+
+        if (!is_array($file) || !isset($file['tmp_name']) || !is_uploaded_file($file['tmp_name'])) {
+            $errorMessage = 'Please choose an image to upload.';
+            return '';
+        }
+
+        return app_store_uploaded_image($file, $targetDir, $baseName, $errorMessage, $maxSize);
+    }
+}
+
 if (!function_exists('app_destroy_session_securely')) {
     function app_destroy_session_securely()
     {

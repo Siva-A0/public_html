@@ -49,21 +49,30 @@ if (isset($_POST['editStaffDetails'])) {
     $staffId       = $_POST['staffId'];
     $existingPassword = (string)($_POST['existingPassword'] ?? '');
 
-    if ($_FILES['staffImage']['error'] == 0) {
-
-        if (file_exists("../../public/assets/images/faculty/" . $previousImage)) {
-            unlink("../../public/assets/images/faculty/" . $previousImage);
-        }
-
+    if (
+        !empty($_POST['staffImage_cropped'])
+        || (isset($_FILES['staffImage']) && (int)($_FILES['staffImage']['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK)
+    ) {
         $userName = $_POST['firstName'] . $_POST['lastName'];
-        $fileName = strtolower(str_replace(' ', '', $userName)) . '.png';
+        $uploadError = '';
+        $fileName = app_store_processed_image(
+            $_FILES['staffImage'],
+            $_POST['staffImage_cropped'] ?? '',
+            ROOT_PATH . '/public/assets/images/faculty/',
+            strtolower(str_replace(' ', '', $userName)),
+            $uploadError,
+            2 * 1024 * 1024
+        );
 
-        if (move_uploaded_file($_FILES['staffImage']['tmp_name'], "../../public/assets/images/faculty/" . $fileName)) {
-            $varArray['image'] = $fileName;
+        if ($fileName === '') {
+            $msg = $uploadError;
+            $varArray['image'] = $previousImage;
         } else {
-            $varArray['image'] = '';
+            if ($previousImage !== '' && file_exists("../../public/assets/images/faculty/" . $previousImage)) {
+                unlink("../../public/assets/images/faculty/" . $previousImage);
+            }
+            $varArray['image'] = $fileName;
         }
-
     } else {
         $varArray['image'] = $previousImage;
     }
@@ -117,8 +126,9 @@ $staffCatCnt = sizeof($staffCateg);
 
         <?php if (isset($staffDetails)) { ?>
 
-        <form action="editfaculty.php?faculty=<?php echo (int)$staffId; ?>" method="POST" enctype="multipart/form-data">
+        <form action="editfaculty.php?faculty=<?php echo (int)$staffId; ?>" method="POST" enctype="multipart/form-data" id="editFacultyForm">
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(app_get_csrf_token(), ENT_QUOTES, 'UTF-8'); ?>">
+            <input type="hidden" name="staffImage_cropped" id="staffImage_cropped" value="">
 
             <div class="row g-3">
 
@@ -211,9 +221,33 @@ $staffCatCnt = sizeof($staffCateg);
 
                 <div class="col-12">
                     <label class="form-label">Faculty Image</label>
-                    <input type="file" name="staffImage" class="form-control">
+                    <input type="file" name="staffImage" id="staffImage" class="form-control" accept=".jpg,.jpeg,.png,.webp">
                     <input type="hidden" name="imageName" value="<?php echo $staffDetails[0]['image']; ?>">
                     <input type="hidden" name="existingPassword" value="<?php echo htmlspecialchars((string)$staffDetails[0]['password'], ENT_QUOTES, 'UTF-8'); ?>">
+                    <img
+                        id="staffImagePreview"
+                        class="square-cropper-preview mt-3"
+                        src="<?php echo !empty($staffDetails[0]['image']) ? htmlspecialchars(BASE_URL . '/public/assets/images/faculty/' . rawurlencode((string)$staffDetails[0]['image']), ENT_QUOTES, 'UTF-8') : ''; ?>"
+                        alt="Current faculty image"
+                        <?php echo !empty($staffDetails[0]['image']) ? '' : 'hidden'; ?>
+                    >
+                    <div class="square-cropper mt-3" id="staff_cropper" hidden>
+                        <div class="square-cropper-stage" id="staff_cropper_stage">
+                            <img id="staff_cropper_image" alt="Crop preview" draggable="false" style="display:none;">
+                            <div class="square-cropper-frame"></div>
+                        </div>
+                        <div class="square-cropper-controls">
+                            <label class="square-cropper-slider-row" for="staff_cropper_zoom">
+                                <span>Zoom</span>
+                                <input type="range" id="staff_cropper_zoom" class="square-cropper-slider" min="1" max="3" step="0.01" value="1">
+                                <span>3x</span>
+                            </label>
+                            <div class="square-cropper-actions">
+                                <button type="button" class="square-cropper-btn" id="staff_cropper_reset">Reset</button>
+                            </div>
+                        </div>
+                        <div class="square-cropper-help">Drag the image to choose the exact square area that should show on the faculty profile.</div>
+                    </div>
                 </div>
 
             </div>
@@ -238,6 +272,7 @@ $staffCatCnt = sizeof($staffCateg);
 
 </div>
 
+<script src="<?php echo BASE_URL; ?>/public/assets/js/square-image-cropper.js"></script>
 <script>
 (function () {
     Array.prototype.forEach.call(document.querySelectorAll('[data-toggle-password]'), function (button) {
@@ -251,6 +286,18 @@ $staffCatCnt = sizeof($staffCateg);
             input.type = input.type === 'password' ? 'text' : 'password';
             button.textContent = input.type === 'password' ? 'Show' : 'Hide';
         });
+    });
+
+    window.initSquareImageCropper({
+        formId: 'editFacultyForm',
+        fileInputId: 'staffImage',
+        hiddenInputId: 'staffImage_cropped',
+        wrapperId: 'staff_cropper',
+        stageId: 'staff_cropper_stage',
+        imageId: 'staff_cropper_image',
+        sliderId: 'staff_cropper_zoom',
+        resetButtonId: 'staff_cropper_reset',
+        previewId: 'staffImagePreview'
     });
 })();
 </script>

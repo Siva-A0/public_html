@@ -179,7 +179,7 @@ $isTeaching = $staff && ((int)$staff['staff_categ_id'] === (int)TEACHING);
 				<i class="bi bi-arrow-left"></i> Back to Faculty
 			</a>
 		</div>
-		<h2>IT Department</h2>
+		<h2>AIML Department</h2>
 		<p>Faculty profile details</p>
 	</div>
 

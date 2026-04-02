@@ -23,7 +23,7 @@ $categories = $fcObj->getComiteCatg($tbComtCtg);
 $message = '';
 $messageType = 'danger';
 $editMember = null;
-$editMemberId = (int)($_GET['member'] ?? 0);
+$editMemberId = (int)($_POST['edit_member_id'] ?? ($_GET['member'] ?? 0));
 
 $formData = array(
     'cmtCat' => isset($_POST['cmtCat']) ? (string)$_POST['cmtCat'] : '',
@@ -60,44 +60,53 @@ if (isset($_POST['addCmtMember'])) {
             $message = 'Please enter the member name.';
         } else {
             $memberImage = trim((string)($editMember['member_image'] ?? ''));
-            if (isset($_FILES['member_photo']) && $_FILES['member_photo']['error'] === 0) {
-                $uploadName = basename((string)$_FILES['member_photo']['name']);
-                $uploadExt = strtolower(pathinfo($uploadName, PATHINFO_EXTENSION));
-                $allowedExt = array('jpg', 'jpeg', 'png', 'gif', 'webp');
+            if (
+                !empty($_POST['member_photo_cropped'])
+                || (isset($_FILES['member_photo']) && (int)($_FILES['member_photo']['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK)
+            ) {
+                $uploadError = '';
+                $newFileName = app_store_processed_image(
+                    isset($_FILES['member_photo']) ? $_FILES['member_photo'] : null,
+                    $_POST['member_photo_cropped'] ?? '',
+                    ROOT_PATH . '/public/assets/images/students/',
+                    'committee_' . $categoryId,
+                    $uploadError,
+                    2 * 1024 * 1024
+                );
 
-                if (in_array($uploadExt, $allowedExt, true)) {
-                    $newFileName = 'committee_' . time() . '_' . mt_rand(1000, 9999) . '.' . $uploadExt;
-                    $uploadPath = ROOT_PATH . '/public/assets/images/students/' . $newFileName;
-                    if (move_uploaded_file($_FILES['member_photo']['tmp_name'], $uploadPath)) {
-                        if ($memberImage !== '') {
-                            $oldImagePath = ROOT_PATH . '/public/assets/images/students/' . $memberImage;
-                            if (is_file($oldImagePath)) {
-                                @unlink($oldImagePath);
-                            }
+                if ($newFileName === '') {
+                    $message = $uploadError;
+                } else {
+                    if ($memberImage !== '') {
+                        $oldImagePath = ROOT_PATH . '/public/assets/images/students/' . $memberImage;
+                        if (is_file($oldImagePath)) {
+                            @unlink($oldImagePath);
                         }
-                        $memberImage = $newFileName;
                     }
+                    $memberImage = $newFileName;
                 }
             }
 
-            $payload = array(
-                'committee_cat_id' => $categoryId,
-                'user_id' => 0,
-                'member_name' => $memberName,
-                'member_about' => $memberAbout,
-                'member_image' => $memberImage
-            );
+            if ($message === '') {
+                $payload = array(
+                    'committee_cat_id' => $categoryId,
+                    'user_id' => 0,
+                    'member_name' => $memberName,
+                    'member_about' => $memberAbout,
+                    'member_image' => $memberImage
+                );
 
-            $saveResult = $editMember
-                ? $fcObj->updateCommitteeMember($tbCmt, $editMemberId, $payload)
-                : $fcObj->addCommitteeMember($tbCmt, $payload);
+                $saveResult = $editMember
+                    ? $fcObj->updateCommitteeMember($tbCmt, $editMemberId, $payload)
+                    : $fcObj->addCommitteeMember($tbCmt, $payload);
 
-            if ($saveResult === 'Successfully Added' || $saveResult === 'Successfully Updated') {
-                header('Location: assoc.php?status=' . ($editMember ? 'member_updated' : 'member_added'));
-                exit;
+                if ($saveResult === 'Successfully Added' || $saveResult === 'Successfully Updated') {
+                    header('Location: assoc.php?status=' . ($editMember ? 'member_updated' : 'member_added'));
+                    exit;
+                }
+
+                $message = 'Sorry, please try again.';
             }
-
-            $message = 'Sorry, please try again.';
         }
     }
 }
@@ -135,8 +144,10 @@ include_once('../layout/core_forms_style.php');
                     </div>
                 <?php } else { ?>
                     <div class="login">
-                        <form id='addcommitteemem' action='addmem.php' method='POST' accept-charset='UTF-8' enctype="multipart/form-data">
+                        <form id='addcommitteemem' action='addmem.php<?php echo $editMemberId > 0 ? ('?member=' . $editMemberId) : ''; ?>' method='POST' accept-charset='UTF-8' enctype="multipart/form-data">
                             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(app_get_csrf_token(), ENT_QUOTES, 'UTF-8'); ?>">
+                            <input type="hidden" name="edit_member_id" value="<?php echo (int)$editMemberId; ?>">
+                            <input type="hidden" name="member_photo_cropped" id="member_photo_cropped" value="">
 
                             <div class="form_row">
                                 <div class="form_label">
@@ -179,8 +190,31 @@ include_once('../layout/core_forms_style.php');
                                 <div class="form_field">
                                     <div class="member-upload-wrap">
                                         <input type="file" id="memberPhotoUpload" name="member_photo" accept=".jpg,.jpeg,.png,.gif,.webp" />
-                                        <img id="memberPhoto" class="member-photo-preview" src="" alt="Profile preview" style="display:none;" />
-                                        <div id="memberPhotoPlaceholder">No profile photo selected.</div>
+                                        <img
+                                            id="memberPhoto"
+                                            class="member-photo-preview square-cropper-preview"
+                                            src="<?php echo $formData['member_image'] !== '' ? htmlspecialchars(BASE_URL . '/public/assets/images/students/' . rawurlencode($formData['member_image']), ENT_QUOTES, 'UTF-8') : ''; ?>"
+                                            alt="Profile preview"
+                                            <?php echo $formData['member_image'] !== '' ? '' : 'hidden'; ?>
+                                        />
+                                        <div id="memberPhotoPlaceholder" <?php echo $formData['member_image'] !== '' ? 'hidden' : ''; ?>>No profile photo selected.</div>
+                                        <div class="square-cropper" id="member_cropper" hidden>
+                                            <div class="square-cropper-stage" id="member_cropper_stage">
+                                                <img id="member_cropper_image" alt="Crop preview" draggable="false" style="display:none;">
+                                                <div class="square-cropper-frame"></div>
+                                            </div>
+                                            <div class="square-cropper-controls">
+                                                <label class="square-cropper-slider-row" for="member_cropper_zoom">
+                                                    <span>Zoom</span>
+                                                    <input type="range" id="member_cropper_zoom" class="square-cropper-slider" min="1" max="3" step="0.01" value="1">
+                                                    <span>3x</span>
+                                                </label>
+                                                <div class="square-cropper-actions">
+                                                    <button type="button" class="square-cropper-btn" id="member_cropper_reset">Reset</button>
+                                                </div>
+                                            </div>
+                                            <div class="square-cropper-help">Drag the image inside the square to choose the visible profile region.</div>
+                                        </div>
                                         <div class="upload-hint">Allowed: JPG, PNG, GIF, WEBP</div>
                                     </div>
                                 </div>
@@ -210,17 +244,21 @@ include_once('../layout/core_forms_style.php');
     <br class="clearfix" />
 </div>
 
+<script src="<?php echo BASE_URL; ?>/public/assets/js/square-image-cropper.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#memberPhotoUpload').on('change', function(){
-        if (this.files && this.files[0]) {
-            var fileUrl = URL.createObjectURL(this.files[0]);
-            $('#memberPhoto').attr('src', fileUrl).show();
-            $('#memberPhotoPlaceholder').hide();
-        } else {
-            $('#memberPhoto').hide().attr('src', '');
-            $('#memberPhotoPlaceholder').show();
-        }
+document.addEventListener('DOMContentLoaded', function () {
+    window.initSquareImageCropper({
+        formId: 'addcommitteemem',
+        fileInputId: 'memberPhotoUpload',
+        hiddenInputId: 'member_photo_cropped',
+        wrapperId: 'member_cropper',
+        stageId: 'member_cropper_stage',
+        imageId: 'member_cropper_image',
+        sliderId: 'member_cropper_zoom',
+        resetButtonId: 'member_cropper_reset',
+        previewId: 'memberPhoto',
+        emptyStateId: 'memberPhotoPlaceholder',
+        initialImageUrl: <?php echo json_encode($formData['member_image'] !== '' ? (BASE_URL . '/public/assets/images/students/' . rawurlencode($formData['member_image'])) : '', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>
     });
 });
 </script>

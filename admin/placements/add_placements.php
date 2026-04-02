@@ -98,17 +98,20 @@ if (isset($_POST['savePlacement'])) {
             $formData['package_label'] = trim((string)($_POST['package_label'] ?? ''));
             $formData['is_featured'] = isset($_POST['is_featured']) ? 1 : 0;
 
-            if ($formData['academic_year'] === '' || $formData['batch_label'] === '' || $formData['student_name'] === '' || $formData['company_name'] === '' || $formData['package_label'] === '') {
+            if ($formData['academic_year'] === '' || $formData['batch_label'] === '' || $formData['student_name'] === '' || $formData['company_name'] === '') {
                 $message = 'Please fill in all required placement fields.';
             } else {
                 $uploadDir = __DIR__ . '/../../public/uploads/placements/photos';
                 $existingPhoto = trim((string)($placementRow['profile_photo'] ?? ''));
                 $profilePhoto = $existingPhoto;
 
-                if (isset($_FILES['profile_photo']) && (int)($_FILES['profile_photo']['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK) {
+                if (
+                    !empty($_POST['profile_photo_cropped'])
+                    || (isset($_FILES['profile_photo']) && (int)($_FILES['profile_photo']['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK)
+                ) {
                     $uploadError = '';
                     $photoBase = 'placement_' . preg_replace('/[^a-zA-Z0-9_-]/', '', strtolower(str_replace(' ', '_', $formData['student_name'])));
-                    $uploadedPhoto = app_store_uploaded_image($_FILES['profile_photo'], $uploadDir, $photoBase, $uploadError, 3 * 1024 * 1024);
+                    $uploadedPhoto = app_store_processed_image($_FILES['profile_photo'], $_POST['profile_photo_cropped'] ?? '', $uploadDir, $photoBase, $uploadError, 3 * 1024 * 1024);
                     if ($uploadedPhoto === '') {
                         $message = $uploadError;
                     } else {
@@ -217,7 +220,7 @@ include_once('../layout/main_header.php');
         <div class="page-hero">
             <h1 class="page-title"><?php echo $placementId > 0 ? 'Edit Placement Entry' : ($mode === 'document' ? 'Upload Placement Report' : 'Add Placement Record'); ?></h1>
             <p class="page-subtitle">
-                <?php echo $mode === 'document' ? 'Manage placement reports that appear on the public placements page.' : 'Add or update a student placement with photo, company, role, package, and batch details.'; ?>
+                <?php echo $mode === 'document' ? 'Manage placement reports that appear on the public placements page.' : 'Add or update a student placement with photo, company, optional package, and batch details.'; ?>
             </p>
         </div>
 
@@ -226,9 +229,10 @@ include_once('../layout/main_header.php');
         <?php } ?>
 
         <div class="form-card">
-            <form method="POST" enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data" id="placementForm">
                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(app_get_csrf_token(), ENT_QUOTES, 'UTF-8'); ?>">
                 <input type="hidden" name="mode" value="<?php echo htmlspecialchars($mode, ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="profile_photo_cropped" id="profile_photo_cropped" value="">
 
                 <?php if ($mode === 'student') { ?>
                     <div class="row g-3">
@@ -249,20 +253,35 @@ include_once('../layout/main_header.php');
                             <input type="text" class="form-control" name="company_name" value="<?php echo htmlspecialchars($formData['company_name'], ENT_QUOTES, 'UTF-8'); ?>" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Package Label</label>
-                            <input type="text" class="form-control" name="package_label" value="<?php echo htmlspecialchars($formData['package_label'], ENT_QUOTES, 'UTF-8'); ?>" placeholder="e.g. 8.5 LPA" required>
+                            <label class="form-label">Package Label <span class="text-muted">(Optional)</span></label>
+                            <input type="text" class="form-control" name="package_label" value="<?php echo htmlspecialchars($formData['package_label'], ENT_QUOTES, 'UTF-8'); ?>" placeholder="e.g. 8.5 LPA">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Profile Photo</label>
-                            <input type="file" class="form-control" name="profile_photo" accept=".jpg,.jpeg,.png,.webp">
+                            <div class="d-grid gap-2">
+                                <button type="button" class="btn btn-outline-secondary text-start" id="placement_photo_btn">Choose New Photo</button>
+                                <input type="text" class="form-control" id="placement_photo_name" value="<?php echo $formData['profile_photo'] !== '' ? 'Current photo loaded' : 'No photo selected'; ?>" readonly>
+                            </div>
+                            <input type="file" class="d-none" id="profile_photo" name="profile_photo" accept=".jpg,.jpeg,.png,.webp">
+                            <div class="square-cropper mt-3" id="placement_cropper" hidden>
+                                <div class="square-cropper-stage" id="placement_cropper_stage">
+                                    <img id="placement_cropper_image" alt="Crop preview" draggable="false" style="display:none;">
+                                    <div class="square-cropper-frame"></div>
+                                </div>
+                                <div class="square-cropper-controls">
+                                    <label class="square-cropper-slider-row" for="placement_cropper_zoom">
+                                        <span>Zoom</span>
+                                        <input type="range" id="placement_cropper_zoom" class="square-cropper-slider" min="1" max="3" step="0.01" value="1">
+                                        <span>3x</span>
+                                    </label>
+                                    <div class="square-cropper-actions">
+                                        <button type="button" class="square-cropper-btn" id="placement_cropper_reset">Reset</button>
+                                    </div>
+                                </div>
+                                <div class="square-cropper-help">Drag the photo inside the square to set how the placement profile image should appear.</div>
+                            </div>
                             <div class="form-text">Allowed formats: JPG, PNG, WEBP.</div>
                         </div>
-                        <?php if ($formData['profile_photo'] !== '') { ?>
-                            <div class="col-12">
-                                <label class="form-label d-block">Current Photo</label>
-                                <img src="<?php echo BASE_URL; ?>/public/uploads/placements/photos/<?php echo rawurlencode($formData['profile_photo']); ?>" alt="Current profile photo" class="preview-avatar">
-                            </div>
-                        <?php } ?>
                         <div class="col-md-6">
                             <div class="form-check mt-2">
                                 <input class="form-check-input" type="checkbox" name="is_featured" id="is_featured" value="1"<?php echo (int)$formData['is_featured'] === 1 ? ' checked' : ''; ?>>
@@ -309,6 +328,37 @@ include_once('../layout/main_header.php');
         </div>
     </div>
 </div>
+
+<script src="<?php echo BASE_URL; ?>/public/assets/js/square-image-cropper.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var fileInput = document.getElementById('profile_photo');
+    var fileButton = document.getElementById('placement_photo_btn');
+    var fileName = document.getElementById('placement_photo_name');
+
+    if (fileInput && fileButton && fileName) {
+        fileButton.addEventListener('click', function () {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', function () {
+            fileName.value = (fileInput.files && fileInput.files.length > 0) ? fileInput.files[0].name : 'No new file selected';
+        });
+    }
+
+    window.initSquareImageCropper({
+        formId: 'placementForm',
+        fileInputId: 'profile_photo',
+        hiddenInputId: 'profile_photo_cropped',
+        wrapperId: 'placement_cropper',
+        stageId: 'placement_cropper_stage',
+        imageId: 'placement_cropper_image',
+        sliderId: 'placement_cropper_zoom',
+        resetButtonId: 'placement_cropper_reset',
+        initialImageUrl: <?php echo json_encode($formData['profile_photo'] !== '' ? (BASE_URL . '/public/uploads/placements/photos/' . rawurlencode($formData['profile_photo'])) : '', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>
+    });
+});
+</script>
 
 <?php include_once('../layout/footer.php'); ?>
 

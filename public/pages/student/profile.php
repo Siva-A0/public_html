@@ -71,11 +71,14 @@ if (isset($_POST['update_profile'])) {
                 $passwordToStore = $fcObj->hashPassword($newPassword);
             }
 
-            if (isset($_FILES['profile_image']) && is_uploaded_file($_FILES['profile_image']['tmp_name'])) {
+            if (
+                !empty($_POST['profile_image_cropped'])
+                || (isset($_FILES['profile_image']) && is_uploaded_file($_FILES['profile_image']['tmp_name']))
+            ) {
                 $uploadDir = ROOT_PATH . '/public/assets/images/students/';
                 $safeAdmission = preg_replace('/[^a-zA-Z0-9_-]/', '', (string)$user['admission_id']);
                 $uploadError = '';
-                $uploadedFile = app_store_uploaded_image($_FILES['profile_image'], $uploadDir, 'user_' . $safeAdmission, $uploadError, 2 * 1024 * 1024);
+                $uploadedFile = app_store_processed_image($_FILES['profile_image'], $_POST['profile_image_cropped'] ?? '', $uploadDir, 'user_' . $safeAdmission, $uploadError, 2 * 1024 * 1024);
 
                 if ($uploadedFile === '') {
                     $message = $uploadError;
@@ -198,16 +201,34 @@ include_once(__DIR__ . '/layout/main_header.php');
                 <span class="student-tag">Profile Form</span>
             </div>
 
-            <form method="POST" action="" enctype="multipart/form-data">
+            <form method="POST" action="" enctype="multipart/form-data" id="studentProfileForm">
                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(app_get_csrf_token(), ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="profile_image_cropped" id="profile_image_cropped" value="">
                 <div class="student-form-grid">
                     <div class="student-field full">
                         <label class="student-label">Update Profile Photo</label>
                         <div class="student-file-picker">
-                            <button type="button" class="student-file-btn" id="profile_file_btn">Choose File</button>
-                            <input type="text" class="student-input" id="profile_file_name" value="No file chosen" readonly>
+                            <button type="button" class="student-file-btn" id="profile_file_btn">Choose New Photo</button>
+                            <input type="text" class="student-input" id="profile_file_name" value="<?php echo $currentProfileImageUrl !== '' ? 'Current photo loaded' : 'No photo selected'; ?>" readonly>
                         </div>
                         <input type="file" name="profile_image" id="profile_image" class="d-none" accept=".jpg,.jpeg,.png,.webp">
+                        <div class="square-cropper mt-3" id="student_profile_cropper" hidden>
+                            <div class="square-cropper-stage" id="student_profile_cropper_stage">
+                                <img id="student_profile_cropper_image" alt="Crop preview" draggable="false" style="display:none;">
+                                <div class="square-cropper-frame"></div>
+                            </div>
+                            <div class="square-cropper-controls">
+                                <label class="square-cropper-slider-row" for="student_profile_cropper_zoom">
+                                    <span>Zoom</span>
+                                    <input type="range" id="student_profile_cropper_zoom" class="square-cropper-slider" min="1" max="3" step="0.01" value="1">
+                                    <span>3x</span>
+                                </label>
+                                <div class="square-cropper-actions">
+                                    <button type="button" class="square-cropper-btn" id="student_profile_cropper_reset">Reset</button>
+                                </div>
+                            </div>
+                            <div class="square-cropper-help">Drag the image within the fixed square to control how your profile photo appears.</div>
+                        </div>
                         <div class="student-help">Allowed: JPG, JPEG, PNG, WEBP. Maximum size: 2MB.</div>
                     </div>
 
@@ -240,6 +261,7 @@ include_once(__DIR__ . '/layout/main_header.php');
         </aside>
     </section>
 </div>
+<script src="<?php echo BASE_URL; ?>/public/assets/js/square-image-cropper.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     var fileInput = document.getElementById('profile_image');
@@ -251,6 +273,17 @@ document.addEventListener('DOMContentLoaded', function () {
     fileButton.addEventListener('click', function () { fileInput.click(); });
     fileInput.addEventListener('change', function () {
         fileName.value = (fileInput.files && fileInput.files.length > 0) ? fileInput.files[0].name : 'No file chosen';
+    });
+    window.initSquareImageCropper({
+        formId: 'studentProfileForm',
+        fileInputId: 'profile_image',
+        hiddenInputId: 'profile_image_cropped',
+        wrapperId: 'student_profile_cropper',
+        stageId: 'student_profile_cropper_stage',
+        imageId: 'student_profile_cropper_image',
+        sliderId: 'student_profile_cropper_zoom',
+        resetButtonId: 'student_profile_cropper_reset',
+        initialImageUrl: <?php echo json_encode($currentProfileImageUrl, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>
     });
 });
 </script>

@@ -83,11 +83,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $fileName = '';
         $uploadName = isset($_FILES['usrImage']['name']) ? $_FILES['usrImage']['name'] : '';
         $uploadTmp = isset($_FILES['usrImage']['tmp_name']) ? $_FILES['usrImage']['tmp_name'] : null;
-        if (!empty($uploadName) && $uploadTmp !== null) {
+        if (!empty($_POST['usrImage_cropped']) || (!empty($uploadName) && $uploadTmp !== null)) {
             $safeAdmissionId = preg_replace('/[^a-zA-Z0-9_-]/', '', (string)$admissionId);
             $uploadDir = ROOT_PATH . '/public/assets/images/students/';
             $uploadError = '';
-            $fileName = app_store_uploaded_image($_FILES['usrImage'], $uploadDir, 'user_' . $safeAdmissionId, $uploadError, 2 * 1024 * 1024);
+            $fileName = app_store_processed_image($_FILES['usrImage'], $_POST['usrImage_cropped'] ?? '', $uploadDir, 'user_' . $safeAdmissionId, $uploadError, 2 * 1024 * 1024);
             if ($fileName === '') {
                 $_SESSION['err_msg'] = $uploadError;
             }
@@ -178,8 +178,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             <?php } ?>
 
-            <form method="POST" enctype="multipart/form-data" class="register-form">
+            <form method="POST" enctype="multipart/form-data" class="register-form" id="registerForm">
                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(app_get_csrf_token(), ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="usrImage_cropped" id="usrImage_cropped" value="">
                 <div class="form-section">
                     <h6>Account</h6>
                     <div class="row g-3">
@@ -267,7 +268,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <div class="form-section">
                     <h6>Profile Photo</h6>
-                    <input type="file" name="usrImage" class="form-control modern-input file-input">
+                    <input type="file" name="usrImage" id="usrImage" class="form-control modern-input file-input" accept=".jpg,.jpeg,.png,.webp">
+                    <div class="square-cropper mt-3" id="register_cropper" hidden>
+                        <div class="square-cropper-stage" id="register_cropper_stage">
+                            <img id="register_cropper_image" alt="Crop preview" draggable="false" style="display:none;">
+                            <div class="square-cropper-frame"></div>
+                        </div>
+                        <div class="square-cropper-controls">
+                            <label class="square-cropper-slider-row" for="register_cropper_zoom">
+                                <span>Zoom</span>
+                                <input type="range" id="register_cropper_zoom" class="square-cropper-slider" min="1" max="3" step="0.01" value="1">
+                                <span>3x</span>
+                            </label>
+                            <div class="square-cropper-actions">
+                                <button type="button" class="square-cropper-btn" id="register_cropper_reset">Reset</button>
+                            </div>
+                        </div>
+                        <div class="square-cropper-help">Drag the photo to choose the square profile area before registration is submitted.</div>
+                    </div>
                 </div>
 
                 <button type="submit" name="submit" class="btn create-btn w-100">
@@ -278,6 +296,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </div>
 
+<script src="<?php echo BASE_URL; ?>/public/assets/js/square-image-cropper.js"></script>
 <script>
 function syncRegistrationMode() {
     var userTypeEl = document.getElementById('userType');
@@ -379,6 +398,16 @@ document.addEventListener('change', function (e) {
 document.addEventListener('DOMContentLoaded', function () {
     syncRegistrationMode();
     loadSections();
+    window.initSquareImageCropper({
+        formId: 'registerForm',
+        fileInputId: 'usrImage',
+        hiddenInputId: 'usrImage_cropped',
+        wrapperId: 'register_cropper',
+        stageId: 'register_cropper_stage',
+        imageId: 'register_cropper_image',
+        sliderId: 'register_cropper_zoom',
+        resetButtonId: 'register_cropper_reset'
+    });
 });
 
 document.querySelectorAll(".switch-link").forEach((link) => {

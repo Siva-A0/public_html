@@ -46,10 +46,14 @@ if (isset($_POST['addNewStaff'])) {
     $userName = $_POST['firstName'] . $_POST['lastName'];
     $fileName = '';
 
-    if (!empty($_FILES['staffImage']['name'])) {
+    if (
+        !empty($_POST['staffImage_cropped'])
+        || (!empty($_FILES['staffImage']['name']) && (int)($_FILES['staffImage']['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK)
+    ) {
         $uploadError = '';
-        $fileName = app_store_uploaded_image(
+        $fileName = app_store_processed_image(
             $_FILES['staffImage'],
+            $_POST['staffImage_cropped'] ?? '',
             ROOT_PATH . '/public/assets/images/faculty/',
             strtolower(str_replace(' ', '', $userName)),
             $uploadError,
@@ -120,8 +124,9 @@ $staffCateg = $fcObj->getStaffCategories($tbStaffCateg);
     <div class="card staff-form-card border-0">
         <div class="card-body">
 
-            <form method="POST" enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data" id="addFacultyForm">
                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(app_get_csrf_token(), ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="staffImage_cropped" id="staffImage_cropped" value="">
 
                 <div class="section-title"><span class="section-dot"></span>Basic Details</div>
                 <div class="section-box">
@@ -212,7 +217,24 @@ $staffCateg = $fcObj->getStaffCategories($tbStaffCateg);
 
                     <div class="col-12">
                         <label class="form-label">Faculty Image</label>
-                        <input type="file" name="staffImage" class="form-control" accept=".jpg,.jpeg,.png,.webp">
+                        <input type="file" name="staffImage" id="staffImage" class="form-control" accept=".jpg,.jpeg,.png,.webp">
+                        <div class="square-cropper mt-3" id="staff_cropper" hidden>
+                            <div class="square-cropper-stage" id="staff_cropper_stage">
+                                <img id="staff_cropper_image" alt="Crop preview" draggable="false" style="display:none;">
+                                <div class="square-cropper-frame"></div>
+                            </div>
+                            <div class="square-cropper-controls">
+                                <label class="square-cropper-slider-row" for="staff_cropper_zoom">
+                                    <span>Zoom</span>
+                                    <input type="range" id="staff_cropper_zoom" class="square-cropper-slider" min="1" max="3" step="0.01" value="1">
+                                    <span>3x</span>
+                                </label>
+                                <div class="square-cropper-actions">
+                                    <button type="button" class="square-cropper-btn" id="staff_cropper_reset">Reset</button>
+                                </div>
+                            </div>
+                            <div class="square-cropper-help">Drag the image to choose the square region that should appear for the faculty profile photo.</div>
+                        </div>
                         <div class="upload-help">Allowed: JPG, PNG, WEBP</div>
                     </div>
 
@@ -236,6 +258,21 @@ $staffCateg = $fcObj->getStaffCategories($tbStaffCateg);
     </div>
 
 </div>
+<script src="<?php echo BASE_URL; ?>/public/assets/js/square-image-cropper.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    window.initSquareImageCropper({
+        formId: 'addFacultyForm',
+        fileInputId: 'staffImage',
+        hiddenInputId: 'staffImage_cropped',
+        wrapperId: 'staff_cropper',
+        stageId: 'staff_cropper_stage',
+        imageId: 'staff_cropper_image',
+        sliderId: 'staff_cropper_zoom',
+        resetButtonId: 'staff_cropper_reset'
+    });
+});
+</script>
 <?php include_once('../layout/footer.php'); ?>
 
 
